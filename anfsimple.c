@@ -84,7 +84,7 @@ int main( int argc, char* argv[] )
 	initboole( nbv );
 	initagldim( ffdimen );
         f = strtoboole( anf  );
-	panf(stdout, f );
+	//panf(stdout, f );
 	printf("\n");
 	pwalsh( f);
 	printf("\n");
@@ -102,9 +102,9 @@ int main( int argc, char* argv[] )
 	   if ( wt <  nbt ) {
 	   	   printf("\n");
 	   	   panf( stdout, f );
-		   alphause( f );
 		   nbt = wt;
 		   printf("\niter=%Ld nbt=%d\n", iter, nbt );
+		   alphause( f );
 	   }
 	   iter++;
 	   randAction( f );
