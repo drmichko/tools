@@ -10,6 +10,7 @@
 
 int count = 0;
 int score = 0;
+int verbe = 0;
 
 char * trace;
 
@@ -50,20 +51,73 @@ void alphause( boole f )
 		   printf("\n%c : %d ", 'a'+j, cpt[j] );
 	   ANFtoTT(f);
 }
+
+
+int doit( boole f , int val, size_t limite )
+{
+	int nbt = 1024;
+	int u, wt;
+	boole g = NULL;
+	size_t iter = 0;
+	while ( iter  < limite ) {
+	   ANFtoTT(f);
+	   wt = 0; 
+	   for( u = 0; u < ffsize; u++ ){
+		   if ( weight(u) < val ) f[u] = 0;
+		   wt += f[u];
+	   }
+	   ANFtoTT(f);
+	   if ( wt < nbt ) {
+		   nbt = wt;
+		   if ( verbe ) {
+	   	   	   printf("\n");
+			   panf( stdout, f );
+		   	   printf("#iter=%lu nbt=%d\n", iter, nbt );
+		   }
+		   if ( verbe > 1 ) alphause( f );
+		   if ( g ) free(g);
+		    g = getboolecpy( f );
+	   }
+	   iter++;
+	   randAction( f );
+	}
+	panf( stdout, g );
+	printf("\n#nbt=%d", nbt);
+	free( g );
+	free( f );
+	return nbt;
+}
+
+
 int main( int argc, char* argv[] )
 {       int opt;
 	int val = 0;
-	long long iter = 0 , limite = 10;
-	char *anf = "abc";;
-        while ((opt = getopt(argc, argv, "a:r:hV:")) != -1) {
+	long long limite = 1;
+	char *anf = NULL;
+	FILE *src = NULL;
+        while ((opt = getopt(argc, argv, "a:m:f:r:hiv:s:")) != -1) {
                switch (opt) {
+               case 'm':
+                   initboole( atoi( optarg ) );
+                   break;
                case 'r':
-                   limite = 1 << atoi( optarg );
+                   limite = limite << atoi( optarg );
                    break;
                case 'a':
                    anf = strdup(optarg);
                    break;
-               case 'V':
+	       case 'f':
+                   src = fopen( optarg, "r" );
+		   if ( ! src ) {
+			   perror( optarg );
+			   return 1;
+		   }
+                   break;
+
+               case 'v':
+                   verbe++;
+                   break;
+               case 's':
                    val = atoi( optarg );
                    break;
                default: /* '?' */
@@ -73,43 +127,29 @@ int main( int argc, char* argv[] )
                }
            }
 
-	boole f;
-	int nbv = anfdimen( anf  );
-	int nbt = 1024;
-	int u, wt;
-
-
-	srandom( time(NULL));
-	printf("\ndimension=%d\n",  nbv );
-	initboole( nbv );
-	initagldim( ffdimen );
-        f = strtoboole( anf  );
-	//panf(stdout, f );
-	printf("\n");
-	pwalsh( f);
-	printf("\n");
-	if ( ! val  )
-		val = valuation( f );
-
-	while ( iter  < limite ) {
-	   ANFtoTT(f);
-	   wt = 0; 
-	   for( u = 0; u < ffsize; u++ ){
-		   if ( weight(u) < val ) f[u] = 0;
-		   wt += f[u];
-	   }
-	   ANFtoTT(f);
-	   if ( wt <  nbt ) {
-	   	   printf("\n");
-	   	   panf( stdout, f );
-		   nbt = wt;
-		   printf("\niter=%Ld nbt=%d\n", iter, nbt );
-		   alphause( f );
-	   }
-	   iter++;
-	   randAction( f );
+	boole f;;
+	srandom( time(NULL) + getpid() );
+	score=1024;
+	if ( anf ) {
+		 int  nbv = anfdimen( anf  );
+		 printf("\ndimension=%d\n",  nbv );
+		 initboole( nbv );
+		 initagldim( ffdimen );
+        	 f = strtoboole( anf  );
+		 if ( ! val  )
+		   val = valuation( f );
+		 score = doit( f, val , limite );
 	}
 
+	initagldim( ffdimen );
+	if ( src ) {
+		while ((f = loadBoole(src))) {
+		      int r = doit( f, val, limite);
+		      if ( r < score ) score = r;
 
+		}
+		fclose( src );
+	}
+	printf("\nscore=%d\n", score);
 	return 0;
 }
