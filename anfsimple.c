@@ -136,6 +136,7 @@ int main( int argc, char* argv[] )
 		 initboole( nbv );
 		 initagldim( ffdimen );
         	 f = strtoboole( anf  );
+		 pwalsh(  f );
 		 if ( ! val  )
 		   val = valuation( f );
 		 score = doit( f, val , limite );
