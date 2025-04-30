@@ -4,11 +4,20 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <string.h>
 #include "boolean.h"
 
-void RD( boole f, int iter )
+boole test( int k )
 {
-  int t  = ffdimen/2;
+	boole f = getboole( );
+	for( int u = 0; u < ffsize; u++ )
+		if( weight(u) == k ) f[u] = 1;
+	ANFtoTT( f );
+	return f;
+}
+void RD( int dr, boole f, int iter )
+{
+  int t  = dr ;
 
   shortvec trans, base[ ffdimen/2 ];
 
@@ -17,6 +26,8 @@ void RD( boole f, int iter )
   int limite  = 1 << t;
 
   int q = ffsize;
+  int old = ffdimen;
+  panf( stdout, f  );
   initboole( t );
   boole g = getboole();
   int best = t;
@@ -45,31 +56,60 @@ void RD( boole f, int iter )
 	int  d = degree( g ) ;
 	if ( d < best ) {
 		best = d;
-		printf("\niter=%d score=%d\n", cpt, best );
 	}
 
   }
- initboole( 2 * t );
+ initboole( old  );
+printf("\niter=%d score=%d\n", cpt, best );
 }
 
 int main(int argc, char *argv[])
 {
+FILE * src = NULL;
+char * anf = NULL;
+int opt, r = 0;
 
-
-    initboole(atoi(argv[1]));
-    srandom(getpid() + time(NULL));
-
-    boole f;
-    FILE *src = fopen(argv[2], "r");
-
-    if (!src)
-	return 1;
-
-    while ((f = loadBoole(src))) {
-	panf(stdout, f);
-	printf("\ndeg=%d linearity=%d\n", degree(f), linearity(f) );
-	RD( f, 100000 );
+while ((opt = getopt(argc, argv, "a:m:f:r:hiv:s:")) != -1) {
+               switch (opt) {
+               case 'm':
+                   initboole( atoi( optarg ) );
+                   break;
+               case 'a':
+                   anf = strdup(optarg);
+                   break;
+               case 'r':
+                   r = atoi(optarg);
+                   break;
+               case 'f':
+                   src = fopen( optarg, "r" );
+                   if ( ! src ) {
+                           perror( optarg );
+                           return 1;
+                   }
+                   break;
 
     }
+}
+
+
+    boole f;
+
+    if ( r == 0 ) r = (ffdimen+1)  / 2;
+    printf(" r= %d", r );
+
+
+	if ( anf ) {
+                 f = strtoboole( anf  );
+		 RD( r, f, 100000 );
+        }
+
+        if ( src ) {
+                while ((f = loadBoole(src))) {
+			RD( r, f, 100000 );
+                }
+                fclose( src );
+        }
+
+
     return 0;
 }

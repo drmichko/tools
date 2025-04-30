@@ -1,18 +1,18 @@
 CFLAGS = -Wall -g -I../boole/src -L../boole/src
 
-all : anfsimple.exe rd.exe
+all : anfload.exe print.exe anfsimple.exe rd.exe
 	
-#alphasel.exe mapstat.exe select.exe last.exe check.exe testing.exe  
-
-#header.exe anfsimple.exe building.exe statboole.exe orbital.exe pairing.exe 
-
-
 anfsimple.exe : anfsimple.c
+	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
+
+anfload.exe : anfload.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 
 rd.exe : rd.c
 	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
+print.exe : print.c
+	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
 alphasel.exe : alphasel.c
 	gcc $(CFLAGS) $^  -o $@  -lboole
