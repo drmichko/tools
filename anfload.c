@@ -19,14 +19,14 @@
 *  from a file, the degree and norme are printed.
 *  dimension should be small!
 */
-
+#define SIZE 256
 int xvalue[32];
 int rvalue[32];
 
 int Xvalue[32];
 int Rvalue[32];
-int tfr[64];
-int cross[64];
+int tfr[SIZE];
+int cross[SIZE];
 int linear;
 int nonzero;
 int stab = 0, optval = 0;
@@ -46,8 +46,8 @@ typedef int64_t nombre;
 nombre agsize, fixsize, total = 0;
 float alphamin, alphamax;
 
-int valcross[65] = { 0 };
-int valtfr[65] = { 0 };
+int valcross[SIZE + 1] = { 0 };
+int valtfr[SIZE + 1] = { 0 };
 
 int optl = 2;
 int valmin = 0, valmax = 0;
@@ -109,16 +109,16 @@ void doit(boole f)
 	if (tfr[x])
 	    nonzero++;
     balanced = nonzero < ffsize;
-    linear  = 0;
+    linear = 0;
     for (x = 0; x < ffsize; x++) {
-	if (abs(tfr[x]) > linear  ) {
-	    linear  = abs(tfr[x]);
+	if (abs(tfr[x]) > linear) {
+	    linear = abs(tfr[x]);
 	}
     }
 
 }
 
-boole myanfloadboole(FILE *src, int mode)
+boole myanfloadboole(FILE * src, int mode)
 //-get the current boolean function
 {
     boole res;
@@ -139,7 +139,7 @@ boole myanfloadboole(FILE *src, int mode)
 	    sscanf(line, "fix=%ld", &fixsize);
 	    return res;
 	case 's':
-	    sscanf(line, "size=%ld", &fixsize);
+	    sscanf(line, "stabSize=%ld", &fixsize);
 	    return res;
 	case 'c':
 	    sscanf(line, "card=%ld", &fixsize);
@@ -197,12 +197,27 @@ int allin(int t[], int k, int v[])
 	for (i = 0; i < k; i++)
 	    if (abs(t[x]) == v[i])
 		break;
-	if (i == k){
-//		printf("<%d>", t[x] );
+	if (i == k) {
+//              printf("<%d>", t[x] );
 	    return 0;
 	}
     }
     return 1;
+}
+
+double moment(int r, int n)
+{
+    int64_t sum = 0;
+    for (int a = 0; a < ffsize; a++) {
+	int64_t tmp = 1;
+	for (int i = 0; i < r; i++)
+	    tmp *= tfr[a];
+	sum += tmp;
+    }
+    double res = sum;
+    for (int i = 0; i < n; i++)
+	res /= ffsize;
+    return res;
 }
 
 int sha(boole f)
@@ -225,8 +240,6 @@ int accept(boole f, int optnum, int num)
     int ok = 1;
     int wt, x;
     int tmp;
-    float t;
-
     if (stab)
 	if (fixsize % stab)
 	    return 0;
@@ -260,8 +273,8 @@ int accept(boole f, int optnum, int num)
 	ok = nonzero <= zmax;
     }
     if (ok && optalpha) {
-	t = norme(f);
-	ok = (alphamin <= t) && (t <= alphamax);
+	double alfa = moment(4, 3);
+	ok = (alphamin <= alfa) && (alfa <= alphamax);
     }
 
     if (ok && opt2) {
@@ -316,7 +329,7 @@ void distribution(char *msg, int *f, int n)
     }
 }
 
-void bigFourier(int64_t *f, unsigned int n)
+void bigFourier(int64_t * f, unsigned int n)
 // Transformation de Fourier sur place.
 {
     int x, y;
@@ -376,7 +389,7 @@ void Vcor(boole f, int t)
 
 void correlation(boole f, int t)
 {
-    int64_t  tmp;
+    int64_t tmp;
     int *fct = calloc(ffsize, sizeof(int));
     int64_t *F = calloc(ffsize, sizeof(int64_t));
     galois x;
@@ -419,7 +432,30 @@ double alfa(boole f)
 }
 
 
-void pfboole(FILE *dst, char *format, boole f)
+void usage(char *str)
+{
+    puts("GENERAL:");
+    puts("\td    :intervalle degree ");
+    puts("\tm    :dimension");
+    puts("\tf    :file of Boolean function");
+    puts("SELECTION:");
+    puts("\tb    :balanced");
+    puts("\tz max:at most max non zero Walsh");
+    puts("OUTPUT:");
+    puts("\t%w    : Walsh distribution");
+    puts("\t%c    : correlation distribution");
+    puts("\t%d    : degree");
+    puts("\t%l    : linearity");
+    puts("\t%z    : number of non zero Walsh");
+    puts("\t%n    : new line");
+    puts("\t%s    : stabilizer size");
+    puts("SAMPLES:");
+    puts("./anfload.exe  -d3:4 -a1.75:2 '%d%a%x%n'");
+    puts("./anfload.exe  -m 6  -b -z8  -p '%d %z %w%n'");
+    puts("./anfload.exe  -m 8  -b -z15 -f /home/drmichko/web-docs/data/bst/ag-1-3-8.txt -p'%d %S%n%w%n%c%n'");
+}
+
+void pfboole(FILE * dst, char *format, boole f)
 {
     while (*format) {
 	if (*format == '%') {
@@ -432,7 +468,7 @@ void pfboole(FILE *dst, char *format, boole f)
 		fprintf(dst, "deg=%d", degree(f));
 		break;
 	    case 'a':
-		fprintf(dst, "alpha=%.6f", alfa(f));
+		fprintf(dst, "alpha=%.4f", moment(4,3));
 		break;
 	    case 'C':
 		format++;
@@ -442,7 +478,7 @@ void pfboole(FILE *dst, char *format, boole f)
 		format++;
 		Vcor(f, *format - '0');
 		break;
-	    case 'S':
+	    case 's':
 		fprintf(dst, "size=%ld", fixsize);
 		break;
 	    case 'l':
@@ -457,10 +493,10 @@ void pfboole(FILE *dst, char *format, boole f)
 		printf(" neg=%d", cpt);
 		break;
 	    case 'w':
-		distribution(" walsh", tfr, ffsize  );
+		distribution(" walsh", tfr, ffsize);
 		break;
 	    case 'c':
-		distribution(" cross", & cross[1], ffsize - 1);
+		distribution(" cross", &cross[1], ffsize - 1);
 		break;
 	    case 'n':
 		fprintf(dst, "\n");
@@ -495,7 +531,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "-A:a:x:r:bt:d:D:i:m:f:w:p:P:l:n:s:v:z:MS:23R:X:%:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:23R:X:%:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -579,6 +615,10 @@ int main(int argc, char *argv[])
 	    optz = 1;
 	    zmax = atoi(optarg);
 	    break;
+	case 'h':
+	    usage(argv[0]);
+	    exit(0);
+	    break;
 	default:		/* '?' */
 	    fprintf(stderr, "%s : check usage!\n", argv[0]);
 	    exit(EXIT_FAILURE);
@@ -597,7 +637,7 @@ int main(int argc, char *argv[])
 
 
     agsize = aglCardinality(ffdimen);
-    printf("#AG size = %ld\n", agsize);
+    printf("\n#AG size = %ld\n", agsize);
 
     while ((f = myanfloadboole(src, optM))) {
 	doit(f);

@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     initagldim(ffdimen);
     if (src) {
 	while ((f = loadBoole(src))) {
-	    printf(f);
+	    print( f );
 
 	}
 	fclose(src);
