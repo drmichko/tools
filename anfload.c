@@ -313,6 +313,25 @@ int intcmp(const void *p1, const void *p2)
     return *((int *) p1) - *((int *) p2);
 }
 
+void absdistrib(char *msg, int *t, int n)
+{
+    int  f[ n ];
+    for( int i= 0; i < n; i++ )
+	    f[i] = abs( t[i] );
+
+    printf("%s", msg);
+    qsort(f, n, sizeof(int), intcmp);
+
+    int i = 0, j;
+    while (i < n) {
+	j = i;
+	while (j < n && f[i] == f[j])
+	    j++;
+	printf(" %d [ %d ]", j - i, f[i]);
+	i = j;
+    }
+}
+
 void distribution(char *msg, int *f, int n)
 {
 
@@ -328,7 +347,6 @@ void distribution(char *msg, int *f, int n)
 	i = j;
     }
 }
-
 void bigFourier(int64_t * f, unsigned int n)
 // Transformation de Fourier sur place.
 {
@@ -493,7 +511,11 @@ void pfboole(FILE * dst, char *format, boole f)
 		printf(" neg=%d", cpt);
 		break;
 	    case 'w':
-		distribution(" walsh", tfr, ffsize);
+		if ( format[1] == '+'  ) {
+			absdistrib( " walsh", tfr, ffsize);
+			format++;
+		} else
+		   distribution(" walsh", tfr, ffsize);
 		break;
 	    case 'c':
 		distribution(" cross", &cross[1], ffsize - 1);
@@ -514,6 +536,17 @@ void pfboole(FILE * dst, char *format, boole f)
     }
 }
 
+void biftok( int t[], int* pos, char *s )
+{
+for (char *p = strtok(s,":"); p != NULL; p = strtok(NULL, ":")){
+      t[ *pos ] = atoi( p );
+      printf("%s\n", p );
+      *pos = *pos + 1;
+}
+for( int i = 0; i < *pos; i++ )
+	printf("value:%d\n", t[ i ] );
+
+}
 int main(int argc, char *argv[])
 {
     FILE *src;
@@ -543,7 +576,7 @@ int main(int argc, char *argv[])
 	    xvalue[optx++] = atoi(optarg);
 	    break;
 	case 'r':
-	    rvalue[optr++] = atoi(optarg);
+	    biftok( rvalue, &optr, optarg );
 	    break;
 	case 'X':
 	    Xvalue[optX++] = atoi(optarg);
