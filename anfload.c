@@ -205,7 +205,7 @@ int allin(int t[], int k, int v[])
     return 1;
 }
 
-double moment(int r, int n)
+double moment( int r , int n )
 {
     int64_t sum = 0;
     for (int a = 0; a < ffsize; a++) {
@@ -215,8 +215,7 @@ double moment(int r, int n)
 	sum += tmp;
     }
     double res = sum;
-    for (int i = 0; i < n; i++)
-	res /= ffsize;
+    while ( n-- ) res /= ffsize;
     return res;
 }
 
@@ -473,6 +472,19 @@ void usage(char *str)
     puts("./anfload.exe  -m 8  -b -z15 -f /home/drmichko/web-docs/data/bst/ag-1-3-8.txt -p'%d %S%n%w%n%c%n'");
 }
 
+void derivative ( boole f )
+{ int x,u; 
+  boole g = getboole();
+  printf("\nD:");
+  for( u = 1; u < ffsize; u++ ){
+	  for ( x = 0; x < ffsize; x++ )
+		  g[x] = f[x] ^ f[x^u];
+	  float a = alpha( g );
+	  printf(" %.2f", a );
+  }
+  free(g);
+}
+
 void pfboole(FILE * dst, char *format, boole f)
 {
     while (*format) {
@@ -486,7 +498,7 @@ void pfboole(FILE * dst, char *format, boole f)
 		fprintf(dst, "deg=%d", degree(f));
 		break;
 	    case 'a':
-		fprintf(dst, "alpha=%.4f", moment(4,3));
+		fprintf(dst, "alpha=%.4f", moment( 4, 3 ));
 		break;
 	    case 'C':
 		format++;
@@ -525,6 +537,16 @@ void pfboole(FILE * dst, char *format, boole f)
 		break;
 	    case 'z':
 		printf(" nbnz=%d", nonzero);
+		break;
+	    case 'D':
+		derivative( f );
+		break;
+	    case 'M':
+		format++;
+		int r =  *format - '0' ;
+		format++;
+		int n = *format - '0' ;
+		fprintf(dst, "M%d=%.4f", r, moment( r , n ));
 		break;
 	    default:
 		fprintf(dst, "?!");
