@@ -31,7 +31,7 @@ int linear;
 int nonzero;
 int stab = 0, optval = 0;
 int optalpha = 0, oplin = 0, optx = 0, optr = 0, optyp = 0, optdeg =
-    0, optbal = 0, opres = 0, opwt = 0, optnum = 0, opt2 = 0;
+    0, optbal = 0, opres = 0, opwt = 0, optnum = 0, opt2c = 0, opt2w=0;
 int triphase = 0;
 int optX = 0, optR = 0;
 int optmod = 0;
@@ -151,7 +151,7 @@ boole myanfloadboole(FILE * src, int mode)
 }
 
 
-int poweroftwo(boole f)
+int poweroftwow(boole f)
 {
     galois x;
     for (x = 0; x < ffsize; x++) {
@@ -164,6 +164,18 @@ int poweroftwo(boole f)
     return 1;
 }
 
+int poweroftwoc(boole f)
+{
+    galois x;
+    for (x = 0; x < ffsize; x++) {
+	if (( cross[ x ] != 0)) {
+	    int t = log(abs( cross[x])) / log(2);
+	    if (1 << t != abs(cross[x]))
+		return 0;
+	}
+    }
+    return 1;
+}
 int testphase(boole f)
 {
     galois x = 0, y;
@@ -276,8 +288,11 @@ int accept(boole f, int optnum, int num)
 	ok = (alphamin <= alfa) && (alfa <= alphamax);
     }
 
-    if (ok && opt2) {
-	ok = poweroftwo(f);
+    if (ok && opt2c) {
+	ok = poweroftwoc(f);
+    }
+    if (ok && opt2w) {
+	ok = poweroftwow(f);
 
     }
     if (ok && optx) {
@@ -319,6 +334,24 @@ void absdistrib(char *msg, int *t, int n)
 	    f[i] = abs( t[i] );
 
     printf("%s", msg);
+    qsort(f, n, sizeof(int), intcmp);
+
+    int i = 0, j;
+    while (i < n) {
+	j = i;
+	while (j < n && f[i] == f[j])
+	    j++;
+	printf(" %d [ %d ]", j - i, f[i]);
+	i = j;
+    }
+}
+void distribmod(char *msg, int *t, int n, int r)
+{
+    int  f[ n ];
+    for( int i= 0; i < n; i++ )
+	    f[i] = ( t[i] < 0 ) ? (r - (- t[i] ) % r ) % r : t[i] % r;
+
+    printf("%s/%d:", msg, r);
     qsort(f, n, sizeof(int), intcmp);
 
     int i = 0, j;
@@ -460,7 +493,9 @@ void usage(char *str)
     puts("\tz max:at most max non zero Walsh");
     puts("OUTPUT:");
     puts("\t%w    : Walsh distribution");
+    puts("\t%wm8  : Walsh distribution modulo 8");
     puts("\t%c    : correlation distribution");
+    puts("\t%c+   : correlation distribution absolute");
     puts("\t%d    : degree");
     puts("\t%l    : linearity");
     puts("\t%z    : number of non zero Walsh");
@@ -470,6 +505,7 @@ void usage(char *str)
     puts("./anfload.exe  -d3:4 -a1.75:2 '%d%a%x%n'");
     puts("./anfload.exe  -m 6  -b -z8  -p '%d %z %w%n'");
     puts("./anfload.exe  -m 8  -b -z15 -f /home/drmichko/web-docs/data/bst/ag-1-3-8.txt -p'%d %S%n%w%n%c%n'");
+    puts("./anfload.exe  -m6 -d4 -b -p'%d %wm8 %n'");
 }
 
 void derivative ( boole f )
@@ -487,6 +523,8 @@ void derivative ( boole f )
 
 void pfboole(FILE * dst, char *format, boole f)
 {
+	int tempo;
+
     while (*format) {
 	if (*format == '%') {
 	    format++;
@@ -523,14 +561,40 @@ void pfboole(FILE * dst, char *format, boole f)
 		printf(" neg=%d", cpt);
 		break;
 	    case 'w':
-		if ( format[1] == '+'  ) {
-			absdistrib( " walsh", tfr, ffsize);
-			format++;
-		} else
-		   distribution(" walsh", tfr, ffsize);
+		switch ( format[1]  ) {
+			case '+' :
+				absdistrib( " walsh", tfr, ffsize);
+				format++;
+				break;
+			case 'm' :
+				format++;
+				sscanf( format, "m%d", &tempo );
+				distribmod( " walsh", tfr, ffsize, tempo);
+				format++;
+				while ( isdigit(*format) ) format++; 
+				format--;
+				break;
+			default :
+		   		distribution(" walsh", tfr, ffsize);
+		};
 		break;
 	    case 'c':
-		distribution(" cross", &cross[1], ffsize - 1);
+		switch ( format[1]  ) {
+			case '+' :
+				absdistrib( " cross", &cross[1], ffsize - 1);
+				format++;
+				break;
+			case 'm' :
+				format++;
+                                sscanf(format, "m%d", & tempo );
+				distribmod( " cross", &cross[1], ffsize -1, tempo);
+				format++;
+                                while ( isdigit(*format) ) format++;
+                                format--;
+				break;
+			default :
+				distribution( " cross", &cross[1], ffsize - 1);
+		};
 		break;
 	    case 'n':
 		fprintf(dst, "\n");
@@ -586,7 +650,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:23R:X:%:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -604,11 +668,16 @@ int main(int argc, char *argv[])
 	    Xvalue[optX++] = atoi(optarg);
 	    break;
 	case 'R':
-	    Rvalue[optR++] = atoi(optarg);
+	    if ( isdigit( *optarg) ) {
+	    	Rvalue[optR++] =  atoi(optarg);
+	    	Rvalue[optR++] = -atoi(optarg);
+	    }
+	    else Rvalue[optR++] = atoi(optarg);
 	    break;
 
 	case '2':
-	    opt2 = 1;
+	    if ( *optarg == 'w' ) opt2w  = 1;
+	    if ( *optarg == 'c' ) opt2c  = 1;
 	    break;
 	case '3':
 	    triphase = 1;
