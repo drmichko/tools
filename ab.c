@@ -22,8 +22,30 @@
 #define SIZE 256
 int xvalue[32];
 int rvalue[32];
+typedef struct {
+	int  mult[7];
+	int  alfa;
+	int64_t  K6;
+} alfa_t;
 
-int card[ 1025  ] = { 0 };
+alfa_t table[ 1024 ];
+int nb = 0;
+
+void push( int d, int a, int64_t val )
+{
+int i;
+for( i = 0; i < nb; i++ )
+	if( table[i].alfa == a ) {
+		table[i].mult[d]++;
+		return;
+	}
+for( int j = 0; j < 8; j++ )
+	table[i].mult[j]  = 0;
+table[i].mult[d]++;
+table[i].alfa = a;
+table[i].K6   = val / ffsize / ffsize;
+nb++;
+}
 
 int Xvalue[32];
 int Rvalue[32];
@@ -347,24 +369,6 @@ void absdistrib(char *msg, int *t, int n)
 	i = j;
     }
 }
-void distribmod(char *msg, int *t, int n, int r)
-{
-    int  f[ n ];
-    for( int i= 0; i < n; i++ )
-	    f[i] = ( t[i] < 0 ) ? (r - (- t[i] ) % r ) % r : t[i] % r;
-
-    printf("%s/%d:", msg, r);
-    qsort(f, n, sizeof(int), intcmp);
-
-    int i = 0, j;
-    while (i < n) {
-	j = i;
-	while (j < n && f[i] == f[j])
-	    j++;
-	printf(" %d [ %d ]", j - i, f[i]);
-	i = j;
-    }
-}
 
 void distribution(char *msg, int *f, int n)
 {
@@ -438,6 +442,8 @@ void Vcor(boole f, int t)
 }
 
 
+
+
 void correlation(boole f, int t)
 {
     int64_t tmp;
@@ -494,9 +500,7 @@ void usage(char *str)
     puts("\tz max:at most max non zero Walsh");
     puts("OUTPUT:");
     puts("\t%w    : Walsh distribution");
-    puts("\t%wm8  : Walsh distribution modulo 8");
     puts("\t%c    : correlation distribution");
-    puts("\t%c+   : correlation distribution absolute");
     puts("\t%d    : degree");
     puts("\t%l    : linearity");
     puts("\t%z    : number of non zero Walsh");
@@ -506,7 +510,6 @@ void usage(char *str)
     puts("./anfload.exe  -d3:4 -a1.75:2 '%d%a%x%n'");
     puts("./anfload.exe  -m 6  -b -z8  -p '%d %z %w%n'");
     puts("./anfload.exe  -m 8  -b -z15 -f /home/drmichko/web-docs/data/bst/ag-1-3-8.txt -p'%d %S%n%w%n%c%n'");
-    puts("./anfload.exe  -m6 -d4 -b -p'%d %wm8 %n'");
 }
 
 void derivative ( boole f )
@@ -522,10 +525,26 @@ void derivative ( boole f )
   free(g);
 }
 
+void decompose( int64_t z )
+{
+if ( z == 0 ) return;
+if ( z < 0 ) z = -z;
+int d = 2;
+printf("z=%ld :", z );
+while ( d <=  z  ) {
+	int r = 0;
+	while ( ( z % d  ) == 0 ) {
+		z /=d;
+		r++;
+	}	
+	if ( r >1  ) printf(" %d^%d", d, r );
+	if ( r == 1  ) printf(" %d", d );
+	d++;
+}
+}
+
 void pfboole(FILE * dst, char *format, boole f)
 {
-	int tempo;
-
     while (*format) {
 	if (*format == '%') {
 	    format++;
@@ -562,47 +581,20 @@ void pfboole(FILE * dst, char *format, boole f)
 		printf(" neg=%d", cpt);
 		break;
 	    case 'w':
-		switch ( format[1]  ) {
-			case '+' :
-				absdistrib( " walsh", tfr, ffsize);
-				format++;
-				break;
-			case 'm' :
-				format++;
-				sscanf( format, "m%d", &tempo );
-				distribmod( " walsh", tfr, ffsize, tempo);
-				format++;
-				while ( isdigit(*format) ) format++; 
-				format--;
-				break;
-			default :
-		   		distribution(" walsh", tfr, ffsize);
-		};
+		if ( format[1] == '+'  ) {
+			absdistrib( " walsh", tfr, ffsize);
+			format++;
+		} else
+		   distribution(" walsh", tfr, ffsize);
 		break;
 	    case 'c':
-		switch ( format[1]  ) {
-			case '+' :
-				absdistrib( " cross", &cross[1], ffsize - 1);
-				format++;
-				break;
-			case 'm' :
-				format++;
-                                sscanf(format, "m%d", & tempo );
-				distribmod( " cross", &cross[1], ffsize -1, tempo);
-				format++;
-                                while ( isdigit(*format) ) format++;
-                                format--;
-				break;
-			default :
-				distribution( " cross", &cross[1], ffsize - 1);
-		};
+		distribution(" cross", &cross[1], ffsize - 1);
 		break;
 	    case 'n':
 		fprintf(dst, "\n");
 		break;
 	    case 'z':
 		printf(" nbnz=%d", nonzero);
-		card[ nonzero ]++;
 		break;
 	    case 'D':
 		derivative( f );
@@ -634,6 +626,20 @@ for (char *p = strtok(s,":"); p != NULL; p = strtok(NULL, ":")){
 for( int i = 0; i < *pos; i++ )
 	printf("value:%d\n", t[ i ] );
 
+}
+
+int ok( int xA, int xB, int*A, int *B )
+{
+if ( xA >= xB ) return 0;
+int Dp = xA - xB;
+int DA = (2*ffsize*ffsize*ffsize - xB ) * (ffsize-1);
+int DB = - (2*ffsize*ffsize*ffsize - xA ) * (ffsize-1);
+if ( DA % Dp == 0 && DB % Dp == 0 ) {
+	*A = DA / Dp;
+	*B = DB / Dp;
+	return  *A >=0 && *A <ffsize && *B >=0 && *B <ffsize;
+}
+return 0;
 }
 int main(int argc, char *argv[])
 {
@@ -766,43 +772,53 @@ int main(int argc, char *argv[])
     printf("\n#AG size = %ld\n", agsize);
 
     while ((f = myanfloadboole(src, optM))) {
-	doit(f);
+	doit( f );
 	if (accept(f, optnum, num)) {
-	    pfboole(stdout, format, f);
-	    for (int i = 0; i < ffsize; i++)
-		valtfr[abs(tfr[i])] = 1;
-	    for (int i = 0; i < ffsize; i++)
-		valcross[abs(cross[i])] = 1;
-	    count++;
-	    if (fixsize)
-		total += agsize / fixsize;
+		int64_t sum = 0;
+		for( int a = 0; a < ffsize; a++ ) {
+			int64_t tmp = tfr[a]*tfr[a]*tfr[a];
+			sum += tmp * tmp;
+			}
+		push( degree(f) , norme( f ), sum  );
 	}
 	num++;
     }
     fclose(src);
-    printf("\n# %ld Boolean functions  in %d classes among %d\n", total,
-	   count, num);
+    printf("\n# %d alphas\n", nb );
+    int nbp = 0;
+    int i, j, k;
+    int A, B;
+    int DA[ 7 ] , DB[ 7 ];
+    int64_t q = ffsize; 
+    int64_t triv = q + 15 * q * (q -1) +  15 * q * (q - 1 )* (q - 2 ); 
+    for( i = 0; i < nb; i++ )
+        for( j = 0; j < nb; j++ )
+		if ( ok( table[i].alfa, table[j].alfa, &A, &B ) ) {
+			int a  = table[i].alfa;
+			int b  = table[j].alfa;
+			int v = 0;
+			printf("alpha=%.4f &(%2d) &",(float) a / ffsize/ffsize/ffsize, A);
+			for( k = 2; k < 7; k++ ){  
+				if ( table[i].mult[k] ) printf("%d", k );
+				else printf(".");
+				v += table[i].mult[k];
+			}
+			printf(" &{%d}", v );
 
-    printf("\n  cross:");
-    for (int i = 0; i <= ffsize; i++)
-	if (valcross[i])
-	    printf(" %d", i);
-
-    printf("\nfourier:");
-    for (int i = 0; i <= ffsize; i++)
-	if (valtfr[i])
-	    printf(" %d", i);
+                        v = 0;
+			printf(" &beta=%6.4f &(%2d) &",(float) b / ffsize/ffsize/ffsize, B);
+			for( k = 2; k < 7; k++ )  {
+				if ( table[j].mult[k] ) printf("%d", k );
+				else printf(".");
+				v += table[j].mult[k];
+			}
+			printf(" &{%d}", v );
+	//printf(" -> %ld\n", (ffsize*ffsize*ffsize*ffsize + A * table[i].K6 + B* table[j].K6  -   triv) );
+			decompose(  ffsize*ffsize*ffsize*ffsize + A * table[i].K6 + B* table[j].K6  -   triv ); 
+			printf("\\\\\n");
+			nbp++;
+		}
     printf("\n");
-    printf("\ncard:");
-    for (int i = 0; i <= ffsize; i++)
-	if (card[i] > 0  )
-	    printf(" %d", i);
-    printf("\n");
-    printf("\n");
-    printf("\ncard:");
-    for (int i = 0; i <= ffsize; i++)
-	if (card[i] ==  0  )
-	    printf(" %d", i);
-    printf("\n");
+    printf("\n# %d pairs\n", nbp );
     return 0;
 }
