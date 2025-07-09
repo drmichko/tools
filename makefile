@@ -1,6 +1,6 @@
 CFLAGS = -Wall -g -I../boole/src -L../boole/src
 
-all : nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
+all : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
 	
 anfsimple.exe : anfsimple.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
@@ -20,7 +20,11 @@ ab.exe : ab.c
 print.exe : print.c
 	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
+invariant.exe :  invariant.c
+	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
+dyadic.exe :  dyadic.c
+	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
 clean :
 	rm -f *.exe
