@@ -85,13 +85,14 @@ int main(int argc, char *argv[])
     int dim = 6;
 
     int opt, optdeg = 0, optfr=0, optall=0, optlift=0, optres=0;
-    while ((opt = getopt(argc, argv, "adlvtr")) != -1) {
+    while ((opt = getopt(argc, argv, "adlvtrf:")) != -1) {
 	switch (opt) {
 	case 'a': optall = 1; break;
 	case 'd': optdeg = 1; break;
 	case 't': optfr  = 1;break;
 	case 'r': optres  = 1;break;
 	case 'l': optlift = 1;break;
+	case 'f' : src = fopen( optarg, "r"); break;
 	case 'v':
 	    verb++;
 	    break;
@@ -108,9 +109,13 @@ int main(int argc, char *argv[])
 
     initboole( 6 );
     initagldim( 6 );
+    if ( ! src ){
+    
     sprintf(fn, "../boole/data/class-2-%d.txt", ffdimen);
     src = fopen(fn, "r");
-    if (!src) {
+    }
+
+    if ( ! src ) {
 	perror( fn );
 	exit(1);
     }
@@ -118,7 +123,7 @@ int main(int argc, char *argv[])
     aglGroup g;
     int R[ JMAX ];
     int nbj = 0;
-    while ( (f = loadaglboolesize( src, &g, &size ) )) {
+    while ( (f = loadBoole( src  ) )) {
 	    nbj = 0;
 	    if ( optall || optdeg ) {
 		    R[ nbj++] = degree( f );
@@ -139,7 +144,7 @@ int main(int argc, char *argv[])
 	       printf("countj: %d (%d)\n", countj, num);
 	
 	    free( f );
-	    aglfreeGroup( g );
+	    //aglfreeGroup( g );
     }
     fclose(src);
     printf("countfr: %d\n", countfr);
