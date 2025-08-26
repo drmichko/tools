@@ -24,7 +24,7 @@ int xvalue[32];
 int rvalue[32];
 
 int card[ 1025  ] = { 0 };
-
+int numero = 0;
 int Xvalue[32];
 int Rvalue[32];
 int tfr[SIZE];
@@ -522,6 +522,71 @@ void derivative ( boole f )
   free(g);
 }
 
+int xyzt( boole f )
+{
+int res = 0;
+for( int x = 0; x < ffsize ; x++ )
+for( int y = x+1; y < ffsize ; y++ )
+for( int z = y+1; z < ffsize ; z++ ) {
+	int t = x^y^z;
+	if ( t > z && ( f[x]^f[y]^f[z]^f[t] ) == 0 ) res++;
+			}
+return res;
+}
+
+
+
+int systeme( mapping F)
+{
+    int x, y, z, t, nbc = 0;
+
+    int nbl = ffsize + ( ffsize -1) * ffsize / 2;
+    int num[ 256 ][ 256 ];
+    int k = 0;
+    for( x = 0; x < ffsize; x++ )
+    for( y = x; y < ffsize; y++ ) {
+            num[x][y] = k++;
+            if( x < y ) num[y][x] = k;
+    }
+    for( x = 0; x < ffsize; x++ )
+    for( y = x+1; y < ffsize; y++ )
+    for( z = y+1; z < ffsize; z++ ){
+            t = x^y^z;
+            if ( t > z && ( F[x]^F[y]^F[z]^F[t])  == 0 )
+                    nbc++;
+    }
+
+    code G = getcode( nbl, nbc);
+
+    nbc = 0;
+    for( x = 0; x < ffsize; x++ )
+    for( y = x+1; y < ffsize; y++ )
+    for( z = y+1; z < ffsize; z++ ){
+            t = x^y^z;
+            if ( t > z && ( F[x]^F[y]^F[z]^F[t])  == 0 ){
+                G.fct [ num[x][x] ][nbc] = 1;
+                G.fct [ num[x][y] ][nbc] = 1;
+                G.fct [ num[x][z] ][nbc] = 1;
+                G.fct [ num[x][t] ][nbc] = 1;
+
+                G.fct [ num[y][y] ][nbc] = 1;
+                G.fct [ num[y][z] ][nbc] = 1;
+                G.fct [ num[y][t] ][nbc] = 1;
+
+                G.fct [ num[z][z] ][nbc] = 1;
+                G.fct [ num[z][t] ][nbc] = 1;
+
+                G.fct [ num[t][t] ][nbc] = 1;
+                 nbc++;
+            }
+    }
+    int res = pivotage( G );
+    freecode(G);
+    return res;
+}
+
+
+
 void pfboole(FILE * dst, char *format, boole f)
 {
 	int tempo;
@@ -530,6 +595,9 @@ void pfboole(FILE * dst, char *format, boole f)
 	if (*format == '%') {
 	    format++;
 	    switch (*format) {
+	    case 'N':
+		printf("num=%d", numero );
+		break;
 	    case 'x':
 		panf(dst, f);
 		break;
@@ -606,6 +674,12 @@ void pfboole(FILE * dst, char *format, boole f)
 		break;
 	    case 'D':
 		derivative( f );
+		break;
+	    case 'Q' :
+		printf("%d", xyzt( f  ) );
+		break;
+	    case 'S' :
+		printf("%d", systeme(f)  );
 		break;
 	    case 'M':
 		format++;
@@ -768,6 +842,7 @@ int main(int argc, char *argv[])
     while ((f = myanfloadboole(src, optM))) {
 	doit(f);
 	if (accept(f, optnum, num)) {
+	    numero++;
 	    pfboole(stdout, format, f);
 	    for (int i = 0; i < ffsize; i++)
 		valtfr[abs(tfr[i])] = 1;

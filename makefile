@@ -26,5 +26,7 @@ invariant.exe :  invariant.c
 dyadic.exe :  dyadic.c
 	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
+install :
+	port.sh  -w tools -h rayol
 clean :
 	rm -f *.exe

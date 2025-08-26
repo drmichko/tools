@@ -11,7 +11,16 @@
 #include "orbitools.h"
 
 
-    #define JMAX 5
+typedef struct {
+	int     num;
+	int     cpt;
+	boole   fct;
+	int64_t size;
+} repres;
+
+repres * table;
+
+#define JMAX 5
 int verb = 0;
 void *rootj = NULL;
 int  countj=0;
@@ -50,8 +59,8 @@ int derprepare(  int dim )
     initboole( dim );
     initagldim( dim );
     bder = monomialBasis(1, dim, ffdimen);
-    //loadBasename( "lift", &bder );
-    //return 1;
+    loadBasename( "lift", &bder );
+    return 1;
     int r = orbitBasic( mkaglGroup( dim ) , &bder);
     printf("\norbit(1,%d) : %d\n", r , dim);
     saveBasename( "lift", bder );
@@ -92,7 +101,6 @@ int main(int argc, char *argv[])
 	case 't': optfr  = 1;break;
 	case 'r': optres  = 1;break;
 	case 'l': optlift = 1;break;
-	case 'f' : src = fopen( optarg, "r"); break;
 	case 'v':
 	    verb++;
 	    break;
@@ -109,21 +117,17 @@ int main(int argc, char *argv[])
 
     initboole( 6 );
     initagldim( 6 );
-    if ( ! src ){
-    
     sprintf(fn, "../boole/data/class-2-%d.txt", ffdimen);
     src = fopen(fn, "r");
-    }
-
     if ( ! src ) {
 	perror( fn );
 	exit(1);
     }
+    table = calloc( 160000, sizeof(repres) );
     uint64_t size;
-    aglGroup g;
     int R[ JMAX ];
     int nbj = 0;
-    while ( (f = loadBoole( src  ) )) {
+    while ( (f = loadBooleStab( src , &size ) )) {
 	    nbj = 0;
 	    if ( optall || optdeg ) {
 		    R[ nbj++] = degree( f );
@@ -137,18 +141,52 @@ int main(int argc, char *argv[])
 	    if ( optall || optres ) {
 		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
 	    }
-	    int last = countj;
 	    int val  = findspltable(R, nbj, &rootj, &countj);
+	    table[ val ].num = num;
+	    table[ val ].cpt = 1;
+	    table[ val ].size = size;
+	    table[ val ].fct  = f;
 	    num++;
-	    if (verb  && val == last )
-	       printf("countj: %d (%d)\n", countj, num);
-	
-	    free( f );
-	    //aglfreeGroup( g );
     }
     fclose(src);
-    printf("countfr: %d\n", countfr);
+    printf("\ncountfr: %d\n", countfr);
     printf("count  : %d\n", countj);
     printf("maps   : %d\n", num);
+
+   for (int i = optind; i < argc; i++) { 
+	   src = fopen( argv[i], "r" );
+    		if ( ! src ) {
+		perror( fn );
+		exit(1);
+    		}
+    	   while ( (f = loadBoole( src ) )) {
+		    nbj = 0;
+            if ( optall || optdeg ) {
+                    R[ nbj++] = degree( f );
+            }
+            if ( optall || optfr ) {
+                    R[ nbj++] = invtfr( f );
+            }
+            if ( optall || optlift ) {
+                    R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
+            }
+            if ( optall || optres ) {
+                    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
+            }
+            int val  = findspltable(R, nbj, &rootj, &countj);
+	    table[ val ].cpt++;
+            free( f );
+	   }
+	   fclose( src );
+   }
+
+   for( int i = 0; i < 160000 ; i++ )
+	   if ( table[i].cpt > 1 ) {
+	    	   boole f = table[i].fct;
+		   printf("\n\nnum=%d mult=%d", table[i].num, table[i].cpt -1 );
+		   printf(" alpha=%.2f deg:%d size=%ld", alpha(f), degree(f), table[i].size ) ;
+		   panf( stdout, f  );
+	   }
+
     return 0;
 }
