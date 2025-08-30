@@ -203,6 +203,20 @@ int exclude(int t[], int k, int v[])
     return 1;
 }
 
+int inclus(int t[], int k, int v[])
+{
+    galois x;
+    for (int i = 0; i < k; i++) {
+	for (x = 0; x < ffsize; x++)
+	    if (abs(t[x]) == v[i])
+		break;
+	if (x < ffsize) {
+	    return 1;
+	}
+    }
+    return 0;
+}
+
 int allin(int t[], int k, int v[])
 {
     galois x;
@@ -302,7 +316,7 @@ int accept(boole f, int optnum, int num)
 
     }
     if (ok && optr) {
-	ok = allin(tfr, optr, rvalue);
+	ok = inclus(tfr, optr, rvalue);
 
     }
     if (ok && optX) {
@@ -310,7 +324,7 @@ int accept(boole f, int optnum, int num)
 
     }
     if (ok && optR) {
-	ok = allin(cross, optR, Rvalue);
+	ok = inclus(cross, optR, Rvalue);
 
     }
     if (ok && optdeg) {
