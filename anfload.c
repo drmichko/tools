@@ -43,6 +43,8 @@ int opdiv = 0, divmin = 0, divmax = 0;
 int linmin = 0, linmax = 0;
 int optz = 0;
 int zmax = 1;
+int optZ = 0;
+
 
 typedef int64_t nombre;
 
@@ -352,9 +354,6 @@ int accept(boole f, int optnum, int num)
 	ok = balanced;
     }
 
-    if (ok && optz) {
-	ok = nonzero <= zmax;
-    }
     if (ok && optalpha) {
 	double alfa = moment(4, 3);
 	ok = (alphamin <= alfa) && (alfa <= alphamax);
@@ -397,6 +396,22 @@ int accept(boole f, int optnum, int num)
     }
     if (ok && optderive) {
 	    ok = derivecheck(  f ) ;
+    }
+    if (ok && optZ != 0 ) {
+	    int count  = 0;
+	    for( int t = 0; t < ffsize; t++ )
+		    if ( cross[t] == 0  ) count++;
+	    if ( optZ < 0 )
+		    return count <= -optZ ;
+	    return count >=optZ;
+    }
+    if (ok && optz != 0 ) {
+	    int count  = 0;
+	    for( int t = 0; t < ffsize; t++ )
+		    if ( tfr[t] == 0  ) count++;
+	    if ( optz < 0 )
+		    return count <= -optz ;
+	    return count >=optz;
     }
     return ok;
 }
@@ -812,7 +827,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:D")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -901,8 +916,10 @@ int main(int argc, char *argv[])
 	    optmod = atoi(optarg);
 	    break;
 	case 'z':
-	    optz = 1;
-	    zmax = atoi(optarg);
+	    optz = atoi(optarg);
+	    break;
+	case 'Z':
+	    optZ  = atoi(optarg);
 	    break;
 	case 'h':
 	    usage(argv[0]);
