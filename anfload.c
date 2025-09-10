@@ -22,7 +22,7 @@
 #define SIZE 256
 int xvalue[32];
 int rvalue[32];
-
+int optsize = 0;
 int card[ 1025  ] = { 0 };
 int numero = 0;
 int Xvalue[32];
@@ -32,6 +32,7 @@ int cross[SIZE];
 int linear;
 int nonzero;
 int stab = 0, optval = 0;
+int optderive = 0;
 int optalpha = 0, oplin = 0, optx = 0, optr = 0, optyp = 0, optdeg =
     0, optbal = 0, opres = 0, opwt = 0, optnum = 0, opt2c = 0, opt2w=0;
 int triphase = 0;
@@ -217,6 +218,20 @@ int inclus(int t[], int k, int v[])
     return 0;
 }
 
+int incluscross(int t[], int k, int v[])
+{
+    galois x;
+    for (int i = 0; i < k; i++) {
+	for (x = 1; x < ffsize; x++)
+	    if (abs(t[x]) == v[i])
+		break;
+	if (x < ffsize) {
+	    return 1;
+	}
+    }
+    return 0;
+}
+
 int allin(int t[], int k, int v[])
 {
     galois x;
@@ -261,6 +276,47 @@ int sha(boole f)
     return res / 24;
 }
 
+int rank( int64_t  *x, int dim )
+{
+int i, j, l;
+int64_t   bit;
+i = 0;
+while ( i < dim ) {
+  if ( x[i] ) {
+        bit = 1;
+        for( j = 0; j < 64 && (( x[i] & bit ) == 0); j++, bit <<=1) ;
+        for( l = 0; l < dim; l++)
+          if ( l != i )
+                if ( bit & x[l] ) x[l] ^= x[i];
+        i++;
+   } else {
+        dim = dim - 1;
+        x[i] = x[ dim ];
+   }
+ }
+return dim;
+}
+
+int ranktfr( int mode )
+{
+int64_t  a[ ffsize ], n = 0;
+for( int x = 0; x < ffsize; x++ )
+	if ( 0 == ( abs(tfr[x]) % mode ) ) a[n++] = x;
+return rank( a, n );
+}
+
+int derivecheck( boole f )
+{
+for( int u = 0; u < ffsize; u++ ) {
+	int sum = 0;
+	for( int x = 0; x < ffsize; x++)
+		if  (  f[x^u] ^f[x] ) sum--;
+				else sum ++;
+	if ( sum != 0 && abs( sum ) != ffsize ) 
+		return 0;
+}
+return 1;
+}
 
 int accept(boole f, int optnum, int num)
 {
@@ -324,7 +380,7 @@ int accept(boole f, int optnum, int num)
 
     }
     if (ok && optR) {
-	ok = inclus(cross, optR, Rvalue);
+	ok = incluscross( cross, optR, Rvalue);
 
     }
     if (ok && optdeg) {
@@ -334,6 +390,13 @@ int accept(boole f, int optnum, int num)
     if (ok && optsha) {
 	tmp = sha(f);
 	ok = (shamin <= tmp) && (tmp <= shamax);
+    }
+    if (ok && optsize) {
+	if ( optsize >0 )  ok = (fixsize >=   optsize );
+	if ( optsize <0 )  ok = (fixsize <=  -optsize );
+    }
+    if (ok && optderive) {
+	    ok = derivecheck(  f ) ;
     }
     return ok;
 }
@@ -505,7 +568,12 @@ void usage(char *str)
     puts("\tf    :file of Boolean function");
     puts("SELECTION:");
     puts("\tb    :balanced");
+    puts("\tr tfr require one of the Walsh");
+    puts("\tx tfr exclude Walsh");
+    puts("\tX value exclude correlation value");
+    puts("\tR value require one of the correlation");
     puts("\tz max:at most max non zero Walsh");
+    puts("\ts [+-] size");
     puts("OUTPUT:");
     puts("\t%w    : Walsh distribution");
     puts("\t%wm8  : Walsh distribution modulo 8");
@@ -617,6 +685,10 @@ void pfboole(FILE * dst, char *format, boole f)
 		break;
 	    case 'd':
 		fprintf(dst, "deg=%d", degree(f));
+		break;
+	    case 'k':
+		format++;
+		fprintf(dst, "rank=%d", ranktfr( *format - '0'));
 		break;
 	    case 'a':
 		fprintf(dst, "alpha=%.4f", moment( 4, 3 ));
@@ -740,7 +812,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:D")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -772,6 +844,9 @@ int main(int argc, char *argv[])
 	case '3':
 	    triphase = 1;
 	    break;
+	case 'D':
+	    optderive  = 1;
+	    break;
 	case 'b':
 	    optbal = 1;
 	    break;
@@ -783,9 +858,6 @@ int main(int argc, char *argv[])
 	    break;
 	case 'm':
 	    dim = atoi(optarg);
-	    break;
-	case 's':
-	    stab = atoi(optarg);
 	    break;
 	case 'n':
 	    optnum = atoi(optarg);
@@ -808,6 +880,9 @@ int main(int argc, char *argv[])
 	    optsha = 1;
 	    if (1 == sscanf(optarg, "%d:%d", &shamin, &shamax))
 		shamax = shamin;
+	    break;
+	case 's':
+	    optsize = atoi( optarg );
 	    break;
 	case 'd':
 	    optdeg = 1;
