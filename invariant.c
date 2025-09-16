@@ -50,8 +50,8 @@ int derprepare(  int dim )
     initboole( dim );
     initagldim( dim );
     bder = monomialBasis(1, dim, ffdimen);
-    //loadBasename( "lift", &bder );
-    //return 1;
+    loadBasename( "lift", &bder );
+    return 1;
     int r = orbitBasic( mkaglGroup( dim ) , &bder);
     printf("\norbit(1,%d) : %d\n", r , dim);
     saveBasename( "lift", bder );
