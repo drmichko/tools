@@ -22,9 +22,9 @@
 #define SIZE 256
 int xvalue[32];
 int rvalue[32];
-
+int optsize = 0;
 int card[ 1025  ] = { 0 };
-
+int numero = 0;
 int Xvalue[32];
 int Rvalue[32];
 int tfr[SIZE];
@@ -32,6 +32,7 @@ int cross[SIZE];
 int linear;
 int nonzero;
 int stab = 0, optval = 0;
+int optderive = 0;
 int optalpha = 0, oplin = 0, optx = 0, optr = 0, optyp = 0, optdeg =
     0, optbal = 0, opres = 0, opwt = 0, optnum = 0, opt2c = 0, opt2w=0;
 int triphase = 0;
@@ -42,6 +43,8 @@ int opdiv = 0, divmin = 0, divmax = 0;
 int linmin = 0, linmax = 0;
 int optz = 0;
 int zmax = 1;
+int optZ = 0;
+
 
 typedef int64_t nombre;
 
@@ -203,6 +206,34 @@ int exclude(int t[], int k, int v[])
     return 1;
 }
 
+int inclus(int t[], int k, int v[])
+{
+    galois x;
+    for (int i = 0; i < k; i++) {
+	for (x = 0; x < ffsize; x++)
+	    if (abs(t[x]) == v[i])
+		break;
+	if (x < ffsize) {
+	    return 1;
+	}
+    }
+    return 0;
+}
+
+int incluscross(int t[], int k, int v[])
+{
+    galois x;
+    for (int i = 0; i < k; i++) {
+	for (x = 1; x < ffsize; x++)
+	    if (abs(t[x]) == v[i])
+		break;
+	if (x < ffsize) {
+	    return 1;
+	}
+    }
+    return 0;
+}
+
 int allin(int t[], int k, int v[])
 {
     galois x;
@@ -247,6 +278,47 @@ int sha(boole f)
     return res / 24;
 }
 
+int rank( int64_t  *x, int dim )
+{
+int i, j, l;
+int64_t   bit;
+i = 0;
+while ( i < dim ) {
+  if ( x[i] ) {
+        bit = 1;
+        for( j = 0; j < 64 && (( x[i] & bit ) == 0); j++, bit <<=1) ;
+        for( l = 0; l < dim; l++)
+          if ( l != i )
+                if ( bit & x[l] ) x[l] ^= x[i];
+        i++;
+   } else {
+        dim = dim - 1;
+        x[i] = x[ dim ];
+   }
+ }
+return dim;
+}
+
+int ranktfr( int mode )
+{
+int64_t  a[ ffsize ], n = 0;
+for( int x = 0; x < ffsize; x++ )
+	if ( 0 == ( abs(tfr[x]) % mode ) ) a[n++] = x;
+return rank( a, n );
+}
+
+int derivecheck( boole f )
+{
+for( int u = 0; u < ffsize; u++ ) {
+	int sum = 0;
+	for( int x = 0; x < ffsize; x++)
+		if  (  f[x^u] ^f[x] ) sum--;
+				else sum ++;
+	if ( sum != 0 && abs( sum ) != ffsize ) 
+		return 0;
+}
+return 1;
+}
 
 int accept(boole f, int optnum, int num)
 {
@@ -282,9 +354,6 @@ int accept(boole f, int optnum, int num)
 	ok = balanced;
     }
 
-    if (ok && optz) {
-	ok = nonzero <= zmax;
-    }
     if (ok && optalpha) {
 	double alfa = moment(4, 3);
 	ok = (alphamin <= alfa) && (alfa <= alphamax);
@@ -302,7 +371,7 @@ int accept(boole f, int optnum, int num)
 
     }
     if (ok && optr) {
-	ok = allin(tfr, optr, rvalue);
+	ok = inclus(tfr, optr, rvalue);
 
     }
     if (ok && optX) {
@@ -310,7 +379,7 @@ int accept(boole f, int optnum, int num)
 
     }
     if (ok && optR) {
-	ok = allin(cross, optR, Rvalue);
+	ok = incluscross( cross, optR, Rvalue);
 
     }
     if (ok && optdeg) {
@@ -320,6 +389,29 @@ int accept(boole f, int optnum, int num)
     if (ok && optsha) {
 	tmp = sha(f);
 	ok = (shamin <= tmp) && (tmp <= shamax);
+    }
+    if (ok && optsize) {
+	if ( optsize >0 )  ok = (fixsize >=   optsize );
+	if ( optsize <0 )  ok = (fixsize <=  -optsize );
+    }
+    if (ok && optderive) {
+	    ok = derivecheck(  f ) ;
+    }
+    if (ok && optZ != 0 ) {
+	    int count  = 0;
+	    for( int t = 0; t < ffsize; t++ )
+		    if ( cross[t] == 0  ) count++;
+	    if ( optZ < 0 )
+		    return count <= -optZ ;
+	    return count >=optZ;
+    }
+    if (ok && optz != 0 ) {
+	    int count  = 0;
+	    for( int t = 0; t < ffsize; t++ )
+		    if ( tfr[t] == 0  ) count++;
+	    if ( optz < 0 )
+		    return count <= -optz ;
+	    return count >=optz;
     }
     return ok;
 }
@@ -491,7 +583,12 @@ void usage(char *str)
     puts("\tf    :file of Boolean function");
     puts("SELECTION:");
     puts("\tb    :balanced");
+    puts("\tr tfr require one of the Walsh");
+    puts("\tx tfr exclude Walsh");
+    puts("\tX value exclude correlation value");
+    puts("\tR value require one of the correlation");
     puts("\tz max:at most max non zero Walsh");
+    puts("\ts [+-] size");
     puts("OUTPUT:");
     puts("\t%w    : Walsh distribution");
     puts("\t%wm8  : Walsh distribution modulo 8");
@@ -522,6 +619,71 @@ void derivative ( boole f )
   free(g);
 }
 
+int xyzt( boole f )
+{
+int res = 0;
+for( int x = 0; x < ffsize ; x++ )
+for( int y = x+1; y < ffsize ; y++ )
+for( int z = y+1; z < ffsize ; z++ ) {
+	int t = x^y^z;
+	if ( t > z && ( f[x]^f[y]^f[z]^f[t] ) == 0 ) res++;
+			}
+return res;
+}
+
+
+
+int systeme( mapping F)
+{
+    int x, y, z, t, nbc = 0;
+
+    int nbl = ffsize + ( ffsize -1) * ffsize / 2;
+    int num[ 256 ][ 256 ];
+    int k = 0;
+    for( x = 0; x < ffsize; x++ )
+    for( y = x; y < ffsize; y++ ) {
+            num[x][y] = k++;
+            if( x < y ) num[y][x] = k;
+    }
+    for( x = 0; x < ffsize; x++ )
+    for( y = x+1; y < ffsize; y++ )
+    for( z = y+1; z < ffsize; z++ ){
+            t = x^y^z;
+            if ( t > z && ( F[x]^F[y]^F[z]^F[t])  == 0 )
+                    nbc++;
+    }
+
+    code G = getcode( nbl, nbc);
+
+    nbc = 0;
+    for( x = 0; x < ffsize; x++ )
+    for( y = x+1; y < ffsize; y++ )
+    for( z = y+1; z < ffsize; z++ ){
+            t = x^y^z;
+            if ( t > z && ( F[x]^F[y]^F[z]^F[t])  == 0 ){
+                G.fct [ num[x][x] ][nbc] = 1;
+                G.fct [ num[x][y] ][nbc] = 1;
+                G.fct [ num[x][z] ][nbc] = 1;
+                G.fct [ num[x][t] ][nbc] = 1;
+
+                G.fct [ num[y][y] ][nbc] = 1;
+                G.fct [ num[y][z] ][nbc] = 1;
+                G.fct [ num[y][t] ][nbc] = 1;
+
+                G.fct [ num[z][z] ][nbc] = 1;
+                G.fct [ num[z][t] ][nbc] = 1;
+
+                G.fct [ num[t][t] ][nbc] = 1;
+                 nbc++;
+            }
+    }
+    int res = pivotage( G );
+    freecode(G);
+    return res;
+}
+
+
+
 void pfboole(FILE * dst, char *format, boole f)
 {
 	int tempo;
@@ -530,11 +692,18 @@ void pfboole(FILE * dst, char *format, boole f)
 	if (*format == '%') {
 	    format++;
 	    switch (*format) {
+	    case 'N':
+		printf("num=%d", numero );
+		break;
 	    case 'x':
 		panf(dst, f);
 		break;
 	    case 'd':
 		fprintf(dst, "deg=%d", degree(f));
+		break;
+	    case 'k':
+		format++;
+		fprintf(dst, "rank=%d", ranktfr( *format - '0'));
 		break;
 	    case 'a':
 		fprintf(dst, "alpha=%.4f", moment( 4, 3 ));
@@ -607,6 +776,12 @@ void pfboole(FILE * dst, char *format, boole f)
 	    case 'D':
 		derivative( f );
 		break;
+	    case 'Q' :
+		printf("%d", xyzt( f  ) );
+		break;
+	    case 'S' :
+		printf("%d", systeme(f)  );
+		break;
 	    case 'M':
 		format++;
 		int r =  *format - '0' ;
@@ -652,7 +827,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -684,6 +859,9 @@ int main(int argc, char *argv[])
 	case '3':
 	    triphase = 1;
 	    break;
+	case 'D':
+	    optderive  = 1;
+	    break;
 	case 'b':
 	    optbal = 1;
 	    break;
@@ -695,9 +873,6 @@ int main(int argc, char *argv[])
 	    break;
 	case 'm':
 	    dim = atoi(optarg);
-	    break;
-	case 's':
-	    stab = atoi(optarg);
 	    break;
 	case 'n':
 	    optnum = atoi(optarg);
@@ -721,6 +896,9 @@ int main(int argc, char *argv[])
 	    if (1 == sscanf(optarg, "%d:%d", &shamin, &shamax))
 		shamax = shamin;
 	    break;
+	case 's':
+	    optsize = atoi( optarg );
+	    break;
 	case 'd':
 	    optdeg = 1;
 	    if (1 == sscanf(optarg, "%d:%d", &degmin, &degmax))
@@ -738,8 +916,10 @@ int main(int argc, char *argv[])
 	    optmod = atoi(optarg);
 	    break;
 	case 'z':
-	    optz = 1;
-	    zmax = atoi(optarg);
+	    optz = atoi(optarg);
+	    break;
+	case 'Z':
+	    optZ  = atoi(optarg);
 	    break;
 	case 'h':
 	    usage(argv[0]);
@@ -768,6 +948,7 @@ int main(int argc, char *argv[])
     while ((f = myanfloadboole(src, optM))) {
 	doit(f);
 	if (accept(f, optnum, num)) {
+	    numero++;
 	    pfboole(stdout, format, f);
 	    for (int i = 0; i < ffsize; i++)
 		valtfr[abs(tfr[i])] = 1;
