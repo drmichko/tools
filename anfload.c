@@ -44,6 +44,17 @@ int linmin = 0, linmax = 0;
 int optz = 0;
 int zmax = 1;
 int optZ = 0;
+int optW = 0;
+typedef struct inter {
+	int w;
+	int min;
+	int max;
+} inter_t;
+
+inter_t K[ 8 ];
+int   item = 0;
+
+
 
 
 typedef int64_t nombre;
@@ -329,6 +340,7 @@ int accept(boole f, int optnum, int num)
 	if (fixsize % stab)
 	    return 0;
 
+   
     if (optnum)
 	return optnum == num;
 
@@ -338,6 +350,14 @@ int accept(boole f, int optnum, int num)
 
     }
 
+    if ( ok && optW ) {
+	for( int i = 0; i < item; i++ ) {
+		int tmp  = 0;
+		for( int w = 0; w < ffsize; w++)
+			if ( abs( tfr[w] ) == K[i].w ) tmp++;
+		if (K[i].min > tmp  ||  K[i].max < tmp ) return 0;
+	}
+    }
     if (triphase && ok) {
 	ok = testphase(f);
     }
@@ -827,7 +847,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -899,6 +919,12 @@ int main(int argc, char *argv[])
 	case 's':
 	    optsize = atoi( optarg );
 	    break;
+	case 'W':
+	    optW = 1;
+	    if (2 == sscanf(optarg, "%d:%d:%d", & K[item].w, &K[item].min, &K[item].max))
+		K[item].min = K[item].max;
+	    item++;
+	    break;
 	case 'd':
 	    optdeg = 1;
 	    if (1 == sscanf(optarg, "%d:%d", &degmin, &degmax))
@@ -921,7 +947,7 @@ int main(int argc, char *argv[])
 	case 'Z':
 	    optZ  = atoi(optarg);
 	    break;
-	case 'h':
+	    case 'h':
 	    usage(argv[0]);
 	    exit(0);
 	    break;

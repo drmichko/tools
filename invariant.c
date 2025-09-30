@@ -54,31 +54,6 @@ int invtfr( boole f )
     return val;
 }
 
-int derprepare(  int dim )
-{
-    initboole( dim );
-    initagldim( dim );
-    bder = monomialBasis(1, dim, ffdimen);
-    loadBasename( "lift", &bder );
-    return 1;
-    int r = orbitBasic( mkaglGroup( dim ) , &bder);
-    printf("\norbit(1,%d) : %d\n", r , dim);
-    saveBasename( "lift", bder );
-    return 2;
-}
-
-int resprepare(  int dim )
-{
-    initboole( dim );
-    initagldim( dim );
-    bres = monomialBasis(2, dim, ffdimen);
-    loadBasename( "res", &bres );
-    return 1;
-    int r = orbitBasic( mkaglGroup( dim ) , &bres);
-    printf("\norbit(1,%d) : %d\n", r , dim);
-    saveBasename( "res", bres);
-    return 2;
-}
 int countd = 0;
 void *rootd = NULL;
 
@@ -87,7 +62,7 @@ void *rootr = NULL;
 
 int main(int argc, char *argv[])
 {
-    FILE *src;
+    FILE *src = NULL;
     boole f;
     int num = 0;
     char fn[64];
@@ -101,6 +76,12 @@ int main(int argc, char *argv[])
 	case 't': optfr  = 1;break;
 	case 'r': optres  = 1;break;
 	case 'l': optlift = 1;break;
+        case 'f': src = fopen( optarg, "r" ); 
+    		if ( ! src ) {
+		perror( optarg );
+		exit(1);
+    		}
+		 break;
 	case 'v':
 	    verb++;
 	    break;
@@ -112,22 +93,23 @@ int main(int argc, char *argv[])
     }
 
    
-    if ( optlift) derprepare(  dim -1 );
-    if ( optres ) resprepare(  dim -1 );
+    if ( optlift) derprepare(  &bder, dim -1 );
+    if ( optres ) resprepare(  &bres, dim -1 );
 
     initboole( 6 );
     initagldim( 6 );
     sprintf(fn, "../boole/data/class-2-%d.txt", ffdimen);
-    src = fopen(fn, "r");
+    if ( ! src )  src = fopen(fn, "r");
     if ( ! src ) {
 	perror( fn );
 	exit(1);
     }
     table = calloc( 160000, sizeof(repres) );
-    uint64_t size;
+    uint64_t size = 0;
     int R[ JMAX ];
     int nbj = 0;
-    while ( (f = loadBooleStab( src , &size ) )) {
+    //while ( (f = loadBooleStab( src , &size ) )) {
+    while ( (f = loadBoole( src) )) {
 	    nbj = 0;
 	    if ( optall || optdeg ) {
 		    R[ nbj++] = degree( f );
@@ -142,10 +124,16 @@ int main(int argc, char *argv[])
 		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
 	    }
 	    int val  = findspltable(R, nbj, &rootj, &countj);
+	    if ( table[ val ].cpt == 0  ) 
+		   panf( stdout, f);
+	    else   {
+		    panf( stdout, f);
+		    printf(" [doublon]");
+	    }
 	    table[ val ].num = num;
-	    table[ val ].cpt = 1;
 	    table[ val ].size = size;
 	    table[ val ].fct  = f;
+	    table[ val ].cpt++;
 	    num++;
     }
     fclose(src);
@@ -180,6 +168,7 @@ int main(int argc, char *argv[])
 	   fclose( src );
    }
 
+   if ( optind != argc )
    for( int i = 0; i < 160000 ; i++ )
 	   if ( table[i].cpt > 1 ) {
 	    	   boole f = table[i].fct;
@@ -188,5 +177,6 @@ int main(int argc, char *argv[])
 		   panf( stdout, f  );
 	   }
 
+    printf("\ninv counter=%d", countj );
     return 0;
 }
