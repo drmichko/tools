@@ -11,6 +11,21 @@
 #include "orbitools.h"
 
 
+void randAction(boole f)
+{
+    boole g = getboole();
+    int x;
+    agl A = getaglrand(random() % ffsize);
+    for (x = 0; x < ffsize; x++)
+        g[x] = f[aglImage(x, A)];
+
+    for (x = 0; x < ffsize; x++)
+        f[x] = g[x];
+    free(g);
+    free(A);
+}
+
+
 typedef struct {
 	int     num;
 	int     cpt;
@@ -119,16 +134,25 @@ int main(int argc, char *argv[])
 	    }
 	    if ( optall || optlift ) {
 		    R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
+		    randAction( f );
+		    int tmp = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
+		    assert( tmp == R[nbj-1] );
 	    }
 	    if ( optall || optres ) {
 		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
+		    for( int i=0; i < 10; i++) {
+			    randAction( f );
+		    int tmp = invRestriction( f , ffsize, &bres, &rootd, &countd);
+		    assert( tmp == R[nbj-1] );
+		    }
 	    }
 	    int val  = findspltable(R, nbj, &rootj, &countj);
 	    if ( table[ val ].cpt == 0  ) 
 		   panf( stdout, f);
 	    else   {
+		    printf("\ndoublon:");
 		    panf( stdout, f);
-		    printf(" [doublon]");
+		    panf( stdout, table[ val ].fct );
 	    }
 	    table[ val ].num = num;
 	    table[ val ].size = size;
@@ -168,7 +192,7 @@ int main(int argc, char *argv[])
 	   fclose( src );
    }
 
-   if ( optind != argc )
+   if ( verb || optind != argc )
    for( int i = 0; i < 160000 ; i++ )
 	   if ( table[i].cpt > 1 ) {
 	    	   boole f = table[i].fct;
