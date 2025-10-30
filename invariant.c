@@ -123,8 +123,8 @@ int main(int argc, char *argv[])
     uint64_t size = 0;
     int R[ JMAX ];
     int nbj = 0;
-    //while ( (f = loadBooleStab( src , &size ) )) {
-    while ( (f = loadBoole( src) )) {
+    while ( (f = loadBooleStab( src , &size ) )) {
+    	//while ( (f = loadBoole( src) )) {
 	    nbj = 0;
 	    if ( optall || optdeg ) {
 		    R[ nbj++] = degree( f );
@@ -140,19 +140,21 @@ int main(int argc, char *argv[])
 	    }
 	    if ( optall || optres ) {
 		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
-		    for( int i=0; i < 10; i++) {
+		    /*for( int i=0; i < 10; i++) {
 			    randAction( f );
 		    int tmp = invRestriction( f , ffsize, &bres, &rootd, &countd);
 		    assert( tmp == R[nbj-1] );
-		    }
+		    */
 	    }
 	    int val  = findspltable(R, nbj, &rootj, &countj);
+	    table[ val] .size= size; 
 	    if ( table[ val ].cpt == 0  ) 
 		   panf( stdout, f);
 	    else   {
 		    printf("\ndoublon:");
 		    panf( stdout, f);
 		    panf( stdout, table[ val ].fct );
+		    printf( "\nsize=%ld",  table[ val ].size );
 	    }
 	    table[ val ].num = num;
 	    table[ val ].size = size;
