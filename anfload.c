@@ -44,6 +44,17 @@ int linmin = 0, linmax = 0;
 int optz = 0;
 int zmax = 1;
 int optZ = 0;
+int optW = 0;
+typedef struct inter {
+	int w;
+	int min;
+	int max;
+} inter_t;
+
+inter_t K[ 8 ];
+int   item = 0;
+
+
 
 
 typedef int64_t nombre;
@@ -320,7 +331,7 @@ for( int u = 0; u < ffsize; u++ ) {
 return 1;
 }
 
-int accept(boole f, int optnum, int num)
+int accept(boole f )
 {
     int ok = 1;
     int wt, x;
@@ -329,8 +340,7 @@ int accept(boole f, int optnum, int num)
 	if (fixsize % stab)
 	    return 0;
 
-    if (optnum)
-	return optnum == num;
+   
 
     if (oplin) {
 	int tmp = linear;
@@ -338,6 +348,14 @@ int accept(boole f, int optnum, int num)
 
     }
 
+    if ( ok && optW ) {
+	for( int i = 0; i < item; i++ ) {
+		int tmp  = 0;
+		for( int w = 0; w < ffsize; w++)
+			if ( abs( tfr[w] ) == K[i].w ) tmp++;
+		if (K[i].min > tmp  ||  K[i].max < tmp ) return 0;
+	}
+    }
     if (triphase && ok) {
 	ok = testphase(f);
     }
@@ -473,6 +491,31 @@ void distribution(char *msg, int *f, int n)
 	i = j;
     }
 }
+
+void valdistribution(char *msg, int *f, int n)
+{
+
+    printf("%s", msg);
+    qsort(f, n, sizeof(int), intcmp);
+
+    int i = 0, j;
+    while (i < n) {
+	j = i;
+	while (j < n && f[i] == f[j])
+	    j++;
+	int v = 0;
+	int tmp = f[ i ];
+	if ( tmp == 0 ) v = -1;
+	while ( tmp != 0 && tmp % 2 == 0 ) {
+		tmp /= 2;
+		v++;
+	}
+
+	printf(" %d [ %d,v=%d ]", j - i, tmp, v  );
+
+	i = j;
+    }
+}
 void bigFourier(int64_t * f, unsigned int n)
 // Transformation de Fourier sur place.
 {
@@ -547,10 +590,11 @@ void correlation(boole f, int t)
 	F[x] = tmp;
     }
     bigFourier(F, ffsize);
-    for (x = 0; x < ffsize; x++)
+    for (x = 0; x < ffsize; x++) {
 	fct[x] = F[x] / ffsize;
-
-    distribution("cor:", fct, ffsize);
+	//assert( fct[x] % ffsize  ==  0);
+    }
+    valdistribution("cor:", fct, ffsize);
     free(fct);
     free(F);
 }
@@ -583,6 +627,7 @@ void usage(char *str)
     puts("\tf    :file of Boolean function");
     puts("SELECTION:");
     puts("\tb    :balanced");
+    puts("\tN    : numero");
     puts("\tr tfr require one of the Walsh");
     puts("\tx tfr exclude Walsh");
     puts("\tX value exclude correlation value");
@@ -591,6 +636,7 @@ void usage(char *str)
     puts("\ts [+-] size");
     puts("OUTPUT:");
     puts("\t%w    : Walsh distribution");
+    puts("\t%N    : numero");
     puts("\t%wm8  : Walsh distribution modulo 8");
     puts("\t%c    : correlation distribution");
     puts("\t%c+   : correlation distribution absolute");
@@ -821,13 +867,13 @@ int main(int argc, char *argv[])
 
     int dim = 6;
     char *fn = NULL, *format = "%x%n%a%n";
-    printf("\n#command line : ");
+    fprintf( stderr, "\n#command line : ");
     for (opt = 0; opt < argc; opt++)
-	printf(" %s", argv[opt]);
+	fprintf( stderr, " %s", argv[opt]);
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:N:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -868,6 +914,9 @@ int main(int argc, char *argv[])
 	case 'M':
 	    optM = 1;
 	    break;
+	case 'N':
+	    optnum= atoi( optarg) ;
+	    break;
 	case 'P':
 	    optl = atoi(optarg);
 	    break;
@@ -899,6 +948,12 @@ int main(int argc, char *argv[])
 	case 's':
 	    optsize = atoi( optarg );
 	    break;
+	case 'W':
+	    optW = 1;
+	    if (2 == sscanf(optarg, "%d:%d:%d", & K[item].w, &K[item].min, &K[item].max))
+		K[item].min = K[item].max;
+	    item++;
+	    break;
 	case 'd':
 	    optdeg = 1;
 	    if (1 == sscanf(optarg, "%d:%d", &degmin, &degmax))
@@ -921,7 +976,7 @@ int main(int argc, char *argv[])
 	case 'Z':
 	    optZ  = atoi(optarg);
 	    break;
-	case 'h':
+	    case 'h':
 	    usage(argv[0]);
 	    exit(0);
 	    break;
@@ -943,13 +998,14 @@ int main(int argc, char *argv[])
 
 
     agsize = aglCardinality(ffdimen);
-    printf("\n#AG size = %ld\n", agsize);
+    fprintf( stderr,"\n#AG size = %ld\n", agsize);
 
     while ((f = myanfloadboole(src, optM))) {
 	doit(f);
-	if (accept(f, optnum, num)) {
+	if (accept( f )) {
 	    numero++;
-	    pfboole(stdout, format, f);
+	    if ( optnum == 0 || optnum == numero ) 
+	    		pfboole(stdout, format, f);
 	    for (int i = 0; i < ffsize; i++)
 		valtfr[abs(tfr[i])] = 1;
 	    for (int i = 0; i < ffsize; i++)
@@ -961,29 +1017,29 @@ int main(int argc, char *argv[])
 	num++;
     }
     fclose(src);
-    printf("\n# %ld Boolean functions  in %d classes among %d\n", total,
+    fprintf( stderr, "\n# %ld Boolean functions  in %d classes among %d\n", total,
 	   count, num);
 
-    printf("\n  cross:");
+    fprintf( stderr, "\n  cross:");
     for (int i = 0; i <= ffsize; i++)
 	if (valcross[i])
-	    printf(" %d", i);
+	    fprintf(stderr, " %d", i);
 
-    printf("\nfourier:");
+    fprintf( stderr, "\nfourier:");
     for (int i = 0; i <= ffsize; i++)
 	if (valtfr[i])
-	    printf(" %d", i);
-    printf("\n");
-    printf("\ncard:");
+	    fprintf( stderr," %d", i);
+    fprintf(stderr, "\n");
+    fprintf(stderr, "\ncard:");
     for (int i = 0; i <= ffsize; i++)
 	if (card[i] > 0  )
-	    printf(" %d", i);
-    printf("\n");
-    printf("\n");
-    printf("\ncard:");
+	    fprintf(stderr, " %d", i);
+    fprintf(stderr, "\n");
+    fprintf( stderr,"\n");
+    fprintf( stderr,"\ncard:");
     for (int i = 0; i <= ffsize; i++)
 	if (card[i] ==  0  )
-	    printf(" %d", i);
-    printf("\n");
+	    fprintf( stderr," %d", i);
+    fprintf( stderr,"\n");
     return 0;
 }
