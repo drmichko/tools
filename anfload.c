@@ -747,23 +747,18 @@ int * getwalshabs( boole f )
   Fourier( res, ffsize );
   return res;
 }
-int value( int z )
+int bit( int w, int z )
 {
-	if ( z == 0 ) return ffdimen;
-	int r = 0;
-	z = abs( z );
-	while ( ! ( z&1) ) {
-		z /=2;
-		r++;
-	}
-	return r;
+	if ( w < 0 ) 
+		w = (-w) * ( ffsize - 1 );
+	return  (w  & (1<<z)) > 0 ;
 }
 void walshdeg( boole f, int z )
 {
 	int *w = getwalshabs( f );
 	boole r = getboole( );
 		for( int x = 0; x < ffsize; x++ )
-			r[x] = abs( w[x] )  == z ;
+			r[x] = bit( w[x], z );
 		int d = degree( r );
 		printf(" %d [%d]", d, z );
 		//pwalsh(  r );
