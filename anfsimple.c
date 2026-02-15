@@ -152,6 +152,7 @@ int main(int argc, char *argv[])
     initagldim(ffdimen);
     if (src) {
 	while ((f = loadBoole(src))) {
+		panf( stdout, f );
 	    int r = doit(f, val, limite);
 	    if (r < score)
 		score = r;
