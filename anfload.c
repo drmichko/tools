@@ -444,6 +444,7 @@ void absdistrib(char *msg, int *t, int n)
     int  f[ n ];
     for( int i= 0; i < n; i++ )
 	    f[i] = abs( t[i] );
+    int mult = 0;
 
     printf("%s", msg);
     qsort(f, n, sizeof(int), intcmp);
@@ -455,7 +456,9 @@ void absdistrib(char *msg, int *t, int n)
 	    j++;
 	printf(" %d [ %d ]", j - i, f[i]);
 	i = j;
+	mult++;
     }
+    printf(" mult=%d", mult);
 }
 void distribmod(char *msg, int *t, int n, int r)
 {
@@ -729,6 +732,39 @@ int systeme( mapping F)
 }
 
 
+int * getwalsh( boole f )
+{ int * res = calloc( ffsize, sizeof(int) );
+  for( int x = 0; x < ffsize; x++ )
+	  	res[x] = 1 - 2*f[x];
+  Fourier( res, ffsize );
+  return res;
+}
+
+int * getwalshabs( boole f )
+{ int * res = calloc( ffsize, sizeof(int) );
+  for( int x = 0; x < ffsize; x++ )
+	  	res[x] = 1 - 2*f[x];
+  Fourier( res, ffsize );
+  return res;
+}
+int bit( int w, int z )
+{
+	if ( w < 0 ) 
+		w = (-w) * ( ffsize - 1 );
+	return  (w  & (1<<z)) > 0 ;
+}
+void walshdeg( boole f, int z )
+{
+	int *w = getwalshabs( f );
+	boole r = getboole( );
+		for( int x = 0; x < ffsize; x++ )
+			r[x] = bit( w[x], z );
+		int d = degree( r );
+		printf(" %d [%d]", d, z );
+		//pwalsh(  r );
+		free( r );
+        free( w );
+}
 
 void pfboole(FILE * dst, char *format, boole f)
 {
@@ -738,6 +774,14 @@ void pfboole(FILE * dst, char *format, boole f)
 	if (*format == '%') {
 	    format++;
 	    switch (*format) {
+		    case '/' :
+			    int z;
+			    format++;
+			    sscanf( format, "%d", &z);
+			    while ( isdigit(*format) ) format++;
+			    format--;
+			    walshdeg( f, z );
+		    break;
 	    case 'N':
 		printf("num=%d", numero );
 		break;
@@ -1001,6 +1045,7 @@ int main(int argc, char *argv[])
     fprintf( stderr,"\n#AG size = %ld\n", agsize);
 
     while ((f = myanfloadboole(src, optM))) {
+	//panf( stdout, f );
 	doit(f);
 	if (accept( f )) {
 	    numero++;
