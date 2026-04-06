@@ -745,6 +745,8 @@ int * getwalshabs( boole f )
   for( int x = 0; x < ffsize; x++ )
 	  	res[x] = 1 - 2*f[x];
   Fourier( res, ffsize );
+  for( int x = 0; x < ffsize; x++ )
+	  res[x] = abs( res[x] );
   return res;
 }
 int bit( int w, int z )
@@ -753,7 +755,7 @@ int bit( int w, int z )
 		w = (-w) * ( ffsize - 1 );
 	return  (w  & (1<<z)) > 0 ;
 }
-void walshdeg( boole f, int z )
+void walsbithdeg( boole f, int z )
 {
 	int *w = getwalshabs( f );
 	boole r = getboole( );
@@ -766,6 +768,18 @@ void walshdeg( boole f, int z )
         free( w );
 }
 
+void walshvaldeg( boole f, int z )
+{
+	int *w = getwalshabs( f );
+	boole r = getboole( );
+		for( int x = 0; x < ffsize; x++ )
+			r[x] = w[x] == z;
+		int d = degree( r );
+		printf(" d=%d [%d]", d, z );
+		//pwalsh(  r );
+		free( r );
+        free( w );
+}
 void pfboole(FILE * dst, char *format, boole f)
 {
 	int tempo;
@@ -780,7 +794,7 @@ void pfboole(FILE * dst, char *format, boole f)
 			    sscanf( format, "%d", &z);
 			    while ( isdigit(*format) ) format++;
 			    format--;
-			    walshdeg( f, z );
+			    walshvaldeg( f, z );
 		    break;
 	    case 'N':
 		printf("num=%d", numero );
