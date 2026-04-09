@@ -745,6 +745,8 @@ int * getwalshabs( boole f )
   for( int x = 0; x < ffsize; x++ )
 	  	res[x] = 1 - 2*f[x];
   Fourier( res, ffsize );
+  for( int x = 0; x < ffsize; x++ )
+	  res[x] = abs( res[x] );
   return res;
 }
 int bit( int w, int z )
@@ -753,7 +755,7 @@ int bit( int w, int z )
 		w = (-w) * ( ffsize - 1 );
 	return  (w  & (1<<z)) > 0 ;
 }
-void walshdeg( boole f, int z )
+void walsbithdeg( boole f, int z )
 {
 	int *w = getwalshabs( f );
 	boole r = getboole( );
@@ -766,6 +768,78 @@ void walshdeg( boole f, int z )
         free( w );
 }
 
+void walshvaldeg( boole f, int z )
+{
+	int *w = getwalshabs( f );
+	boole r = getboole( );
+		for( int x = 0; x < ffsize; x++ )
+			r[x] = w[x] == z;
+		int d = degree( r );
+		printf(" d=%d [%d]", d, z );
+		//pwalsh(  r );
+		free( r );
+        free( w );
+}
+
+void fullNL2( boole f , int goal)
+{
+	code   c = rmcode( 1 , 2, ffdimen  );
+	boole  t = getboole( );
+	int *  a = calloc( ffsize+1, sizeof( int ) );
+	int wt ; // = ( ffsize - linearity( f ) ) / 2;
+	wt = weightBoole( f );
+	a[ wt ]++;
+	int  cpt=1, limite = 1 << c.nbl;
+		for( int x = 0; x < ffsize; x++ )
+			t[x] = f[x];
+	while ( wt >= goal && cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= c.fct[i][x];
+		
+		wt = weightBoole( t );
+		a[ wt ]++;
+		cpt++;
+	}
+
+	if ( cpt == limite ) {
+		printf("\nNL2 ( %d )  :", goal);
+		for( int i = 0; i <=ffsize; i++ )
+			if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
+	}  ; // else printf("\ngoal : %d /%d\n", wt, goal );
+	free( a );
+	free( t );
+	freecode( c );
+}
+void NL2( boole f , int goal)
+{
+	code   c = rmcode( 2, 2, ffdimen  );
+	boole  t = getboolecpy( f );
+	int *  a = calloc( ffsize+1, sizeof( int ) );
+	int wt = ( ffsize - linearity( f ) ) / 2;
+	a[ wt ]++;
+	int  cpt=1, limite = 1 << c.nbl;
+	while ( wt >= goal && cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= c.fct[i][x];
+		
+		wt = ( ffsize - linearity( t ) ) / 2;;
+		a[ wt ]++;
+		cpt++;
+	}
+
+	if ( cpt == limite ) {
+		panf(stdout, f  );
+		printf("\nNL2 ( %d )  :", degree( f  ));
+		for( int i = 0; i <=ffsize; i++ )
+			if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
+		putchar('\n');
+	}
+	free( a );
+	free( t );
+	freecode( c );
+}
 void pfboole(FILE * dst, char *format, boole f)
 {
 	int tempo;
@@ -780,7 +854,7 @@ void pfboole(FILE * dst, char *format, boole f)
 			    sscanf( format, "%d", &z);
 			    while ( isdigit(*format) ) format++;
 			    format--;
-			    walshdeg( f, z );
+			    walshvaldeg( f, z );
 		    break;
 	    case 'N':
 		printf("num=%d", numero );
@@ -878,6 +952,15 @@ void pfboole(FILE * dst, char *format, boole f)
 		format++;
 		int n = *format - '0' ;
 		fprintf(dst, "M%d=%.4f", r, moment( r , n ));
+		break;
+	    case '2' :
+		format++;
+		int tmp;
+		assert( 1 == sscanf( format, ":%d", &tmp ) ); 
+		format++;
+		while ( isdigit(*format) ) format++;
+		format--;
+		NL2( f , tmp );
 		break;
 	    default:
 		fprintf(dst, "?!");
@@ -1046,7 +1129,7 @@ int main(int argc, char *argv[])
 
     while ((f = myanfloadboole(src, optM))) {
 	//panf( stdout, f );
-	doit(f);
+//	doit(f);
 	if (accept( f )) {
 	    numero++;
 	    if ( optnum == 0 || optnum == numero ) 
