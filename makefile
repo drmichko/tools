@@ -1,6 +1,7 @@
 CFLAGS = -Wall -g -I../boole/src -L../boole/src
 
 all : test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
+
 oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
 	
 anfsimple.exe : anfsimple.c
