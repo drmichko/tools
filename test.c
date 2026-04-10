@@ -42,7 +42,47 @@ void  NLL( boole f , int goal)
         freecode( c );
 }
 
+int *walshq( boole f )
+{
+        code   c = rmcode( 1 , 2, ffdimen  );
+        int  cpt=1, limite = 1 << c.nbl;
+        boole  t = getboole( );
+        int wt = weightBoole( f );
+        int *  a = calloc( limite, sizeof( int ) );
+                a[ 0  ] = wt > ffsize/2 ? ffsize - wt : wt;
+                for( int x = 0; x < ffsize; x++ )
+                        t[x] = f[x];
+	int q = 0;
+        while ( cpt < limite ) {
+                int i = __builtin_ctz( cpt  );
+                for( int x = 0; x < ffsize; x++ )
+                        t[x] ^= c.fct[i][x];
+		q ^=  (1 << i);
+                wt = weightBoole( t );
+                a[ q  ] = wt > ffsize/2 ? ffsize - wt : wt;
+                cpt++;
+        }
 
+        free( t );
+        freecode( c );
+	return a;
+}
+void try( boole f )
+{
+    int *a = walshq( f );;
+    int size = 1 << rmdimen(1, 2, ffdimen );
+    pdistrib("walshq", a, size );
+    int cpt = 0;
+    for( int t = 0; t < size; t++ ){
+	    int q;
+	    for( q = 0;  q < size && ( a[t^q] + a[ q ] ) >=18 ; q++);;
+	    if ( q == size ) {
+		    cpt++;
+	    }
+    }
+    printf("\nsoluce : %d", cpt );
+    free(a);
+}
 void check(boole L, vector v)
 {
    
@@ -62,7 +102,7 @@ void check(boole L, vector v)
     int cpt = 1, limite = 1 << Q.nbl;
     int *a = calloc( ffsize+1, sizeof(int ) );
     int wt = (ffsize - linearity( t )) / 2;
-    NLL( t, 10 );
+    NLL( t, 18 );
     free( R );
     initboole( 5 );
     free(a);
@@ -89,6 +129,7 @@ int main(int argc, char *argv[])
     NLL( h, 18 );
 
     initboole( 5 );
+
     boole L = getboole(),  R = getboole();;
     for( int x = 0; x < 32; x++ ){
 	    L[x] = h[x];
@@ -123,7 +164,9 @@ int main(int argc, char *argv[])
     printf("\nclass=%d\n", base.table[booleVector(L, &base)] );
     printf("\nclass=%d\n", base.table[booleVector(R, &base)] );
     vector v = booleVector(R, &base ); 
+    
     check( L, v ); 
+
 
     boole f, t[2];
     int i = 0;
@@ -135,6 +178,7 @@ int main(int argc, char *argv[])
 	    if (base.table[v] == num)
 		size++;
 	printf("\nclass=%d size=%d\n", num, size);
+	try( f );
 	t[i++] = f;
     }
     fclose(src);
