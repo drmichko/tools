@@ -41,23 +41,41 @@ int freelength( liste l )
 	}
 	return r;
 }
+
+int wtboole ( boole f, int m )
+{
+	int wt = 0;
+	for( int x = 0; x < ( 1 << m ); x++ )
+                wt += f[x];
+	return wt;
+}
+
+int  addwtboole ( boole f, boole g, int m )
+{
+	int wt = 0;
+	for( int x = 0; x < ( 1 << m ); x++ ) {
+                f[x] ^=  g[x];
+		wt = f[x]; 
+	}
+	return wt;
+}
+
 liste  listing( boole f , int k, int m, int goal )
 {       liste  l = NULL;
-        code    c = rmcode( 0, k, ffdimen  );
-        boole   t = getboole( );
-        int wt = weightBoole( f );
+        code    c = rmcode( 0, k, m );
+        boole   t  = getboole( );
+	for( int x = 0; x < ( 1 << m ); x++ )
+		t[x] =f[x];
+        int wt =  wtboole( t, m );
         if ( wt <= goal ) 
 		append( t, &l );
         int  cpt=1, limite = 1 << c.nbl;
-        for( int x = 0; x < ffsize; x++ )
+        for( int x = 0; x < ( 1 << m ) ; x++ )
                         t[x] = f[x];
         while (  cpt < limite ) {
                 int i = __builtin_ctz( cpt  );
-                for( int x = 0; x < ffsize; x++ )
-                        t[x] ^= c.fct[i][x];
-
-                wt = weightBoole( t );
-                if ( wt < goal )
+        	int wt =  addwtboole( t, c.fct [i], m );
+                if ( wt <=  goal )
 			append( t , & l);
                 cpt++;
         }
@@ -67,11 +85,37 @@ liste  listing( boole f , int k, int m, int goal )
 
 liste doit( boole f, int k, int m, int r )
 {
-if ( m == 6 ) {
+if ( m == 5 ) {
 	liste l = listing( f, k, m, r );
-	printf("\nlen=%d\n", freelength( l ) );
 	return l;
 }
+liste ll = listing( f, k, m-1, r/2 );
+printf("\nL=%d\n", length( ll ) );
+uchar s[ 256 ];
+int q   = 1 << ( m-1) ;
+int bad = 0;
+while ( ll ) {
+	for( int x = 0; x < q; x++  )
+			s[x] = ll->fct [x] ^ f[ x + q ] ^ f[x];
+	int wt = wtboole( ll->fct, m - 1 );
+	liste  tmp = listing( s , k-1, m-1, r - wt  );
+/*	
+        while ( tmp ) {
+		if (   wt + wtboole( tmp->fct, m-1 )  <  r ) 
+			printf(" %d %d\n", wt,  wtboole( tmp->fct, m-1 ) ) ;
+		tmp = tmp->next;
+	}
+	*/
+	int nb = freelength( tmp );
+	if ( nb  > 0  )  bad++;
+	ll = ll->next;
+}
+
+printf("\nbad=%d", bad  );
+
+liste lr = listing( & (f[ 1 << (m-1) ]) , k, m-1, r/2 );
+printf("\nR=%d\n", freelength( lr ) );
+
 return NULL;
 }
 
@@ -79,10 +123,10 @@ int main(int argc, char *argv[])
 {
     FILE *src = NULL;
     char *anf = NULL;
-    int opt, r = 0;
+    int opt,  R = 0;
     int iter=1000;
     int k = 2;
-    while ((opt = getopt(argc, argv, "a:k:m:f:r:hi:vs")) != -1) {
+    while ((opt = getopt(argc, argv, "a:k:m:f:R:hi:vs")) != -1) {
 	switch (opt) {
 	case 'm':
 	    initboole(atoi(optarg));
@@ -90,8 +134,8 @@ int main(int argc, char *argv[])
 	case 'a':
 	    anf = strdup(optarg);
 	    break;
-	case 'r':
-	    r = atoi(optarg);
+	case 'R':
+	    R = atoi(optarg);
 	    break;
 	case 'i':
 	    iter = atoi(optarg);
@@ -115,8 +159,7 @@ int main(int argc, char *argv[])
 	while ((f = loadBoole(src))) {
 	    panf(stdout, f);
     	    printf("\niter=%d deg=%d lin=%d :", iter, degree(f) , linearity(f) );
-
-	    doit( f, k,  ffdimen, r );
+	    doit( f, k,  ffdimen,  R );
 	}
 	fclose(src);
     }
