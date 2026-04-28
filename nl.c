@@ -146,6 +146,24 @@ while ( ll ) {
 	ll = ll->next;
 }
 freeliste( l );
+
+l = doit( & f[q], k, m - 1, R / 2 );
+ll = l;
+while ( ll ) {
+        for( int x = 0; x < q; x++  )
+           sum[x] = ll->fct [ x ] ^ f[ x + q ] ^ f[x];
+        int wt = wtboole( ll->fct, m - 1 );
+        liste  lr = doit( sum , k - 1, m - 1, R - wt  );
+        liste tmp = lr;
+        while ( tmp ) {
+                glue( tmp->wt + wt, m - 1, tmp->fct, ll->fct  , & res  );
+                tmp = tmp->next;
+        }
+        freeliste( lr );
+        ll = ll->next;
+}
+freeliste( l );
+
 return res;
 }
 
