@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
 	}
     }
 
-    for( int i = 0; i <=  4 ; i++ )
+    for( int i = 0; i <=  k ; i++ )
 		    cc[ i ]  = rmcode( 0, i,  limite   );
     boole f;
 

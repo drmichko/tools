@@ -1,2 +1,3 @@
-anf=abcde
+anf=bcde+abdf+acef+bdfg+cdfg+befg+acdh+abeh+bdgh+afgh
+anf=bcde+abdf+acef+bdfg+cdfg+befg+abch+acdh+abeh+aceh+abfh+befh+bdgh+cegh+afgh
 
