@@ -189,11 +189,14 @@ int main(int argc, char *argv[])
     boole f;
 
     int tour = 0;
+    int soluce = 0;
     if (src) {
 	while ((f = loadBoole(src))){ 
             if ( valuation(f) > k ) 	{
 	    liste l = doit( f, k,  ffdimen,  R );
 	    if ( check( l, R )  ) {
+		    soluce++;
+		    printf("\n");
 	    	    panf(stdout, f);
 		    //showliste( "wt", l );
 	    }
@@ -201,12 +204,13 @@ int main(int argc, char *argv[])
 	    }
 	 free( f );
 	tour++;
-	printf("\rtour=%d", tour );
+	printf("\rtour=%d (%d)", tour, soluce  );
 	fflush(stdout );
 	}
 	fclose(src);
     }
 
+    printf("\n");
     printf("\n");
     return 0;
 }
