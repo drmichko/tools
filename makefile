@@ -1,10 +1,24 @@
-CFLAGS = -Wall -g -I../boole/src -L../boole/src
+
+OPTION = -I../boole/src -L../boole/src
+
+
+ifeq ($(DEBUG),1)
+	CFLAGS = -Wall -g  $(OPTION) 
+else
+
+	CFLAGS = -O3  -march=native   -Wno-unused-result $(OPTION)
+
+endif
+
 
 all : nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
 	
 
 oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
 	
+debug:
+	$(MAKE)  -B DEBUG=1
+
 anfsimple.exe : anfsimple.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 
