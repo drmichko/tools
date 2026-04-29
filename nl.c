@@ -16,6 +16,9 @@ typedef  struct _list_ {
 int limite;
 code cc[8];
 
+int rho[4][9];
+
+
 void append( int wt, int m, boole f, liste *l )
 {  liste aux = malloc( sizeof( *aux )  );
    aux->fct = calloc( 1 << m, 1 );
@@ -97,14 +100,14 @@ int  addwtboole ( boole f, boole g, int m )
 	return wt;
 }
 
-liste  listing( boole f , int k, int m, int R )
+liste  listing( boole f , int k, int m, int r, int R )
 {       liste   l = NULL;
         code    c = cc[ k ];
         boole   t = getboole( );
 	for( int x = 0; x < ( 1 << m ); x++ )
 		t[x] =f[x];
         int wt =  wtboole( t, m );
-        if ( wt <=  R ) 
+        if ( r <= wt &&  wt <=  R ) 
 		append( wt, m, t, &l );
         int  cpt = 1, limite = 1 << c.nbl;
         while (  cpt < limite ) {
@@ -122,7 +125,8 @@ liste  listing( boole f , int k, int m, int R )
 liste doit( boole f, int k, int m, int  R )
 {
 if ( m == limite  ) {
-	liste l = listing( f, k, m, R);
+	 
+	liste l = listing( f, k, m,   R  - rho[k-1][ m ], R);
 	return l;
 }
 liste  l = doit( f, k, m - 1, R / 2 );
@@ -132,6 +136,8 @@ liste res = NULL;
 
 
 liste  ll = l;
+
+int  min = R -  rho[k-1][m-1];
 while ( ll ) {
 	for( int x = 0; x < q; x++  )
 	   sum[x] = ll->fct [x] ^ f[ x + q ] ^ f[x];
@@ -176,6 +182,28 @@ int main(int argc, char *argv[])
     int opt,  R = 0;
     int k = 2;
     limite = 5;
+
+    rho[1][3] = 2;
+    rho[1][4] = 6;
+    rho[1][5] = 12;
+    rho[1][6] = 28;
+    rho[1][7] = 56;
+    rho[1][8] = 120;
+    
+    rho[2][3] = 2;
+    rho[2][4] = 2;
+    rho[2][5] = 6;
+    rho[2][6] = 18;
+    rho[2][7] = 40;
+    rho[2][8] = 0;
+
+    rho[3][3] = 0;
+    rho[3][4] = 1;
+    rho[3][5] = 2;
+    rho[3][6] = 8;
+    rho[3][7] = 20;
+    rho[3][8] = 0;
+
     while ((opt = getopt(argc, argv, "a:k:m:f:R:hi:vsl:")) != -1) {
 	switch (opt) {
 	case 'm':
