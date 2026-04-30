@@ -14,7 +14,17 @@ typedef  struct _list_ {
 	 struct _list_ * next;
 } enrlist, *liste;
 int limite;
-code cc[8];
+code cc[9][9];
+
+
+
+int K[5][9] = {
+    {0, 0, 0, 4, 8, 16, 32, 64, 128},
+    {0, 0, 0, 2, 6, 12, 28, 56, 120},
+    {0, 0, 0, 1, 2, 6, 18, 40,  96},
+    {0, 0, 0, 0, 1, 2, 8, 20,   60},
+    {0, 0, 0, 0, 0, 1, 2, 8,    26}
+};
 
 void append( int wt, int m, boole f, liste *l )
 {  liste aux = malloc( sizeof( *aux )  );
@@ -61,7 +71,8 @@ int freeliste( liste l )
 }
 
 int check( liste l , int R )
-{ 
+{
+       if ( l == NULL   ) return 0;	
 	while ( l ) {
 		if ( l->wt < R ) return 0;
 		l = l->next;
@@ -97,9 +108,11 @@ int  addwtboole ( boole f, boole g, int m )
 	return wt;
 }
 
+int    count = 0;
+
 liste  listing( boole f , int k, int m, int R )
 {       liste   l = NULL;
-        code    c = cc[ k ];
+        code    c = cc[ k ][ m ];
         boole   t = getboole( );
 	for( int x = 0; x < ( 1 << m ); x++ )
 		t[x] =f[x];
@@ -119,48 +132,56 @@ liste  listing( boole f , int k, int m, int R )
 	return l;
 }
 
-liste doit( boole f, int k, int m, int  R )
+liste doit( boole f, int k, int m, int  rho )
 {
-if ( m == limite  ) {
-	liste l = listing( f, k, m, R);
+if ( m == limite  ||  k == 1 ) {
+	liste l = listing( f, k, m,  rho );
 	return l;
 }
-liste  l = doit( f, k, m - 1, R / 2 );
+
+liste  L = doit( f, k, m - 1, rho / 2 );
 uchar sum[ ffsize ];
 int q   = 1 << ( m-1) ;
 liste res = NULL;
 
 
-liste  ll = l;
-while ( ll ) {
+liste  l = L;
+while ( l ) {
 	for( int x = 0; x < q; x++  )
-	   sum[x] = ll->fct [x] ^ f[ x + q ] ^ f[x];
-	int wt = wtboole( ll->fct, m - 1 );
-	liste  lr = doit( sum , k - 1, m - 1, R - wt  );
-	liste tmp = lr;
-        while ( tmp ) {
-		glue( tmp->wt + wt, m - 1, ll->fct, tmp->fct , & res  );
-		tmp = tmp->next;
+	   sum[x] = l->fct [x] ^ f[ x + q ] ^ f[x];
+	int wt = wtboole( l->fct, m - 1 );
+	if (   wt + K[ k-1 ][ m- 1] >=  rho ) {
+		liste  lr = doit( sum , k - 1, m - 1, rho - wt  );
+		liste tmp = lr;
+        	while ( tmp ) {
+			glue( tmp->wt + wt, m - 1, l->fct, tmp->fct , & res  );
+			tmp = tmp->next;
+		}
+		freeliste( lr );
+	} else {
+		printf("left k=%d n=%d : %d %d %d\n", k, m , wt, K[k-1][m-1], rho);
+		count++;
 	}
-	freeliste( lr );
-	ll = ll->next;
+	l = l->next;
 }
 freeliste( l );
 
-l = doit( & f[q], k, m - 1, R / 2 );
-ll = l;
-while ( ll ) {
+liste R = doit( & f[q], k, m - 1, rho / 2 );
+l = R;
+while ( l ) {
         for( int x = 0; x < q; x++  )
-           sum[x] = ll->fct [ x ] ^ f[ x + q ] ^ f[x];
-        int wt = wtboole( ll->fct, m - 1 );
-        liste  lr = doit( sum , k - 1, m - 1, R - wt  );
+           sum[x] = l->fct [ x ] ^ f[ x + q ] ^ f[x];
+        int wt = wtboole( l->fct, m - 1 );
+	if ( wt + K[ k - 1 ][ m- 1] >=  rho ) {
+        liste  lr = doit( sum , k - 1, m - 1, rho - wt  );
         liste tmp = lr;
         while ( tmp ) {
-                glue( tmp->wt + wt, m - 1, tmp->fct, ll->fct  , & res  );
+                glue( tmp->wt + wt, m - 1, tmp->fct, l->fct  , & res  );
                 tmp = tmp->next;
         }
         freeliste( lr );
-        ll = ll->next;
+	} else count++;
+        l = l->next;
 }
 freeliste( l );
 
@@ -202,15 +223,21 @@ int main(int argc, char *argv[])
 	}
     }
 
-    for( int i = 0; i <=  k ; i++ )
-		    cc[ i ]  = rmcode( 0, i,  limite   );
+    for( int k = 0; k < 5; k++ ){
+	    for( int m = 0; m < 9; m++ )
+		    printf(" %3d", K[k][m] );
+	    printf("\n");
+    }
+    for( int k = 0; k <=  4 ; k++ )
+    for( int m = limite; m < 9 ; m++ )
+		    cc[ k ][ m ]  = rmcode( 0, k,  m  );
     boole f;
 
     int tour = 0;
     int soluce = 0;
     if (src) {
 	while ((f = loadBoole(src))){ 
-            if ( valuation(f) > k ) 	{
+            if ( valuation(f) >= 0  ) 	{
 	    liste l = doit( f, k,  ffdimen,  R );
 	    if ( check( l, R )  ) {
 		    soluce++;
@@ -222,7 +249,7 @@ int main(int argc, char *argv[])
 	    }
 	 free( f );
 	tour++;
-	printf("\rtour=%d (%d)", tour, soluce  );
+	printf("\ntour=%d (%d)  count=%d\n", tour, soluce , count  );
 	fflush(stdout );
 	}
 	fclose(src);
