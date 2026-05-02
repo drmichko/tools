@@ -150,18 +150,13 @@ while ( l ) {
 	for( int x = 0; x < q; x++  )
 	   sum[x] = l->fct [x] ^ f[ x + q ] ^ f[x];
 	int wt = wtboole( l->fct, m - 1 );
-	if (   wt + K[ k-1 ][ m- 1] >=  rho ) {
-		liste  lr = doit( sum , k - 1, m - 1, rho - wt  );
+	liste  lr = doit( sum , k - 1, m - 1, rho - wt  );
 		liste tmp = lr;
         	while ( tmp ) {
 			glue( tmp->wt + wt, m - 1, l->fct, tmp->fct , & res  );
 			tmp = tmp->next;
 		}
 		freeliste( lr );
-	} else {
-		printf("left k=%d n=%d : %d %d %d\n", k, m , wt, K[k-1][m-1], rho);
-		count++;
-	}
 	l = l->next;
 }
 freeliste( l );
@@ -172,7 +167,6 @@ while ( l ) {
         for( int x = 0; x < q; x++  )
            sum[x] = l->fct [ x ] ^ f[ x + q ] ^ f[x];
         int wt = wtboole( l->fct, m - 1 );
-	if ( wt + K[ k - 1 ][ m- 1] >=  rho ) {
         liste  lr = doit( sum , k - 1, m - 1, rho - wt  );
         liste tmp = lr;
         while ( tmp ) {
@@ -180,7 +174,6 @@ while ( l ) {
                 tmp = tmp->next;
         }
         freeliste( lr );
-	} else count++;
         l = l->next;
 }
 freeliste( l );
@@ -197,13 +190,17 @@ int main(int argc, char *argv[])
     int opt,  R = 0;
     int k = 2;
     limite = 5;
-    while ((opt = getopt(argc, argv, "a:k:m:f:R:hi:vsl:")) != -1) {
+    int job = 0;
+    while ((opt = getopt(argc, argv, "a:k:m:f:R:hij::vsl:")) != -1) {
 	switch (opt) {
 	case 'm':
 	    initboole(atoi(optarg));
 	    break;
 	case 'a':
 	    anf = strdup(optarg);
+	    break;
+	case 'j':
+	    job = atoi(optarg);
 	    break;
 	case 'l':
 	    limite = atoi(optarg);
@@ -238,8 +235,9 @@ int main(int argc, char *argv[])
     if (src) {
 	while ((f = loadBoole(src))){ 
             if ( valuation(f) >= 0  ) 	{
-	    liste l = doit( f, k,  ffdimen,  R );
-	    if ( check( l, R )  ) {
+	    if ( tour == job ) {
+		    liste l = doit( f, k,  ffdimen,  R );
+	   		 if ( check( l, R )  ) {
 		    soluce++;
 		    printf("\n");
 	    	    panf(stdout, f);
@@ -247,9 +245,9 @@ int main(int argc, char *argv[])
 	    }
 	    freeliste( l );
 	    }
+	    }
 	 free( f );
 	tour++;
-	printf("\ntour=%d (%d)  count=%d\n", tour, soluce , count  );
 	fflush(stdout );
 	}
 	fclose(src);
