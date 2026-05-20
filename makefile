@@ -11,7 +11,7 @@ else
 endif
 
 
-all : nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
+all : ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
 	
 
 oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
@@ -29,6 +29,8 @@ rd.exe : rd.c
 	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
 nl.exe : nl.c
+	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
+ft.exe : ft.c
 	gcc $(CFLAGS) $^  -o $@  -lboole -lgmp
 
 test.exe : test.c
