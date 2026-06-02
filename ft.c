@@ -6,16 +6,6 @@
 #include <time.h>
 #include <string.h>
 #include "boolean.h"
-#include "math.h"
-#include "code.h"
-
-
-int limite;
-code cc[8];
-
-int rho[4][9];
-
-
 
 int *F[ 9 ];
 
@@ -27,16 +17,13 @@ for( int v = 0 ; v <= ffdimen; v++ )
 
 int count ;
 
-int Z[ 8] = { 0 };
+int Z[ 16 ] = { 0 };
 
 #define FF(v, s, w) ( F[(v)][ ((s) << (v)) + (w) ] )
 
 void inittable( boole f )
 {
 count = 0;
-for( int s = 0; s < ffsize ; s++ ) 
-		FF( 0, s, 0 ) = ( f[ s ]  ) ? -1 : 1;
-return;
 for( int s = 0; s < ffsize/2 ; s++ ) 
    for( int t = 0; t < 2; t++ ){
 		FF( 1, s, t ) = ( f[ (s << 1) + t ] ^ t  ) ? -1 : 1;
@@ -45,9 +32,9 @@ for( int s = 0; s < ffsize/2 ; s++ )
 
 int score = 0;
 
-void zzz( boole f ) {
+void QT( boole f ) {
 boole q = getboole( );
-for( int v = 1; v <= ffdimen; v++ )
+for( int v = 2; v <= ffdimen; v++ )
 	for( int j = 0; j < v-1; j++ )
 		if ( Z[ v ] & ( 1 << j ) )
 			q[ ( 1 << (v-1) ) + ( 1 <<  j ) ]= 1;
@@ -58,7 +45,6 @@ int tmp = linearity( q );
 if ( tmp >  score ) {
 	score = tmp;
 	count = 0;
-	printf("\nscore=%d", score );
 }
 if ( tmp == score) count++;
 free(q);
@@ -93,18 +79,17 @@ void doit( int v, boole f, int R   )
 // propager au niveau v 
 {
 if ( v == ffdimen ) {
-	zzz( f );
+	QT( f );
 	return;
 }
 int * M = calloc( ffsize, sizeof(int ) );
 
-//show( v - 1 );
-int ret = 1 << (ffdimen - v );
-for( int s = 0; s <  ( 1 << ( ffdimen - v - 1) ); s++ ) {
+int ret = 1 << (ffdimen - v + 1 );
+for( int s = 0; s <  ( 1 << ( ffdimen - v + 1) ); s++ ) {
 	for( int Q = 0;  Q< ( 1 << ( v - 1) ) ; Q++ ) {
 		int max = 0;
 		for( int u = 0;  u < ( 1 << ( v-1 ) ) ; u++ ) {
-			int tmp = abs( FF( v-1, s,  u )  )  + abs( FF( v-1, s + ret , u^Q ) );    // t ? w ?
+			int tmp = abs( FF( v-1, s,  u )  )  + abs( FF( v-1, s + ret , u^Q ) );
 			if ( tmp > max ) max = tmp;
 		}
 		M[  ( s << ( v - 1 ) )  +  Q  ] = max;
@@ -115,12 +100,7 @@ for ( int Q = 0; Q < ( 1 << (v-1) ) ; Q++ ) {
  	 for( int s = 0; s < 1 << ( ffdimen - v ) ; s++ )
 		Gamma += M[    ( s << ( v-1)  )  +  Q ];
 	Z[ v ] = Q;
-        int G = 0;
-	for( int s = 0; s < 1 << ( ffdimen - v ) ; s++ )
-		G += mygamma( f, v, s );
-        printf("v=%d G=%d E=%d\n", v, G, Gamma ); 
-        if ( G >= R && Gamma < R ) { printf("v=%d G=%d Gest=%d\n", v, G, Gamma ); }
-	if (  G  >= R ) {
+	if (  Gamma  >= R ) {
 		int bit = 1 << ( v - 1 );
 		for( int s = 0; s < 1 << ( ffdimen - v ) ; s++ ) {
 		   for( int u = 0; u < 1 << ( v-1   ) ; u++ )
@@ -140,15 +120,19 @@ free( M  );
 int main(int argc, char *argv[])
 {
     FILE *src = NULL;
-    int opt,  R = 0;
+    int opt,  R = 0, D = 0;
 
-    while ((opt = getopt(argc, argv, "a:k:m:f:R:hi:vsl:")) != -1) {
+    while ((opt = getopt(argc, argv, "a:k:m:f:R:D:hi:vsl:")) != -1) {
 	switch (opt) {
 	case 'm':
 	    initboole(atoi(optarg));
 	    break;
 	case 'R':
 	    R = atoi(optarg);
+	    break;
+	case 'D':
+	    D = atoi(optarg);
+	    R = ffsize - 2 * D;
 	    break;
 	case 'f':
 	    src = fopen(optarg, "r");
@@ -169,13 +153,11 @@ int main(int argc, char *argv[])
             if ( valuation(f) >= 0 ) 	{
 		    inittable( f  );
 		    score= 0;
-		    doit( 1, f, R  );
-	  	    printf("\nscore=%d %d", score , ffsize / 2 - score / 2);
-		    printf( "\ncount=%d\n", count );
+		    doit( 2, f, R  );
+	  	    printf("\nR=%d d=%d count=%d", score , ffsize / 2 - score / 2, count );
 		   
 	    }
 	 free( f );
-	//printf("\rtour=%d (%d)", tour, soluce  );
 	fflush(stdout );
 	}
 	fclose(src);
