@@ -11,7 +11,7 @@ else
 endif
 
 
-all : ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
+all : stab.exe ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
 	
 
 oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
@@ -19,6 +19,8 @@ oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple
 debug:
 	$(MAKE)  -B DEBUG=1
 
+stab.exe : stab.c
+	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 anfsimple.exe : anfsimple.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 
