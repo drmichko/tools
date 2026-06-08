@@ -7,7 +7,7 @@
 #include <string.h>
 #include "boolean.h"
 
-int *F[ 9 ];
+int *F[ 10  ];
 
 void mktable( void )
 {
@@ -21,6 +21,14 @@ int Z[ 16 ] = { 0 };
 
 #define FF(v, s, w) ( F[(v)][ ((s) << (v)) + (w) ] )
 
+void FFF( int i, int v, int s, int w )
+{
+int pos =  ( s << v ) + w;
+if ( pos >= ffsize ) {
+	printf("\ni=%d s=%d v=%d w=%d     pos=%d\n", i, s, v, w, pos );
+        exit(0);
+}
+}
 void inittable( boole f )
 {
 count = 0;
@@ -34,7 +42,7 @@ int score = 0;
 
 void QT( boole f ) {
 boole q = getboole( );
-for( int v = 2; v <= ffdimen; v++ )
+for( int v = 2; v <  ffdimen; v++ )
 	for( int j = 0; j < v-1; j++ )
 		if ( Z[ v ] & ( 1 << j ) )
 			q[ ( 1 << (v-1) ) + ( 1 <<  j ) ]= 1;
@@ -42,6 +50,7 @@ TTtoANF( q );
 for( int x = 0; x < ffsize; x++ )
 	q[x] ^= f[x];
 int tmp = linearity( q );
+printf(" %d", tmp );
 if ( tmp >  score ) {
 	score = tmp;
 	count = 0;
@@ -84,11 +93,13 @@ if ( v == ffdimen ) {
 }
 int * M = calloc( ffsize, sizeof(int ) );
 
-int ret = 1 << (ffdimen - v + 1 );
-for( int s = 0; s <  ( 1 << ( ffdimen - v + 1) ); s++ ) {
+int ret = 1 << (ffdimen - v + 1  );
+for( int s = 0; s <  ( 1 << ( ffdimen - v + 1 ) ); s++ ) {
 	for( int Q = 0;  Q< ( 1 << ( v - 1) ) ; Q++ ) {
 		int max = 0;
 		for( int u = 0;  u < ( 1 << ( v-1 ) ) ; u++ ) {
+			FFF( 0, v-1, s,  u );
+			FFF( 1, v-1, s + ret , u^Q ) ;
 			int tmp = abs( FF( v-1, s,  u )  )  + abs( FF( v-1, s + ret , u^Q ) );
 			if ( tmp > max ) max = tmp;
 		}
@@ -149,14 +160,17 @@ int main(int argc, char *argv[])
     boole f;
     printf("\nepsilon=%.2f",  (ffsize -R ) / 2.0 / 2 / ffsize ); 
     if (src) {
-	while ((f = loadBoole(src))){ 
-            if ( valuation(f) >= 0 ) 	{
+        int val;
+	while ((f = loadBooleValue(src, &val))){
+    		clock_t debut = clock();
+                    panf( stdout, f );
 		    inittable( f  );
 		    score= 0;
 		    doit( 2, f, R  );
 	  	    printf("\nR=%d d=%d count=%d", score , ffsize / 2 - score / 2, count );
-		   
-	    }
+		clock_t fin = clock();
+		double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
+		printf("\nruntime : %.6f secondes\n", temps);
 	 free( f );
 	fflush(stdout );
 	}
