@@ -19,6 +19,24 @@ orbitData df  = initData( f , 4, grp, size );
 freeData( &df );
 }
 
+
+int checkstab( boole f, aglGroup g, int r )
+{
+while ( g ) {
+    boole h = getboole( );
+    for ( shortvec x = 0; x < ffsize; x++)
+        h[x] = f[  aglImage(x, g->per ) ] ^ f[x];
+    if( degree(h) >  r ) {
+                printf("\ndegrees : f=%d  b=%d\n", degree(f),  degree(h) );
+            return 0;
+    }
+    free( h );
+    g = g -> next;
+}
+
+return 1;
+}
+
 int main(int argc, char *argv[])
 {  
 
@@ -101,23 +119,24 @@ int main(int argc, char *argv[])
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
             panf( stdout, f );
             paglGroup( stdout, grp );
-            fprintf(stdout, "\nstabSize=%ld\n", size ); 
+            fprintf(stdout, "\nstabSize=%ld\n", grpSize ); 
             basis_t base   = monomialBasis( optr, optr,  ffdimen);
             vector vec  = booleVector( f, & base );
             aglVectorGroup ldg  = aglBoundaryGroupAction( f , grp , &base );
             initBrowse( &base );
-            size_t orbsize = browse( 0, ldg  );
-            printf("\norbsize=%ld", orbsize );
-            assert(   grpSize % orbsize == 0 );
-            free( base.table);
+            size_t orbSize = browse( 0 , ldg  );
+            printf("\norbsize=%ld", orbSize );
+            assert(   grpSize % orbSize == 0 );
             size_t stabSize = grpSize /orbSize ;
             printf("\nstabsize=%ld", stabSize );
-
-            //res.W[r].route = transversale( vec ,  res.W[r].ldg, & res.W[r].base  );
-	    //total *= res.W[r].base.orbSize;
+            aglGroup sub = plainStabilizer( 0 , grp, &base, stabSize);
+            //assert( checkstab( f, sub, optr - 1 ) == 1 );	    
+             checkstab( f, sub, optr - 1 );	    
+            free( base.table);
 	    aglVectorGroupFree( ldg );
             free(f);
             aglfreeGroup( grp );
+            aglfreeGroup( sub );
         }
 
      fclose(dst);

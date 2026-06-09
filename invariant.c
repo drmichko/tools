@@ -83,14 +83,15 @@ int main(int argc, char *argv[])
     char fn[64];
     int dim = 6;
 
-    int opt, optdeg = 0, optfr=0, optall=0, optlift=0, optres=0;
-    while ((opt = getopt(argc, argv, "adlvtrf:")) != -1) {
+    int opt, optdeg = 0, optfr=0, optall=0, optlift=0, optres=0, mode = 0;
+    while ((opt = getopt(argc, argv, "adlvtrf:m")) != -1) {
 	switch (opt) {
 	case 'a': optall = 1; break;
 	case 'd': optdeg = 1; break;
 	case 't': optfr  = 1;break;
 	case 'r': optres  = 1;break;
 	case 'l': optlift = 1;break;
+	case 'm': mode++;break;
         case 'f': src = fopen( optarg, "r" ); 
     		if ( ! src ) {
 		perror( optarg );
@@ -139,7 +140,7 @@ int main(int argc, char *argv[])
 		    assert( tmp == R[nbj-1] );
 	    }
 	    if ( optall || optres ) {
-		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
+		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr ,  mode );
 		    /*for( int i=0; i < 10; i++) {
 			    randAction( f );
 		    int tmp = invRestriction( f , ffsize, &bres, &rootd, &countd);
@@ -185,7 +186,7 @@ int main(int argc, char *argv[])
                     R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
             }
             if ( optall || optres ) {
-                    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
+                    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr, mode );
             }
             int val  = findspltable(R, nbj, &rootj, &countj);
 	    table[ val ].cpt++;
