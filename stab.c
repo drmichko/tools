@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     int num = 0, cls = -1;
     int opt, optw = 0, optr=0, optinit = 0;
     int deg = 0;
-    while ((opt = getopt(argc, argv, "if:c:wb:d:m:r:")) != -1) {
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:")) != -1) {
 	switch (opt) {
 	case 'w':
 	    optw++;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	    cls = atoi(optarg);
 	    break;
 	case 'i': 
-		optinit = 1;
+		optinit = atoi( optarg);
 	break;
 	case 'f': 
 		fn = strdup( optarg );
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 		exit(1);
     	}
 
-       sprintf(fn,  "stab/stab-%d.txt", optr );
+       sprintf(fn,  "stab/stab-%d.txt", optinit );
        FILE * dst = fopen( fn, "w" ); 
 	grp = mkaglGroup( ffdimen );
 	int64_t size = aglcard(ffdimen);
@@ -83,14 +83,18 @@ int main(int argc, char *argv[])
 	}
         fclose(dst);
         fclose(src);
-       printf("\n#maps : %d\n", num );
+        printf("\n#maps : %d\n", num );
+        return 0;
     }
-    if ( ! optr ) exit(0);
+    if ( ! optr ) return (0);
 
     char tmp[64];
     sprintf( tmp ,  "stab/stab-%d.txt", optr );
     FILE * src = fopen(  tmp , "r" );
-
+    if ( ! src ) {
+		perror( tmp );
+		exit(1);
+	}
     sprintf( tmp ,  "stab/stab-%d.txt", optr - 1 );
     FILE * dst = fopen( tmp , "w" );
         
