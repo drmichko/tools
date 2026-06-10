@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     aglGroup g = NULL;
     int num = 0, cls = -1;
     int opt, optw = 0, optr=0, optinit = 0;
-    int deg = 0;
+    int deg = 0, dimen = 7;
     while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:")) != -1) {
 	switch (opt) {
 	case 'w':
@@ -61,6 +61,9 @@ int main(int argc, char *argv[])
 	case 'i': 
 		optinit = atoi( optarg);
 	break;
+	case 'm': 
+		dimen  = atoi( optarg);
+	break;
 	case 'f': 
 		fn = strdup( optarg );
                 break;
@@ -74,8 +77,8 @@ int main(int argc, char *argv[])
     }
 
 
-    initboole(7);
-    initagldim(7);
+    initboole(  dimen );
+    initagldim( dimen );
 
     boole f;
     num = 0;
@@ -115,28 +118,45 @@ int main(int argc, char *argv[])
 	}
     sprintf( tmp ,  "stab/stab-%d.txt", optr - 1 );
     FILE * dst = fopen( tmp , "w" );
-        
+    
+    if ( ! dst) {
+		perror( tmp );
+		exit(1);
+	}
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
             panf( stdout, f );
+	    int t = degree( f );
             paglGroup( stdout, grp );
             fprintf(stdout, "\nstabSize=%ld\n", grpSize ); 
             basis_t base   = monomialBasis( optr, optr,  ffdimen);
-            vector vec  = booleVector( f, & base );
-            aglVectorGroup ldg  = aglBoundaryGroupAction( f , grp , &base );
+	    vector vec;
+             aglVectorGroup  ldg = NULL;
+            if ( t <= optr ) {
+		    vec  = booleVector( f, & base );
+               		ldg = aglVectorGroupAction( grp , & base );
+	    }  else {
+               vec = 0;
+               ldg = aglBoundaryGroupAction( f , grp , & base );
+               }
             initBrowse( &base );
-            size_t orbSize = browse( 0 , ldg  );
+            size_t orbSize = browse( vec , ldg  );
             printf("\norbsize=%ld", orbSize );
             assert(   grpSize % orbSize == 0 );
             size_t stabSize = grpSize /orbSize ;
             printf("\nstabsize=%ld", stabSize );
-            aglGroup sub = plainStabilizer( 0 , grp, &base, stabSize);
-            //assert( checkstab( f, sub, optr - 1 ) == 1 );	    
-             checkstab( f, sub, optr - 1 );	    
+            aglGroup stab = NULL;
+            stab = plainStabilizer( vec  , grp, &base, stabSize);
+            assert( checkstab( f, stab, optr - 1 ) == 1 );	    
+            checkstab( f, stab, optr - 1 );	    
+	    panf( dst, f );
+	    paglGroup( dst, stab );
+            fprintf(dst, "\nstabSize=%ld\n", stabSize ); 
             free( base.table);
 	    aglVectorGroupFree( ldg );
             free(f);
             aglfreeGroup( grp );
-            aglfreeGroup( sub );
+            aglfreeGroup( stab );
+	    num++;
         }
 
      fclose(dst);
