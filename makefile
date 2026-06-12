@@ -11,13 +11,16 @@ else
 endif
 
 
-all : stabredo.exe stab.exe ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
+all : action.c stabredo.exe stab.exe ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
 	
 
 oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
 	
 debug:
 	$(MAKE)  -B DEBUG=1
+
+action.exe : action.c
+	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 
 stabredo.exe : stabredo.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
