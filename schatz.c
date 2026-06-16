@@ -9,26 +9,32 @@
 
 #include "boolean.h"
 #include "orbitools.h"
+#include "distrib.h"
 
 aglGroup grp ;
 int64_t size ;
 
+int *table( boole f )
+{ code cc = rmcode( 2, 2, 7 );
+  int * A = calloc( 1 << cc.nbl , sizeof(int ) );
+	
+	int  cpt=1, limite = 1 << cc.nbl;
+        boole  t = getboolecpy( f );
+        A[0] = ( ffsize - linearity( f ) ) / 2;
+        int q = 0;
+        while ( cpt < limite ) {
+                int i = __builtin_ctz( cpt  );
+                for( int x = 0; x < ffsize; x++ )
+                        t[x] ^= cc.fct[i][x];
+                q ^=  ( 1 << i );
+                A[ q  ] = ( ffsize - linearity( t ) ) /2;
+                cpt++;
+        }
 
-int checkstab( boole f, aglGroup g, int r )
-{
-while ( g ) {
-    boole h = getboole( );
-    for ( shortvec x = 0; x < ffsize; x++)
-        h[x] = f[  aglImage(x, g->per ) ] ^ f[x];
-    if( degree(h) >  r ) {
-                printf("\ndegrees : f=%d  b=%d\n", degree(f),  degree(h) );
-            return 0;
-    }
-    free( h );
-    g = g -> next;
-}
-
-return 1;
+        free( t );
+        freecode( cc );
+      	pdistrib( "\nW=", A, limite+1 ); 
+  return A;
 }
 
 int main(int argc, char *argv[])
@@ -39,7 +45,7 @@ int main(int argc, char *argv[])
 
     aglGroup g = NULL;
     int num = 0, cls = -1;
-    int opt, optw = 0, optr=0, optinit = 0;
+    int opt, optw = 0, optr=-1, optinit = 0;
     int deg = 0, dimen = 7;
     while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:")) != -1) {
 	switch (opt) {
@@ -86,30 +92,16 @@ int main(int argc, char *argv[])
 	}
     
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
-            panf( stdout, f );
-	    int t = degree( f );
-            paglGroup( stdout, grp );
-            fprintf(stdout, "\nstabSize=%ld\n", grpSize ); 
-            basis_t base   = monomialBasis( optr, optr,  ffdimen);
-	    
-            aglVectorGroup  ldg = NULL;
-            ldg = aglBoundaryGroupAction( f , grp , & base );
-               
-            initBrowse( &base );
-            int rank = 0;
-	    vector vec;
-            for( vec = 0; vec < base.size; vec++ )
-		if ( ! base.table[vec] ) {
-			boole g = vectortoboole( vec, &base );
-			panf( stdout, g );
-			free( g );
-            		size_t orbSize = browse( vec , ldg  );
-            		printf("\norbsize=%ld", orbSize );
-			rank++;
-                        }
-	
-            printf("\nrank=%d", rank );
-            free(f);
+		 panf( stdout, f );
+		 int * W = table( f );
+	    	 boole g;
+	    	 int nb = 0;
+    	    	 while ((g = loadBoole(src ) ) ) {
+	    		free( g );
+			nb++;
+	    	}
+	        printf("\n#nb: %d\n", nb);
+	    free(f);
             aglfreeGroup( grp );
 	    num++;
         }

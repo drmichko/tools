@@ -28,6 +28,9 @@ while ( g ) {
         h[x] = f[  aglImage(x, g->per ) ] ^ f[x];
     if( degree(h) >  r ) {
                 printf("\ndegrees : f=%d  b=%d\n", degree(f),  degree(h) );
+		panf( stdout, f );
+		panf( stdout, h );
+		puts("\n");
             return 0;
     }
     free( h );
@@ -128,15 +131,22 @@ int main(int argc, char *argv[])
 	    int t = degree( f );
             paglGroup( stdout, grp );
             fprintf(stdout, "\nstabSize=%ld\n", grpSize ); 
-            basis_t base   = monomialBasis( optr, optr,  ffdimen);
+            checkstab( f, grp, optr );
+            
+	    basis_t base   = monomialBasis( optr, optr,  ffdimen);
 	    vector vec;
-             aglVectorGroup  ldg = NULL;
-            if ( t <= optr ) {
+            aglVectorGroup  ldg = NULL;
+            if ( t < optr ) {
 		    vec  = booleVector( f, & base );
-               		ldg = aglVectorGroupAction( grp , & base );
+                    ldg = aglVectorGroupAction( grp , & base );
 	    }  else {
-               vec = 0;
+	       puts("boundary");
+               //boole g = getboolecpy( f );
+	       //projboole( optr-1, optr-1, g );
+	       //vec  = booleVector(  g , & base );
+	       vec = 0;
                ldg = aglBoundaryGroupAction( f , grp , & base );
+	       //free( g );
                }
             initBrowse( &base );
             size_t orbSize = browse( vec , ldg  );
@@ -145,12 +155,14 @@ int main(int argc, char *argv[])
             size_t stabSize = grpSize /orbSize ;
             printf("\nstabsize=%ld", stabSize );
             aglGroup stab = NULL;
-            stab = plainStabilizer( vec  , grp, &base, stabSize);
+            stab = boundStabilizer( vec ,  f, grp, & base, stabSize);
+
             assert( checkstab( f, stab, optr - 1 ) == 1 );	    
             checkstab( f, stab, optr - 1 );	    
 	    panf( dst, f );
 	    paglGroup( dst, stab );
-            fprintf(dst, "\nstabSize=%ld\n", stabSize ); 
+	   
+	    fprintf(dst, "\nstabSize=%ld\n", stabSize ); 
             free( base.table);
 	    aglVectorGroupFree( ldg );
             free(f);

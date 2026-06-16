@@ -1,0 +1,4569 @@
+
+anf=abd+ace+ade+bcf+bdf+cef+abg+abcg+adg+bdg+abdg+aceg+fg+bcfg+defg
+[0110110 0001010 0001000 0010000 1010000 1011100 1101101]1110110
+[0010010 1111100 1010000 1011010 1001110 1011000 1001101]1100001
+stabSize=990904320
+
+anf=
+orbsize=15360
+anf=abc
+orbsize=20643840
+anf=abd
+orbsize=368640
+anf=acd
+orbsize=3870720
+anf=abd+acd
+orbsize=2580480
+anf=acd+abe
+orbsize=123863040
+anf=abc+acd+abe
+reallocation 1...
+
+orbsize=165150720
+anf=abd+acd+abe
+orbsize=61931520
+anf=bcd+abe
+orbsize=30965760
+anf=abc+bcd+abe
+orbsize=123863040
+anf=abd+bcd+abe
+orbsize=30965760
+anf=ace
+orbsize=10321920
+anf=abd+ace
+orbsize=123863040
+anf=abc+abd+ace
+orbsize=20643840
+anf=abc+acd+ace
+orbsize=15482880
+anf=abc+abd+acd+ace
+orbsize=123863040
+anf=bcd+ace
+orbsize=123863040
+anf=abc+bcd+ace
+orbsize=123863040
+anf=abc+abd+bcd+ace
+orbsize=10321920
+anf=abc+abd+acd+bcd+ace
+orbsize=41287680
+anf=acd+abe+ace
+orbsize=82575360
+anf=abd+acd+abe+ace
+orbsize=5160960
+anf=bcd+abe+ace
+orbsize=30965760
+anf=abc+bcd+abe+ace
+orbsize=123863040
+anf=abd+bcd+abe+ace
+orbsize=41287680
+anf=abd+acd+bcd+abe+ace
+orbsize=30965760
+anf=abd+bce
+orbsize=30965760
+anf=acd+bce
+orbsize=61931520
+anf=bcd+bce
+orbsize=1290240
+anf=abe+bce
+orbsize=5160960
+anf=abd+bcd+abe+bce
+orbsize=2580480
+anf=abc+ade
+orbsize=20643840
+anf=abc+abd+ade
+orbsize=41287680
+anf=bce+ade
+orbsize=123863040
+anf=abc+bce+ade
+orbsize=10321920
+anf=abc+abe+bce+ade
+orbsize=20643840
+anf=abd+ace+abf
+orbsize=123863040
+anf=abc+abd+ace+abf
+orbsize=20643840
+anf=acd+ace+abf
+orbsize=61931520
+anf=abc+acd+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+ace+abf
+orbsize=123863040
+anf=bcd+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=acd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=acd+abe+ace+abf
+orbsize=82575360
+anf=abd+acd+abe+ace+abf
+orbsize=123863040
+anf=bcd+abe+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+bcd+abe+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abd+acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abd+bce+abf
+orbsize=123863040
+anf=abc+abd+bce+abf
+orbsize=61931520
+anf=abd+acd+bce+abf
+reallocation 1...
+
+orbsize=141557760
+anf=abc+abd+acd+bce+abf
+orbsize=70778880
+anf=bcd+bce+abf
+orbsize=123863040
+anf=abc+bcd+bce+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+bcd+bce+abf
+orbsize=61931520
+anf=abd+acd+bcd+bce+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+bcd+bce+abf
+reallocation 1...
+
+orbsize=247726080
+anf=bcd+ade+abf
+orbsize=30965760
+anf=abc+bcd+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+abd+bcd+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=acd+bcd+ade+abf
+reallocation 1...
+
+orbsize=247726080
+anf=acd+bcd+abe+ade+abf
+reallocation 1...
+
+orbsize=141557760
+anf=abc+acd+bcd+abe+ade+abf
+orbsize=70778880
+anf=abc+abd+acd+bcd+abe+ade+abf
+orbsize=70778880
+anf=abc+bce+ade+abf
+orbsize=41287680
+anf=abc+abd+bce+ade+abf
+reallocation 1...
+
+orbsize=247726080
+anf=bcd+bce+ade+abf
+orbsize=30965760
+anf=abc+bcd+bce+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+abd+bcd+bce+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+ace+bce+ade+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+ace+bce+ade+abf
+orbsize=20643840
+anf=abc+abd+ace+bce+ade+abf
+orbsize=123863040
+anf=acd+bcd+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+acd+bcd+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abd+abe+ace+bce+ade+abf
+orbsize=41287680
+anf=abc+acd+bcd+abe+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+acd+bcd+abe+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+ace+cde+abf
+orbsize=123863040
+anf=abc+abd+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=acd+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abc+acd+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+acd+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=bcd+ace+cde+abf
+orbsize=41287680
+anf=abd+bcd+ace+cde+abf
+orbsize=123863040
+anf=abc+abd+bcd+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+ace+cde+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+abe+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+acd+abe+ace+cde+abf
+reallocation 1...
+
+orbsize=141557760
+anf=abd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abd+acd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bce+cde+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+acd+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abc+abd+acd+bcd+bce+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+ade+cde+abf
+orbsize=123863040
+anf=abc+abe+ade+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abd+abe+ade+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+abe+ade+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+acd+bce+ade+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abc+ace+bce+ade+cde+abf
+orbsize=123863040
+anf=abd+bce+acf
+orbsize=123863040
+anf=abc+acd+abe+bce+acf
+orbsize=61931520
+anf=bcd+abe+bce+acf
+reallocation 1...
+
+orbsize=141557760
+anf=abd+acd+bcd+abe+bce+acf
+orbsize=61931520
+anf=abc+abd+acd+bcd+abe+bce+acf
+orbsize=61931520
+anf=abc+abd+ace+bce+acf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+abd+acd+ace+bce+acf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+bcd+abe+ace+bce+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+acd+bcd+abe+ace+bce+acf
+orbsize=41287680
+anf=abc+ade+acf
+orbsize=20643840
+anf=abc+bcd+ade+acf
+orbsize=123863040
+anf=bce+ade+acf
+orbsize=123863040
+anf=bcd+bce+ade+acf
+orbsize=61931520
+anf=abd+bcd+bce+ade+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+ace+bce+ade+acf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+bcd+ace+bce+ade+acf
+orbsize=61931520
+anf=abd+acd+bcd+ace+bce+bde+acf
+orbsize=61931520
+anf=ace+ade+bde+acf
+orbsize=123863040
+anf=abc+ace+ade+bde+acf
+orbsize=123863040
+anf=abc+bce+ade+bde+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+acd+bce+ade+bde+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+bce+ade+bde+acf
+orbsize=123863040
+anf=acd+bcd+bce+ade+bde+acf
+orbsize=41287680
+anf=abc+acd+ace+cde+acf
+orbsize=61931520
+anf=abc+abd+acd+ace+cde+acf
+orbsize=20643840
+anf=abc+abd+bcd+ace+cde+acf
+orbsize=61931520
+anf=abc+ade+cde+acf
+orbsize=20643840
+anf=abc+acd+ade+cde+acf
+orbsize=10321920
+anf=abc+bcd+ade+cde+acf
+orbsize=41287680
+anf=abd+acd+ace+ade+cde+acf
+orbsize=61931520
+anf=abd+acd+bcd+ace+ade+cde+acf
+orbsize=10321920
+anf=abc+abd+acd+bde+cde+acf
+orbsize=41287680
+anf=abd+abe+bce+abf+acf
+orbsize=61931520
+anf=abc+bcd+bce+ade+abf+acf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+bcd+ace+bce+ade+abf+acf
+orbsize=82575360
+anf=abc+abe+ace+ade+bde+abf+acf
+orbsize=61931520
+anf=abd+ace+bcf
+orbsize=20643840
+anf=ade+bcf
+orbsize=123863040
+anf=abd+ace+bce+bde+bcf
+orbsize=15482880
+anf=abc+ace+bce+bde+abf+bcf
+orbsize=82575360
+anf=abc+acd+ace+bce+bde+abf+bcf+adf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+acd+ace+bce+bde+abf+bcf+adf
+orbsize=123863040
+anf=abc+ace+bce+bde+acf+bcf+adf
+orbsize=2580480
+anf=abd+ace+bce+bde+acf+bcf+adf
+orbsize=123863040
+anf=abc+bce+ade+bde+acf+bcf+adf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+bce+ade+bde+acf+bcf+adf
+orbsize=5160960
+anf=abd+abe+bce+ade+bde+acf+bcf+adf
+orbsize=30965760
+anf=abd+acd+abe+bce+ade+bde+acf+bcf+adf
+orbsize=70778880
+anf=abc+acd+bcd+ace+bce+bde+cde+acf+bcf+adf
+orbsize=2580480
+anf=abc+ade+bdf
+orbsize=368640
+anf=acd+bcd+abe+bce+bde+cde+abf+acf+bcf+adf+aef
+orbsize=737280
+anf=abd+cef
+orbsize=41287680
+anf=abd+acd+cef
+orbsize=41287680
+anf=abc+ade+cef
+orbsize=10321920
+anf=abc+acd+ade+cef
+orbsize=123863040
+anf=abc+acd+bcd+ade+cef
+orbsize=61931520
+anf=abc+bcd+abe+ade+cef
+orbsize=123863040
+anf=abc+bcd+bce+ade+cef
+orbsize=30965760
+anf=abc+acd+bcd+bce+ade+cef
+orbsize=123863040
+anf=abc+acd+abe+bce+ade+bde+abf+acf+cef
+orbsize=61931520
+anf=abc+bcd+ace+ade+abf+bcf+cef
+orbsize=3870720
+anf=abc+acd+bcd+ace+ade+abf+bcf+cef
+orbsize=30965760
+anf=abd+acd+bcd+bce+bde+acf+adf+cef
+orbsize=1290240
+anf=abd+abe+bce+bde+abf+acf+adf+cef
+orbsize=5160960
+anf=abd+ace+ade+bcf+bdf+cef
+orbsize=15360
+anf=abc+acd+abe+bce+ade+cde+acf+aef+cef
+orbsize=737280
+anf=abg
+orbsize=7168
+anf=acd+abg
+orbsize=1290240
+anf=abc+acd+abg
+orbsize=5160960
+anf=abd+acd+abg
+orbsize=7741440
+anf=bcd+ace+abg
+orbsize=30965760
+anf=abc+bcd+ade+abg
+orbsize=2064384
+anf=abd+ace+bce+ade+abg
+orbsize=2064384
+anf=bcd+ade+abf+acf+abg
+orbsize=30965760
+anf=abc+acd+ace+bcf+abg
+orbsize=2064384
+anf=abc+ade+bcf+abg
+orbsize=5160960
+anf=abd+bce+ade+bde+acf+bcf+adf+abg
+orbsize=1290240
+anf=abc+acd+bcd+ace+bce+bde+cde+acf+bcf+adf+abg
+orbsize=7741440
+anf=abd+ade+cde+bdf+abg
+orbsize=2064384
+anf=abd+ace+ade+bcf+bdf+cef+abg
+orbsize=7168
+anf=acg
+orbsize=43008
+anf=bcd+acg
+orbsize=3870720
+anf=abc+abe+acg
+orbsize=5160960
+anf=abc+ade+bcf+acg
+orbsize=5160960
+anf=abd+bce+ade+bde+abf+acf+bcf+adf+bef+acg
+orbsize=3870720
+anf=abd+ace+ade+bcf+bdf+cef+acg
+orbsize=43008
+rank=204
+anf=bcd+ace+bce+acf+abcf+bdf+cdf+aef+acef+cdef+abg+bdg+bceg+deg+fg+bdfg+aefg+befg
+[1001000 1001001 1111001 1000000 0011000 0110010 0111100]0000110
+[0001000 1110000 1011100 1000000 0100101 0011110 1110101]1010111
+stabSize=47185920
+
+anf=
+orbsize=5120
+anf=abc
+orbsize=1474560
+anf=abd
+orbsize=5898240
+anf=abc+abd
+orbsize=5898240
+anf=acd
+orbsize=7864320
+anf=abd+acd
+orbsize=5898240
+anf=abc+abd+acd
+orbsize=5898240
+anf=bcd
+orbsize=5898240
+anf=acd+bcd
+orbsize=7864320
+anf=abe
+orbsize=368640
+anf=acd+abe
+orbsize=47185920
+anf=abc+acd+abe
+orbsize=47185920
+anf=abd+acd+abe
+orbsize=47185920
+anf=abc+abd+acd+abe
+orbsize=47185920
+anf=bcd+abe
+orbsize=23592960
+anf=abc+bcd+abe
+orbsize=23592960
+anf=abd+bcd+abe
+orbsize=23592960
+anf=abc+abd+bcd+abe
+orbsize=11796480
+anf=acd+bcd+abe
+orbsize=47185920
+anf=abc+acd+bcd+abe
+orbsize=47185920
+anf=abd+acd+bcd+abe
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe
+orbsize=47185920
+anf=abc+ace
+orbsize=1474560
+anf=abd+ace
+orbsize=47185920
+anf=abc+abd+ace
+orbsize=11796480
+anf=bcd+ace
+orbsize=491520
+anf=abc+bcd+ace
+orbsize=5898240
+anf=abd+bcd+ace
+orbsize=11796480
+anf=abc+abd+bcd+ace
+orbsize=47185920
+anf=acd+bcd+ace
+orbsize=2949120
+anf=abc+acd+bcd+ace
+orbsize=2949120
+anf=abd+acd+bcd+ace
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace
+orbsize=47185920
+anf=abc+abe+ace
+orbsize=983040
+anf=abc+abd+abe+ace
+orbsize=23592960
+anf=bcd+abe+ace
+orbsize=2949120
+anf=abc+bcd+abe+ace
+orbsize=11796480
+anf=acd+bcd+abe+ace
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+ace
+orbsize=23592960
+anf=bce
+orbsize=184320
+anf=abd+bce
+orbsize=11796480
+anf=abc+abd+bce
+orbsize=23592960
+anf=acd+bcd+bce
+orbsize=11796480
+anf=abd+acd+bcd+bce
+orbsize=23592960
+anf=abc+abd+acd+bcd+bce
+orbsize=23592960
+anf=abe+bce
+orbsize=737280
+anf=acd+bcd+abe+bce
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce
+orbsize=47185920
+anf=bcd+ace+bce
+orbsize=983040
+anf=abd+bcd+ace+bce
+orbsize=23592960
+anf=bcd+abe+ace+bce
+orbsize=2949120
+anf=abc+ade
+orbsize=23592960
+anf=abc+abd+ade
+orbsize=23592960
+anf=abc+bcd+ade
+orbsize=11796480
+anf=abd+bcd+ade
+orbsize=47185920
+anf=abc+abd+bcd+ade
+orbsize=23592960
+anf=abc+acd+bcd+ade
+orbsize=23592960
+anf=abc+abd+acd+bcd+ade
+orbsize=23592960
+anf=abc+bcd+abe+ade
+orbsize=23592960
+anf=abc+abd+bcd+abe+ade
+orbsize=11796480
+anf=acd+bcd+abe+ade
+orbsize=23592960
+anf=abd+acd+bcd+abe+ade
+orbsize=23592960
+anf=abc+ace+ade
+orbsize=23592960
+anf=abc+bcd+ace+ade
+orbsize=23592960
+anf=abd+bcd+ace+ade
+orbsize=5898240
+anf=abc+abd+bcd+ace+ade
+orbsize=47185920
+anf=abc+acd+bcd+ace+ade
+orbsize=23592960
+anf=abd+acd+bcd+ace+ade
+orbsize=23592960
+anf=abc+abe+ace+ade
+orbsize=11796480
+anf=abc+bcd+abe+ace+ade
+orbsize=11796480
+anf=acd+bcd+abe+ace+ade
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+ace+ade
+orbsize=23592960
+anf=abd+bce+ade
+orbsize=5898240
+anf=abc+acd+bcd+bce+ade
+orbsize=23592960
+anf=abc+abd+acd+bcd+bce+ade
+orbsize=23592960
+anf=abc+abd+abe+ace+bce+ade
+orbsize=5898240
+anf=abd+bcd+abe+ace+bce+ade
+orbsize=5898240
+anf=acd+bcd+abe+ace+bce+ade
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+ace+bce+ade
+orbsize=23592960
+anf=abc+bde
+orbsize=11796480
+anf=abc+ace+bde
+orbsize=5898240
+anf=abc+cde
+orbsize=5898240
+anf=abc+abd+cde
+orbsize=11796480
+anf=abc+bcd+cde
+orbsize=1966080
+anf=abc+abd+bcd+cde
+orbsize=47185920
+anf=abc+abd+ace+cde
+orbsize=11796480
+anf=abc+bcd+ace+cde
+orbsize=122880
+anf=abc+abd+bcd+ace+cde
+orbsize=11796480
+anf=abc+abe+ace+cde
+orbsize=11796480
+anf=abc+abd+abe+ace+cde
+orbsize=5898240
+anf=abc+bcd+abe+ace+cde
+orbsize=2949120
+anf=abc+abd+bce+cde
+orbsize=23592960
+anf=abc+abe+bce+cde
+orbsize=5898240
+anf=abc+abd+bcd+ace+bce+cde
+orbsize=23592960
+anf=abc+abd+ade+cde
+orbsize=1474560
+anf=abc+abd+abe+ade+cde
+orbsize=2949120
+anf=abc+abd+bce+ade+cde
+orbsize=2949120
+anf=abc+abd+abe+bce+ade+cde
+orbsize=2949120
+anf=abc+bcd+abe+ace+bce+bde+cde
+orbsize=368640
+anf=abf
+orbsize=184320
+anf=abc+acd+abf
+orbsize=23592960
+anf=abc+abd+acd+abf
+orbsize=23592960
+anf=bcd+abf
+orbsize=5898240
+anf=abc+bcd+abf
+orbsize=5898240
+anf=abd+bcd+abf
+orbsize=11796480
+anf=abc+abd+bcd+abf
+orbsize=11796480
+anf=abc+acd+bcd+abf
+orbsize=23592960
+anf=abc+abd+acd+bcd+abf
+orbsize=23592960
+anf=acd+abe+abf
+orbsize=47185920
+anf=abc+acd+abe+abf
+orbsize=47185920
+anf=abd+acd+abe+abf
+orbsize=47185920
+anf=abc+abd+acd+abe+abf
+orbsize=47185920
+anf=abc+abd+bcd+abe+abf
+orbsize=11796480
+anf=acd+bcd+abe+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+abf
+orbsize=47185920
+anf=abd+acd+bcd+abe+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+abf
+orbsize=47185920
+anf=abd+bcd+ace+abf
+orbsize=23592960
+anf=abd+acd+bcd+ace+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+abf
+orbsize=47185920
+anf=acd+bcd+abe+ace+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+abf
+orbsize=47185920
+anf=bce+abf
+orbsize=12288
+anf=abc+bce+abf
+orbsize=1474560
+anf=abc+abd+acd+bcd+bce+abf
+orbsize=11796480
+anf=abe+bce+abf
+orbsize=368640
+anf=acd+bcd+abe+bce+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+abf
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+abf
+orbsize=47185920
+anf=abc+bcd+ace+bce+abf
+orbsize=5898240
+anf=abd+bcd+ace+bce+abf
+orbsize=23592960
+anf=abc+abd+bcd+ace+bce+abf
+orbsize=47185920
+anf=abc+bcd+ade+abf
+orbsize=23592960
+anf=abc+abd+bcd+ade+abf
+orbsize=23592960
+anf=abc+acd+bcd+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ade+abf
+orbsize=47185920
+anf=bcd+abe+ade+abf
+orbsize=47185920
+anf=abc+bcd+abe+ade+abf
+orbsize=23592960
+anf=abd+bcd+abe+ade+abf
+orbsize=47185920
+anf=abc+abd+bcd+abe+ade+abf
+orbsize=23592960
+anf=acd+bcd+abe+ade+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ade+abf
+orbsize=47185920
+anf=abd+bcd+ace+ade+abf
+orbsize=11796480
+anf=abc+acd+bcd+ace+ade+abf
+orbsize=47185920
+anf=abd+acd+bcd+ace+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+ade+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+ade+abf
+orbsize=47185920
+anf=abc+bce+ade+abf
+orbsize=23592960
+anf=abc+abd+bce+ade+abf
+orbsize=23592960
+anf=abc+acd+bcd+bce+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+abf
+orbsize=47185920
+anf=acd+bcd+abe+bce+ade+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+ade+abf
+orbsize=47185920
+anf=abc+ace+bce+ade+abf
+orbsize=11796480
+anf=abc+bcd+ace+bce+ade+abf
+orbsize=11796480
+anf=abc+abd+bcd+ace+bce+ade+abf
+orbsize=47185920
+anf=abc+acd+bcd+ace+bce+ade+abf
+orbsize=47185920
+anf=abd+acd+bcd+ace+bce+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+bce+ade+abf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+bce+ade+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+ade+abf
+orbsize=47185920
+anf=abc+ace+bde+abf
+orbsize=5898240
+anf=abc+abe+ace+bde+abf
+orbsize=5898240
+anf=abc+abd+abe+ace+bde+abf
+orbsize=11796480
+anf=abc+abd+bce+bde+abf
+orbsize=5898240
+anf=abc+cde+abf
+orbsize=11796480
+anf=abc+abd+cde+abf
+orbsize=23592960
+anf=abc+abd+acd+cde+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+cde+abf
+orbsize=47185920
+anf=abc+abd+acd+abe+cde+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+cde+abf
+orbsize=47185920
+anf=abc+abd+ace+cde+abf
+orbsize=23592960
+anf=abc+abd+acd+bcd+ace+cde+abf
+orbsize=47185920
+anf=abc+bcd+abe+ace+cde+abf
+orbsize=2949120
+anf=abc+acd+bcd+abe+ace+cde+abf
+orbsize=47185920
+anf=abc+abd+bce+cde+abf
+orbsize=23592960
+anf=abc+abd+acd+bcd+bce+cde+abf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+cde+abf
+orbsize=47185920
+anf=abc+abd+ade+cde+abf
+orbsize=5898240
+anf=abc+acd+ade+cde+abf
+orbsize=47185920
+anf=abc+abd+bcd+ade+cde+abf
+orbsize=47185920
+anf=abc+acd+ace+ade+cde+abf
+orbsize=47185920
+anf=abc+abd+bce+ade+cde+abf
+orbsize=5898240
+anf=abc+acd+bce+ade+cde+abf
+orbsize=47185920
+anf=abc+acd+ace+bce+ade+cde+abf
+orbsize=47185920
+anf=abc+bcd+ace+bce+ade+cde+abf
+orbsize=11796480
+anf=acf
+orbsize=61440
+anf=acd+bcd+acf
+orbsize=7864320
+anf=abe+acf
+orbsize=2949120
+anf=abc+abe+acf
+orbsize=5898240
+anf=acd+bcd+abe+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+acf
+orbsize=47185920
+anf=abd+ace+acf
+orbsize=11796480
+anf=abc+abd+ace+acf
+orbsize=47185920
+anf=bcd+ace+acf
+orbsize=491520
+anf=abd+bcd+ace+acf
+orbsize=47185920
+anf=abc+abd+bcd+ace+acf
+orbsize=11796480
+anf=acd+bcd+ace+acf
+orbsize=5898240
+anf=abd+acd+bcd+ace+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+acf
+orbsize=47185920
+anf=abd+abe+ace+acf
+orbsize=23592960
+anf=bcd+abe+ace+acf
+orbsize=2949120
+anf=abc+abd+bcd+abe+ace+acf
+orbsize=23592960
+anf=acd+bcd+abe+ace+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+acf
+orbsize=47185920
+anf=acd+bcd+abe+bce+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+acf
+orbsize=47185920
+anf=abc+ace+bce+acf
+orbsize=2949120
+anf=abd+ace+bce+acf
+orbsize=23592960
+anf=abc+abd+ace+bce+acf
+orbsize=47185920
+anf=bcd+ace+bce+acf
+orbsize=983040
+anf=abd+bcd+ace+bce+acf
+orbsize=47185920
+anf=abc+abd+bcd+ace+bce+acf
+orbsize=23592960
+anf=acd+bcd+ace+bce+acf
+orbsize=7864320
+anf=abd+acd+bcd+ace+bce+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+bce+acf
+orbsize=47185920
+anf=abd+abe+ace+bce+acf
+orbsize=23592960
+anf=bcd+abe+ace+bce+acf
+orbsize=2949120
+anf=abc+abd+bcd+abe+ace+bce+acf
+orbsize=23592960
+anf=acd+bcd+abe+ace+bce+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+bce+acf
+orbsize=47185920
+anf=ade+acf
+orbsize=11796480
+anf=abc+ade+acf
+orbsize=47185920
+anf=acd+ade+acf
+orbsize=15728640
+anf=abd+acd+ade+acf
+orbsize=11796480
+anf=bcd+ade+acf
+orbsize=11796480
+anf=abc+bcd+ade+acf
+orbsize=47185920
+anf=abd+bcd+ade+acf
+orbsize=23592960
+anf=abc+abd+bcd+ade+acf
+orbsize=23592960
+anf=abc+acd+bcd+ade+acf
+orbsize=47185920
+anf=abd+acd+bcd+ade+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ade+acf
+orbsize=47185920
+anf=abe+ade+acf
+orbsize=23592960
+anf=abc+acd+abe+ade+acf
+orbsize=15728640
+anf=abc+abd+acd+abe+ade+acf
+orbsize=23592960
+anf=bcd+abe+ade+acf
+orbsize=23592960
+anf=abd+bcd+abe+ade+acf
+orbsize=11796480
+anf=acd+bcd+abe+ade+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ade+acf
+orbsize=47185920
+anf=abc+ace+ade+acf
+orbsize=23592960
+anf=acd+ace+ade+acf
+orbsize=15728640
+anf=abc+abd+acd+ace+ade+acf
+orbsize=23592960
+anf=bcd+ace+ade+acf
+orbsize=23592960
+anf=abc+bcd+ace+ade+acf
+orbsize=23592960
+anf=abd+bcd+ace+ade+acf
+orbsize=23592960
+anf=abc+abd+bcd+ace+ade+acf
+orbsize=47185920
+anf=abc+acd+bcd+ace+ade+acf
+orbsize=47185920
+anf=abd+acd+bcd+ace+ade+acf
+orbsize=23592960
+anf=abc+abd+acd+bcd+ace+ade+acf
+orbsize=47185920
+anf=abc+abe+ace+ade+acf
+orbsize=11796480
+anf=abc+acd+abe+ace+ade+acf
+orbsize=15728640
+anf=abd+acd+abe+ace+ade+acf
+orbsize=11796480
+anf=bcd+abe+ace+ade+acf
+orbsize=11796480
+anf=abc+abd+bcd+abe+ace+ade+acf
+orbsize=47185920
+anf=acd+bcd+abe+ace+ade+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+ade+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+ade+acf
+orbsize=23592960
+anf=bce+ade+acf
+orbsize=23592960
+anf=acd+bce+ade+acf
+orbsize=15728640
+anf=abc+acd+bce+ade+acf
+orbsize=47185920
+anf=abd+acd+bce+ade+acf
+orbsize=23592960
+anf=bcd+bce+ade+acf
+orbsize=23592960
+anf=abc+abd+bcd+bce+ade+acf
+orbsize=23592960
+anf=abc+acd+bcd+bce+ade+acf
+orbsize=47185920
+anf=abd+acd+bcd+bce+ade+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+acf
+orbsize=23592960
+anf=abe+bce+ade+acf
+orbsize=23592960
+anf=abc+abe+bce+ade+acf
+orbsize=47185920
+anf=acd+abe+bce+ade+acf
+orbsize=47185920
+anf=abc+acd+abe+bce+ade+acf
+orbsize=15728640
+anf=bcd+abe+bce+ade+acf
+orbsize=23592960
+anf=abc+bcd+abe+bce+ade+acf
+orbsize=47185920
+anf=acd+bcd+abe+bce+ade+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce+ade+acf
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+bce+ade+acf
+orbsize=47185920
+anf=ace+bce+ade+acf
+orbsize=23592960
+anf=abc+ace+bce+ade+acf
+orbsize=23592960
+anf=abc+abd+ace+bce+ade+acf
+orbsize=23592960
+anf=abc+acd+ace+bce+ade+acf
+orbsize=47185920
+anf=abc+abd+acd+ace+bce+ade+acf
+orbsize=23592960
+anf=bcd+ace+bce+ade+acf
+orbsize=23592960
+anf=abc+bcd+ace+bce+ade+acf
+orbsize=11796480
+anf=abd+bcd+ace+bce+ade+acf
+orbsize=23592960
+anf=abd+acd+bcd+ace+bce+ade+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+bce+ade+acf
+orbsize=47185920
+anf=abc+abe+ace+bce+ade+acf
+orbsize=23592960
+anf=acd+abe+ace+bce+ade+acf
+orbsize=47185920
+anf=bcd+abe+ace+bce+ade+acf
+orbsize=23592960
+anf=abc+bcd+abe+ace+bce+ade+acf
+orbsize=5898240
+anf=abd+acd+bcd+abe+ace+bce+ade+acf
+orbsize=47185920
+anf=acd+bde+acf
+orbsize=47185920
+anf=abc+acd+bde+acf
+orbsize=47185920
+anf=acd+bcd+bde+acf
+orbsize=47185920
+anf=abc+acd+bcd+bde+acf
+orbsize=47185920
+anf=abd+acd+bcd+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+bde+acf
+orbsize=47185920
+anf=abe+bde+acf
+orbsize=1474560
+anf=acd+abe+bde+acf
+orbsize=23592960
+anf=acd+bcd+abe+bde+acf
+orbsize=47185920
+anf=acd+ace+bde+acf
+orbsize=47185920
+anf=abc+acd+ace+bde+acf
+orbsize=47185920
+anf=bcd+ace+bde+acf
+orbsize=1966080
+anf=abc+bcd+ace+bde+acf
+orbsize=11796480
+anf=acd+bcd+ace+bde+acf
+orbsize=47185920
+anf=abc+acd+bcd+ace+bde+acf
+orbsize=47185920
+anf=abc+acd+abe+ace+bde+acf
+orbsize=23592960
+anf=bcd+abe+ace+bde+acf
+orbsize=5898240
+anf=abc+bcd+abe+ace+bde+acf
+orbsize=11796480
+anf=acd+bcd+abe+ace+bde+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bde+acf
+orbsize=47185920
+anf=acd+bce+bde+acf
+orbsize=47185920
+anf=abc+acd+bce+bde+acf
+orbsize=47185920
+anf=acd+bcd+bce+bde+acf
+orbsize=47185920
+anf=abc+acd+bcd+bce+bde+acf
+orbsize=47185920
+anf=abd+acd+bcd+bce+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+bde+acf
+orbsize=47185920
+anf=abc+acd+abe+bce+bde+acf
+orbsize=23592960
+anf=abc+bcd+abe+bce+bde+acf
+orbsize=5898240
+anf=acd+bcd+abe+bce+bde+acf
+orbsize=47185920
+anf=abc+ace+bce+bde+acf
+orbsize=5898240
+anf=acd+ace+bce+bde+acf
+orbsize=47185920
+anf=abc+acd+ace+bce+bde+acf
+orbsize=47185920
+anf=acd+bcd+ace+bce+bde+acf
+orbsize=47185920
+anf=abc+acd+bcd+ace+bce+bde+acf
+orbsize=47185920
+anf=acd+abe+ace+bce+bde+acf
+orbsize=23592960
+anf=acd+bcd+abe+ace+bce+bde+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bce+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+bde+acf
+orbsize=47185920
+anf=abc+acd+ade+bde+acf
+orbsize=47185920
+anf=abd+acd+ade+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+ade+bde+acf
+orbsize=23592960
+anf=abd+bcd+ade+bde+acf
+orbsize=5898240
+anf=acd+abe+ade+bde+acf
+orbsize=47185920
+anf=abd+acd+abe+ade+bde+acf
+orbsize=23592960
+anf=abc+acd+ace+ade+bde+acf
+orbsize=47185920
+anf=abd+acd+ace+ade+bde+acf
+orbsize=23592960
+anf=abc+abd+acd+ace+ade+bde+acf
+orbsize=47185920
+anf=abd+bcd+ace+ade+bde+acf
+orbsize=11796480
+anf=acd+abe+ace+ade+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+ade+bde+acf
+orbsize=23592960
+anf=abc+acd+bce+ade+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+bce+ade+bde+acf
+orbsize=47185920
+anf=acd+bcd+bce+ade+bde+acf
+orbsize=15728640
+anf=acd+abe+bce+ade+bde+acf
+orbsize=47185920
+anf=abc+abd+acd+abe+bce+ade+bde+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+ade+bde+acf
+orbsize=15728640
+anf=acd+ace+bce+ade+bde+acf
+orbsize=47185920
+anf=abd+acd+ace+bce+ade+bde+acf
+orbsize=47185920
+anf=abd+bcd+ace+bce+ade+bde+acf
+orbsize=23592960
+anf=abc+abd+acd+bcd+ace+bce+ade+bde+acf
+orbsize=23592960
+anf=abc+acd+abe+ace+bce+ade+bde+acf
+orbsize=47185920
+anf=abd+acd+abe+ace+bce+ade+bde+acf
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bce+ade+bde+acf
+orbsize=11796480
+anf=cde+acf
+orbsize=1474560
+anf=abd+cde+acf
+orbsize=11796480
+anf=abc+abd+cde+acf
+orbsize=47185920
+anf=abc+abd+bcd+cde+acf
+orbsize=23592960
+anf=abe+cde+acf
+orbsize=11796480
+anf=abc+abe+cde+acf
+orbsize=11796480
+anf=abd+abe+cde+acf
+orbsize=23592960
+anf=abc+abd+abe+cde+acf
+orbsize=47185920
+anf=bcd+abe+cde+acf
+orbsize=11796480
+anf=abc+ace+cde+acf
+orbsize=1966080
+anf=abd+ace+cde+acf
+orbsize=23592960
+anf=abc+abd+ace+cde+acf
+orbsize=11796480
+anf=abc+bcd+ace+cde+acf
+orbsize=1474560
+anf=abc+abd+bcd+ace+cde+acf
+orbsize=23592960
+anf=abd+abe+ace+cde+acf
+orbsize=11796480
+anf=abc+abd+abe+ace+cde+acf
+orbsize=23592960
+anf=abc+bcd+abe+ace+cde+acf
+orbsize=11796480
+anf=abc+abd+bcd+abe+ace+cde+acf
+orbsize=23592960
+anf=abd+bce+cde+acf
+orbsize=23592960
+anf=abd+abe+bce+cde+acf
+orbsize=23592960
+anf=abc+abd+bcd+abe+bce+cde+acf
+orbsize=23592960
+anf=abd+ace+bce+cde+acf
+orbsize=23592960
+anf=abc+abd+ace+bce+cde+acf
+orbsize=23592960
+anf=abc+abe+ace+bce+cde+acf
+orbsize=1966080
+anf=abd+abe+ace+bce+cde+acf
+orbsize=23592960
+anf=abc+abd+abe+ace+bce+cde+acf
+orbsize=23592960
+anf=abc+ade+cde+acf
+orbsize=5898240
+anf=abd+ade+cde+acf
+orbsize=47185920
+anf=bcd+ade+cde+acf
+orbsize=47185920
+anf=abc+abe+ade+cde+acf
+orbsize=23592960
+anf=bcd+abe+ade+cde+acf
+orbsize=47185920
+anf=abc+ace+ade+cde+acf
+orbsize=47185920
+anf=abd+ace+ade+cde+acf
+orbsize=23592960
+anf=abc+abd+ace+ade+cde+acf
+orbsize=23592960
+anf=bcd+ace+ade+cde+acf
+orbsize=47185920
+anf=abe+ace+ade+cde+acf
+orbsize=23592960
+anf=abd+abe+ace+ade+cde+acf
+orbsize=23592960
+anf=bce+ade+cde+acf
+orbsize=23592960
+anf=abc+bce+ade+cde+acf
+orbsize=11796480
+anf=abd+bce+ade+cde+acf
+orbsize=47185920
+anf=abc+ace+bce+ade+cde+acf
+orbsize=47185920
+anf=abc+abd+ace+bce+ade+cde+acf
+orbsize=23592960
+anf=bcd+ace+bce+ade+cde+acf
+orbsize=47185920
+anf=abc+abe+bde+cde+acf
+orbsize=11796480
+anf=abc+ace+bde+cde+acf
+orbsize=11796480
+anf=bce+bde+cde+acf
+orbsize=1474560
+anf=abc+bcd+abe+bce+bde+cde+acf
+orbsize=1966080
+anf=abc+abd+ace+ade+bde+cde+acf
+orbsize=11796480
+anf=abc+abd+ace+bce+ade+bde+cde+acf
+orbsize=23592960
+anf=abd+acd+bcd+abf+acf
+orbsize=11796480
+anf=abc+abd+acd+bcd+abf+acf
+orbsize=11796480
+anf=abc+acd+bcd+abe+abf+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+abf+acf
+orbsize=47185920
+anf=abd+acd+bcd+ace+abf+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+abf+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+abf+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+abf+acf
+orbsize=47185920
+anf=abd+acd+bcd+ace+bce+abf+acf
+orbsize=47185920
+anf=abc+abe+ace+bce+abf+acf
+orbsize=983040
+anf=abc+acd+bcd+abe+ace+bce+abf+acf
+orbsize=47185920
+anf=abc+acd+bcd+ade+abf+acf
+orbsize=23592960
+anf=abd+acd+bcd+abe+ade+abf+acf
+orbsize=47185920
+anf=bcd+ace+ade+abf+acf
+orbsize=11796480
+anf=acd+bcd+abe+ace+ade+abf+acf
+orbsize=47185920
+anf=abd+bce+ade+abf+acf
+orbsize=11796480
+anf=acd+bce+ade+abf+acf
+orbsize=11796480
+anf=abc+acd+bce+ade+abf+acf
+orbsize=47185920
+anf=bcd+bce+ade+abf+acf
+orbsize=11796480
+anf=abd+bcd+bce+ade+abf+acf
+orbsize=5898240
+anf=abc+acd+bcd+bce+ade+abf+acf
+orbsize=47185920
+anf=abc+abd+abe+ace+bce+ade+abf+acf
+orbsize=11796480
+anf=acd+abe+ace+bce+ade+abf+acf
+orbsize=47185920
+anf=abc+bcd+abe+ace+bce+ade+abf+acf
+orbsize=5898240
+anf=acd+bcd+abe+ace+bce+ade+abf+acf
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+bde+abf+acf
+orbsize=47185920
+anf=abc+acd+bcd+ace+bde+abf+acf
+orbsize=47185920
+anf=abd+acd+bcd+ace+bde+abf+acf
+orbsize=47185920
+anf=abd+acd+bce+bde+abf+acf
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+bde+abf+acf
+orbsize=47185920
+anf=abc+abd+bcd+ace+bce+bde+abf+acf
+orbsize=11796480
+anf=abd+acd+bcd+ace+bce+bde+abf+acf
+orbsize=47185920
+anf=abd+abe+ace+bce+bde+abf+acf
+orbsize=11796480
+anf=abc+abd+acd+abe+ace+bce+bde+abf+acf
+orbsize=47185920
+anf=abc+abd+acd+ade+bde+abf+acf
+orbsize=47185920
+anf=acd+abe+ade+bde+abf+acf
+orbsize=47185920
+anf=acd+bcd+abe+ade+bde+abf+acf
+orbsize=47185920
+anf=abc+acd+ace+ade+bde+abf+acf
+orbsize=47185920
+anf=abc+abe+ace+ade+bde+abf+acf
+orbsize=11796480
+anf=abd+acd+abe+ace+ade+bde+abf+acf
+orbsize=47185920
+anf=acd+abe+bce+ade+bde+abf+acf
+orbsize=23592960
+anf=abd+acd+abe+bce+ade+bde+abf+acf
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+ade+bde+abf+acf
+orbsize=11796480
+anf=abc+acd+ace+bce+ade+bde+abf+acf
+orbsize=23592960
+anf=abc+abd+acd+ace+bce+ade+bde+abf+acf
+orbsize=47185920
+anf=abd+bcd+ace+bce+ade+bde+abf+acf
+orbsize=11796480
+anf=abc+acd+bcd+ace+bce+ade+bde+abf+acf
+orbsize=47185920
+anf=abd+acd+cde+abf+acf
+orbsize=47185920
+anf=acd+abe+cde+abf+acf
+orbsize=47185920
+anf=acd+abe+bce+cde+abf+acf
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+bce+cde+abf+acf
+orbsize=47185920
+anf=abc+bce+ade+cde+abf+acf
+orbsize=5898240
+anf=acd+bcd+abe+bce+ade+cde+abf+acf
+orbsize=23592960
+anf=abd+acd+ace+bce+ade+cde+abf+acf
+orbsize=47185920
+anf=abc+acd+bcd+ace+bce+ade+cde+abf+acf
+orbsize=23592960
+anf=abc+abd+ace+bde+cde+abf+acf
+orbsize=11796480
+anf=abd+bce+bde+cde+abf+acf
+orbsize=11796480
+anf=acd+bce+bde+cde+abf+acf
+orbsize=47185920
+anf=abd+bcd+bce+bde+cde+abf+acf
+orbsize=11796480
+anf=abd+abe+ace+bce+bde+cde+abf+acf
+orbsize=11796480
+anf=abc+bcd+abe+ace+bce+bde+cde+abf+acf
+orbsize=1474560
+anf=abd+acd+bcd+abe+ace+bce+bde+cde+abf+acf
+orbsize=5898240
+anf=abc+abd+abe+ace+ade+bde+cde+abf+acf
+orbsize=11796480
+anf=acd+abe+ace+ade+bde+cde+abf+acf
+orbsize=23592960
+anf=abc+acd+bce+ade+bde+cde+abf+acf
+orbsize=23592960
+anf=abc+bcd+ace+bce+ade+bde+cde+abf+acf
+orbsize=11796480
+anf=bcf
+orbsize=10240
+anf=abc+abd+ace+bcf
+orbsize=23592960
+anf=abc+abd+abe+ace+bcf
+orbsize=23592960
+anf=abd+acd+ade+bcf
+orbsize=7864320
+anf=abc+ace+ade+bcf
+orbsize=23592960
+anf=abc+abd+acd+ace+ade+bcf
+orbsize=7864320
+anf=abc+bcd+ace+ade+bcf
+orbsize=23592960
+anf=abd+bcd+ace+ade+bcf
+orbsize=11796480
+anf=abc+abe+ace+ade+bcf
+orbsize=23592960
+anf=abc+bcd+abe+ace+ade+bcf
+orbsize=23592960
+anf=abd+acd+bce+ade+bcf
+orbsize=11796480
+anf=abc+abd+bcd+bce+ade+bcf
+orbsize=11796480
+anf=abc+abd+acd+ace+bce+ade+bcf
+orbsize=5898240
+anf=bcd+abe+ace+bde+bcf
+orbsize=491520
+anf=abc+bcd+ace+cde+bcf
+orbsize=368640
+anf=abc+abd+bcd+ace+cde+bcf
+orbsize=23592960
+anf=abc+abd+bcd+ace+bce+cde+bcf
+orbsize=23592960
+anf=abc+abd+ade+cde+bcf
+orbsize=5898240
+anf=abc+abd+abe+ade+cde+bcf
+orbsize=5898240
+anf=bcd+ace+ade+abf+bcf
+orbsize=11796480
+anf=abd+bcd+ace+ade+abf+bcf
+orbsize=11796480
+anf=abc+abd+ade+cde+abf+bcf
+orbsize=5898240
+anf=abc+abd+abe+ade+cde+abf+bcf
+orbsize=5898240
+anf=abc+bcd+abe+ade+cde+abf+bcf
+orbsize=5898240
+anf=adf
+orbsize=327680
+anf=abc+adf
+orbsize=5898240
+anf=bcd+adf
+orbsize=2949120
+anf=abc+bcd+adf
+orbsize=5898240
+anf=abe+adf
+orbsize=2949120
+anf=bcd+abe+adf
+orbsize=5898240
+anf=abc+bcd+abe+adf
+orbsize=23592960
+anf=abc+ace+adf
+orbsize=1474560
+anf=bcd+ace+adf
+orbsize=11796480
+anf=abc+bcd+ace+adf
+orbsize=23592960
+anf=abd+bcd+ace+adf
+orbsize=23592960
+anf=abc+abe+ace+adf
+orbsize=5898240
+anf=bcd+abe+ace+adf
+orbsize=11796480
+anf=abc+bcd+abe+ace+adf
+orbsize=23592960
+anf=abd+bcd+abe+ace+adf
+orbsize=23592960
+anf=acd+bce+adf
+orbsize=2949120
+anf=abc+bcd+bce+adf
+orbsize=5898240
+anf=bcd+abe+bce+adf
+orbsize=5898240
+anf=abc+abe+ace+bce+adf
+orbsize=1474560
+anf=abd+bcd+ade+adf
+orbsize=23592960
+anf=abc+abd+bcd+ade+adf
+orbsize=5898240
+anf=abc+abd+bcd+abe+ade+adf
+orbsize=23592960
+anf=abd+bcd+ace+ade+adf
+orbsize=23592960
+anf=abc+abd+bcd+ace+ade+adf
+orbsize=23592960
+anf=abd+bcd+abe+ace+ade+adf
+orbsize=23592960
+anf=abc+abd+bcd+abe+ace+ade+adf
+orbsize=23592960
+anf=abd+bcd+bce+ade+adf
+orbsize=23592960
+anf=abc+abd+bcd+bce+ade+adf
+orbsize=5898240
+anf=abc+bde+adf
+orbsize=23592960
+anf=abc+abe+ace+bde+adf
+orbsize=5898240
+anf=abc+cde+adf
+orbsize=5898240
+anf=abc+abd+cde+adf
+orbsize=23592960
+anf=abc+bcd+cde+adf
+orbsize=7864320
+anf=abc+abe+cde+adf
+orbsize=5898240
+anf=abc+abd+abe+cde+adf
+orbsize=11796480
+anf=abc+bcd+ace+cde+adf
+orbsize=1966080
+anf=abc+bcd+abe+ace+cde+adf
+orbsize=11796480
+anf=abc+bcd+bce+cde+adf
+orbsize=1966080
+anf=abc+abe+ace+bce+cde+adf
+orbsize=1966080
+anf=abc+abd+bcd+ace+ade+cde+adf
+orbsize=2949120
+anf=abc+acd+abe+bce+ade+cde+adf
+orbsize=7864320
+anf=abf+adf
+orbsize=32768
+anf=abc+abf+adf
+orbsize=5898240
+anf=abe+abf+adf
+orbsize=983040
+anf=bcd+abe+abf+adf
+orbsize=5898240
+anf=abd+bcd+ace+abf+adf
+orbsize=11796480
+anf=abd+bcd+abe+ace+abf+adf
+orbsize=23592960
+anf=abc+acd+bce+abf+adf
+orbsize=2949120
+anf=abd+bcd+ade+abf+adf
+orbsize=11796480
+anf=abd+bcd+bce+ade+abf+adf
+orbsize=23592960
+anf=abc+abd+abe+cde+abf+adf
+orbsize=5898240
+anf=abc+abd+bcd+abe+ace+bce+ade+cde+abf+adf
+orbsize=491520
+anf=abe+acf+adf
+orbsize=3932160
+anf=abc+abd+bcd+ace+acf+adf
+orbsize=47185920
+anf=abc+abd+bcd+ace+bce+acf+adf
+orbsize=47185920
+anf=bcd+ade+acf+adf
+orbsize=11796480
+anf=abc+abd+bcd+ade+acf+adf
+orbsize=23592960
+anf=bcd+abe+ade+acf+adf
+orbsize=23592960
+anf=abc+abd+bcd+abe+ade+acf+adf
+orbsize=23592960
+anf=abd+ace+ade+acf+adf
+orbsize=5898240
+anf=abc+bcd+ace+ade+acf+adf
+orbsize=47185920
+anf=abd+bcd+ace+ade+acf+adf
+orbsize=23592960
+anf=abd+bcd+abe+ace+ade+acf+adf
+orbsize=23592960
+anf=bcd+bce+ade+acf+adf
+orbsize=23592960
+anf=bcd+abe+bce+ade+acf+adf
+orbsize=23592960
+anf=abd+ace+bce+ade+acf+adf
+orbsize=11796480
+anf=abc+bcd+abe+ace+bce+ade+acf+adf
+orbsize=47185920
+anf=bcd+bde+acf+adf
+orbsize=983040
+anf=abc+bcd+abe+bde+acf+adf
+orbsize=5898240
+anf=ace+bde+acf+adf
+orbsize=23592960
+anf=abc+abd+bcd+ade+bde+acf+adf
+orbsize=23592960
+anf=abc+abd+bcd+abe+ade+bde+acf+adf
+orbsize=11796480
+anf=abd+bcd+ace+ade+bde+acf+adf
+orbsize=23592960
+anf=abd+bcd+abe+ace+ade+bde+acf+adf
+orbsize=11796480
+anf=abd+ace+bce+ade+bde+acf+adf
+orbsize=5898240
+anf=abc+cde+acf+adf
+orbsize=11796480
+anf=abc+bcd+cde+acf+adf
+orbsize=7864320
+anf=abc+bcd+abe+cde+acf+adf
+orbsize=3932160
+anf=abc+abd+ace+cde+acf+adf
+orbsize=47185920
+anf=abe+ace+cde+acf+adf
+orbsize=11796480
+anf=abc+abe+ace+cde+acf+adf
+orbsize=3932160
+anf=abc+bcd+bce+cde+acf+adf
+orbsize=1966080
+anf=abc+abe+bce+cde+acf+adf
+orbsize=11796480
+anf=abd+bcd+ade+cde+acf+adf
+orbsize=1966080
+anf=abc+ace+ade+cde+acf+adf
+orbsize=23592960
+anf=abd+bcd+ace+ade+cde+acf+adf
+orbsize=47185920
+anf=abc+abe+ace+ade+cde+acf+adf
+orbsize=23592960
+anf=abd+bcd+abe+ace+ade+cde+acf+adf
+orbsize=47185920
+anf=abc+abd+ace+bde+cde+acf+adf
+orbsize=47185920
+anf=abc+ace+ade+bde+cde+acf+adf
+orbsize=11796480
+anf=abc+abe+ace+ade+bde+cde+acf+adf
+orbsize=23592960
+anf=bce+abf+acf+adf
+orbsize=163840
+anf=bcd+ade+abf+acf+adf
+orbsize=11796480
+anf=abd+ace+ade+abf+acf+adf
+orbsize=23592960
+anf=abd+bcd+abe+ace+bce+ade+abf+acf+adf
+orbsize=11796480
+anf=abc+bde+abf+acf+adf
+orbsize=11796480
+anf=bcd+bde+abf+acf+adf
+orbsize=983040
+anf=abc+abd+bcd+abe+bce+ade+bde+abf+acf+adf
+orbsize=11796480
+anf=abc+ace+bce+ade+cde+abf+acf+adf
+orbsize=11796480
+anf=abc+abd+ace+bce+ade+cde+abf+acf+adf
+orbsize=11796480
+anf=bce+bde+cde+abf+acf+adf
+orbsize=1966080
+anf=abc+bcd+bce+bde+cde+abf+acf+adf
+orbsize=1966080
+anf=abd+bcd+bce+ade+bde+cde+abf+acf+adf
+orbsize=1966080
+anf=acd+bcd+bce+ade+bde+cde+abf+acf+adf
+orbsize=7864320
+anf=abc+abd+bcd+ade+bcf+adf
+orbsize=11796480
+anf=abd+bcd+abe+ace+bde+bcf+adf
+orbsize=11796480
+anf=abc+abe+ade+cde+bcf+adf
+orbsize=5898240
+anf=bcd+ace+bdf
+orbsize=5898240
+anf=bcd+abe+ace+bdf
+orbsize=1966080
+anf=abc+ace+bce+abf+bdf
+orbsize=1474560
+anf=bce+abf+acf+bdf
+orbsize=61440
+anf=bcd+abe+ace+bce+bde+abf+acf+bdf
+orbsize=491520
+anf=abc+abd+abe+ade+cde+abf+bcf+bdf
+orbsize=1474560
+anf=abc+abd+bcd+ace+bce+ade+cde+abf+adf+bdf
+orbsize=491520
+anf=abe+acf+cdf
+orbsize=1474560
+anf=abd+bcd+ace+acf+cdf
+orbsize=47185920
+anf=abd+bcd+abe+ace+bce+acf+cdf
+orbsize=47185920
+anf=abd+ade+acf+cdf
+orbsize=491520
+anf=abc+bcd+ade+acf+cdf
+orbsize=23592960
+anf=abd+abe+ade+acf+cdf
+orbsize=2949120
+anf=abc+abd+ace+ade+acf+cdf
+orbsize=1966080
+anf=abc+bcd+bce+ade+acf+cdf
+orbsize=23592960
+anf=abc+ace+bde+acf+cdf
+orbsize=11796480
+anf=abc+abd+ace+bce+ade+bde+acf+cdf
+orbsize=1966080
+anf=abc+bcd+abe+ace+cde+acf+cdf
+orbsize=5898240
+anf=abc+bcd+abe+acf+adf+cdf
+orbsize=11796480
+anf=abc+abd+bcd+ade+acf+adf+cdf
+orbsize=5898240
+anf=abc+abd+bcd+abe+ade+acf+adf+cdf
+orbsize=23592960
+anf=abd+bcd+ace+ade+acf+adf+cdf
+orbsize=23592960
+anf=abc+abd+bcd+bce+ade+acf+adf+cdf
+orbsize=11796480
+anf=abd+bcd+abe+ace+bce+ade+acf+adf+cdf
+orbsize=23592960
+anf=abc+cde+acf+adf+cdf
+orbsize=5898240
+anf=abc+abe+bce+cde+acf+adf+cdf
+orbsize=5898240
+anf=abc+abd+bcd+abe+ade+abf+acf+adf+cdf
+orbsize=5898240
+anf=abd+bce+ade+abf+acf+bdf+cdf
+orbsize=491520
+anf=abc+bcd+abe+ace+bce+bde+cde+abf+acf+bdf+cdf
+orbsize=122880
+anf=bce+bdf+aef
+orbsize=5120
+anf=acd+abg
+orbsize=23592960
+anf=abc+acd+abg
+orbsize=23592960
+anf=abd+acd+abg
+orbsize=47185920
+anf=abc+abd+acd+abg
+orbsize=47185920
+anf=acd+bcd+abg
+orbsize=23592960
+anf=abc+acd+bcd+abg
+orbsize=23592960
+anf=abd+acd+bcd+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abg
+orbsize=47185920
+anf=ace+abg
+orbsize=491520
+anf=abc+ace+abg
+orbsize=5898240
+anf=acd+ace+abg
+orbsize=11796480
+anf=abc+acd+ace+abg
+orbsize=23592960
+anf=bcd+ace+abg
+orbsize=2949120
+anf=abe+ace+abg
+orbsize=2949120
+anf=abd+acd+abe+ace+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+abg
+orbsize=47185920
+anf=bcd+abe+ace+abg
+orbsize=11796480
+anf=ace+bce+abg
+orbsize=983040
+anf=abc+ace+bce+abg
+orbsize=1966080
+anf=bcd+ace+bce+abg
+orbsize=5898240
+anf=abc+acd+bcd+ace+bce+abg
+orbsize=23592960
+anf=abe+ace+bce+abg
+orbsize=983040
+anf=bcd+abe+ace+bce+abg
+orbsize=11796480
+anf=abd+acd+bcd+abe+ace+bce+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+abg
+orbsize=47185920
+anf=abc+bcd+ade+abg
+orbsize=23592960
+anf=abd+bcd+ade+abg
+orbsize=11796480
+anf=acd+bcd+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ade+abg
+orbsize=47185920
+anf=abc+bcd+abe+ade+abg
+orbsize=23592960
+anf=abd+bcd+abe+ade+abg
+orbsize=23592960
+anf=acd+bcd+abe+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ade+abg
+orbsize=47185920
+anf=abc+bcd+ace+ade+abg
+orbsize=23592960
+anf=acd+bcd+ace+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+ace+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+ace+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+ade+abg
+orbsize=47185920
+anf=acd+bcd+abe+ace+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+ade+abg
+orbsize=47185920
+anf=abc+bcd+bce+ade+abg
+orbsize=23592960
+anf=abd+bcd+bce+ade+abg
+orbsize=23592960
+anf=abc+abd+bcd+bce+ade+abg
+orbsize=11796480
+anf=acd+bcd+bce+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+bce+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+bce+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+abg
+orbsize=47185920
+anf=abd+bcd+abe+bce+ade+abg
+orbsize=23592960
+anf=acd+bcd+abe+bce+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+ade+abg
+orbsize=47185920
+anf=abc+bcd+ace+bce+ade+abg
+orbsize=23592960
+anf=acd+bcd+ace+bce+ade+abg
+orbsize=47185920
+anf=abc+acd+bcd+ace+bce+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+ace+bce+ade+abg
+orbsize=23592960
+anf=abc+abd+acd+bcd+ace+bce+ade+abg
+orbsize=47185920
+anf=acd+bcd+abe+ace+bce+ade+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bce+ade+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+ade+abg
+orbsize=47185920
+anf=acd+bde+abg
+orbsize=47185920
+anf=abc+acd+bde+abg
+orbsize=47185920
+anf=abd+acd+bde+abg
+orbsize=47185920
+anf=abc+abd+acd+bde+abg
+orbsize=23592960
+anf=acd+abe+bde+abg
+orbsize=47185920
+anf=abc+acd+abe+bde+abg
+orbsize=47185920
+anf=abd+acd+abe+bde+abg
+orbsize=23592960
+anf=abc+abd+acd+abe+bde+abg
+orbsize=47185920
+anf=ace+bde+abg
+orbsize=5898240
+anf=abc+ace+bde+abg
+orbsize=23592960
+anf=acd+ace+bde+abg
+orbsize=47185920
+anf=abc+acd+ace+bde+abg
+orbsize=47185920
+anf=abd+acd+ace+bde+abg
+orbsize=47185920
+anf=acd+abe+ace+bde+abg
+orbsize=47185920
+anf=abc+acd+abe+ace+bde+abg
+orbsize=47185920
+anf=abd+acd+abe+ace+bde+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+bde+abg
+orbsize=47185920
+anf=abc+acd+bce+bde+abg
+orbsize=47185920
+anf=abd+acd+bce+bde+abg
+orbsize=47185920
+anf=abc+abd+acd+bce+bde+abg
+orbsize=47185920
+anf=acd+abe+bce+bde+abg
+orbsize=47185920
+anf=abc+acd+abe+bce+bde+abg
+orbsize=47185920
+anf=abd+acd+abe+bce+bde+abg
+orbsize=47185920
+anf=acd+ace+bce+bde+abg
+orbsize=47185920
+anf=abc+acd+ace+bce+bde+abg
+orbsize=23592960
+anf=abd+acd+ace+bce+bde+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+bce+bde+abg
+orbsize=47185920
+anf=acd+abe+ace+bce+bde+abg
+orbsize=47185920
+anf=abc+acd+abe+ace+bce+bde+abg
+orbsize=47185920
+anf=abd+acd+abe+ace+bce+bde+abg
+orbsize=23592960
+anf=abc+abd+acd+abe+ace+bce+bde+abg
+orbsize=47185920
+anf=cde+abg
+orbsize=5898240
+anf=abc+cde+abg
+orbsize=23592960
+anf=abc+bcd+cde+abg
+orbsize=1474560
+anf=abc+abd+bcd+cde+abg
+orbsize=5898240
+anf=abe+cde+abg
+orbsize=23592960
+anf=abc+acd+abe+cde+abg
+orbsize=47185920
+anf=abd+acd+abe+cde+abg
+orbsize=23592960
+anf=abc+abd+acd+abe+cde+abg
+orbsize=47185920
+anf=abc+bcd+abe+cde+abg
+orbsize=5898240
+anf=abc+abd+bcd+abe+cde+abg
+orbsize=23592960
+anf=abc+acd+bcd+abe+cde+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+cde+abg
+orbsize=47185920
+anf=ace+cde+abg
+orbsize=5898240
+anf=abd+acd+ace+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+cde+abg
+orbsize=47185920
+anf=bcd+ace+cde+abg
+orbsize=1966080
+anf=abc+bcd+ace+cde+abg
+orbsize=5898240
+anf=abd+bcd+ace+cde+abg
+orbsize=11796480
+anf=abc+abd+acd+bcd+ace+cde+abg
+orbsize=23592960
+anf=abe+ace+cde+abg
+orbsize=23592960
+anf=bcd+abe+ace+cde+abg
+orbsize=11796480
+anf=abd+bcd+abe+ace+cde+abg
+orbsize=5898240
+anf=acd+bcd+abe+ace+cde+abg
+orbsize=47185920
+anf=bce+cde+abg
+orbsize=5898240
+anf=abd+acd+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+cde+abg
+orbsize=23592960
+anf=abc+abe+bce+cde+abg
+orbsize=23592960
+anf=acd+abe+bce+cde+abg
+orbsize=47185920
+anf=abd+acd+abe+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+bce+cde+abg
+orbsize=47185920
+anf=abc+bcd+abe+bce+cde+abg
+orbsize=5898240
+anf=acd+bcd+abe+bce+cde+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+cde+abg
+orbsize=47185920
+anf=ace+bce+cde+abg
+orbsize=5898240
+anf=abc+abd+acd+ace+bce+cde+abg
+orbsize=47185920
+anf=abd+acd+bcd+ace+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+bce+cde+abg
+orbsize=47185920
+anf=acd+abe+ace+bce+cde+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+cde+abg
+orbsize=47185920
+anf=abc+abd+ade+cde+abg
+orbsize=5898240
+anf=abd+acd+ade+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+ade+cde+abg
+orbsize=47185920
+anf=abc+abd+bcd+ade+cde+abg
+orbsize=11796480
+anf=abc+abd+abe+ade+cde+abg
+orbsize=23592960
+anf=abc+acd+abe+ade+cde+abg
+orbsize=23592960
+anf=abd+acd+abe+ade+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ade+cde+abg
+orbsize=47185920
+anf=abc+abd+bcd+abe+ade+cde+abg
+orbsize=23592960
+anf=abd+ace+ade+cde+abg
+orbsize=47185920
+anf=abd+acd+ace+ade+cde+abg
+orbsize=47185920
+anf=bcd+ace+ade+cde+abg
+orbsize=5898240
+anf=abd+bcd+ace+ade+cde+abg
+orbsize=1474560
+anf=abd+abe+ace+ade+cde+abg
+orbsize=47185920
+anf=abc+acd+abe+ace+ade+cde+abg
+orbsize=5898240
+anf=abd+acd+abe+ace+ade+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+ade+cde+abg
+orbsize=23592960
+anf=abc+abd+bce+ade+cde+abg
+orbsize=11796480
+anf=abd+acd+bce+ade+cde+abg
+orbsize=47185920
+anf=abc+bcd+bce+ade+cde+abg
+orbsize=11796480
+anf=abd+acd+abe+bce+ade+cde+abg
+orbsize=47185920
+anf=acd+ace+bce+ade+cde+abg
+orbsize=11796480
+anf=abd+acd+ace+bce+ade+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+bce+ade+cde+abg
+orbsize=47185920
+anf=bcd+ace+bce+ade+cde+abg
+orbsize=2949120
+anf=abd+bcd+ace+bce+ade+cde+abg
+orbsize=5898240
+anf=abc+abd+acd+abe+ace+bce+ade+cde+abg
+orbsize=47185920
+anf=bcd+abe+ace+bce+ade+cde+abg
+orbsize=5898240
+anf=abc+bcd+abe+bde+cde+abg
+orbsize=5898240
+anf=acd+bcd+abe+bde+cde+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+bde+cde+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bde+cde+abg
+orbsize=23592960
+anf=acd+bcd+abe+ace+bde+cde+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+bde+cde+abg
+orbsize=47185920
+anf=abc+bcd+bce+bde+cde+abg
+orbsize=5898240
+anf=acd+bcd+bce+bde+cde+abg
+orbsize=47185920
+anf=abc+bcd+abe+bce+bde+cde+abg
+orbsize=983040
+anf=abc+abd+bcd+abe+bce+bde+cde+abg
+orbsize=5898240
+anf=abc+acd+bcd+abe+bce+bde+cde+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce+bde+cde+abg
+orbsize=23592960
+anf=abc+bcd+ace+bce+bde+cde+abg
+orbsize=5898240
+anf=acd+bcd+ace+bce+bde+cde+abg
+orbsize=23592960
+anf=abc+acd+bcd+ace+bce+bde+cde+abg
+orbsize=47185920
+anf=abd+bcd+abe+ace+bce+bde+cde+abg
+orbsize=5898240
+anf=bcd+abe+ace+ade+bde+cde+abg
+orbsize=5898240
+anf=abc+abd+bcd+abe+bce+ade+bde+cde+abg
+orbsize=11796480
+anf=abd+acd+bcd+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+acf+abg
+orbsize=47185920
+anf=abe+ace+acf+abg
+orbsize=3932160
+anf=abc+ace+bce+acf+abg
+orbsize=5898240
+anf=acd+bcd+ace+bce+acf+abg
+orbsize=23592960
+anf=abd+acd+bcd+abe+ace+bce+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+acf+abg
+orbsize=47185920
+anf=ade+acf+abg
+orbsize=11796480
+anf=abc+bcd+ade+acf+abg
+orbsize=23592960
+anf=abd+acd+bcd+ade+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ade+acf+abg
+orbsize=47185920
+anf=abe+ade+acf+abg
+orbsize=5898240
+anf=acd+bcd+abe+ade+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ade+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ade+acf+abg
+orbsize=23592960
+anf=abc+bcd+ace+ade+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+ace+ade+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+ade+acf+abg
+orbsize=47185920
+anf=abc+bcd+abe+ace+ade+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+ace+ade+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+ade+acf+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+ade+acf+abg
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+ace+ade+acf+abg
+orbsize=47185920
+anf=abc+bcd+bce+ade+acf+abg
+orbsize=23592960
+anf=acd+bcd+bce+ade+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+bce+ade+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+acf+abg
+orbsize=23592960
+anf=abd+acd+bcd+abe+bce+ade+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+ade+acf+abg
+orbsize=47185920
+anf=abd+acd+ace+bce+ade+acf+abg
+orbsize=11796480
+anf=acd+bcd+ace+bce+ade+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+ace+bce+ade+acf+abg
+orbsize=47185920
+anf=abd+acd+bcd+ace+bce+ade+acf+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bce+ade+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+ade+acf+abg
+orbsize=47185920
+anf=acd+bde+acf+abg
+orbsize=47185920
+anf=abd+acd+bde+acf+abg
+orbsize=23592960
+anf=abd+acd+bcd+bde+acf+abg
+orbsize=47185920
+anf=abd+acd+abe+bde+acf+abg
+orbsize=47185920
+anf=ace+bde+acf+abg
+orbsize=7864320
+anf=abc+ace+bde+acf+abg
+orbsize=11796480
+anf=abc+acd+ace+bde+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+bde+acf+abg
+orbsize=47185920
+anf=acd+abe+ace+bde+acf+abg
+orbsize=23592960
+anf=abc+acd+abe+ace+bde+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+bce+bde+acf+abg
+orbsize=47185920
+anf=abd+acd+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+bde+acf+abg
+orbsize=47185920
+anf=acd+abe+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+abe+bce+bde+acf+abg
+orbsize=23592960
+anf=abc+abd+acd+abe+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+bde+acf+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+ace+bce+bde+acf+abg
+orbsize=11796480
+anf=abd+acd+ace+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+bce+bde+acf+abg
+orbsize=23592960
+anf=acd+bcd+ace+bce+bde+acf+abg
+orbsize=23592960
+anf=abd+acd+bcd+ace+bce+bde+acf+abg
+orbsize=23592960
+anf=abd+acd+abe+ace+bce+bde+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+ace+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+bce+bde+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+abe+ace+bce+bde+acf+abg
+orbsize=23592960
+anf=acd+ade+bde+acf+abg
+orbsize=23592960
+anf=abc+acd+ade+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+abe+ace+ade+bde+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+ace+ade+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+bce+ade+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+abe+bce+ade+bde+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+bce+ade+bde+acf+abg
+orbsize=47185920
+anf=abc+acd+ace+bce+ade+bde+acf+abg
+orbsize=23592960
+anf=abc+cde+acf+abg
+orbsize=11796480
+anf=abc+bcd+abe+cde+acf+abg
+orbsize=11796480
+anf=abe+ace+cde+acf+abg
+orbsize=23592960
+anf=bcd+abe+ace+cde+acf+abg
+orbsize=11796480
+anf=abc+abd+ade+cde+acf+abg
+orbsize=23592960
+anf=abc+abd+abe+ade+cde+acf+abg
+orbsize=23592960
+anf=abd+ace+ade+cde+acf+abg
+orbsize=11796480
+anf=abd+abe+ace+ade+cde+acf+abg
+orbsize=23592960
+anf=abc+bde+cde+acf+abg
+orbsize=11796480
+anf=abc+abd+ade+bde+cde+acf+abg
+orbsize=11796480
+anf=abc+abd+abe+ade+bde+cde+acf+abg
+orbsize=23592960
+anf=abd+ace+ade+bde+cde+acf+abg
+orbsize=5898240
+anf=acd+bcd+abf+acf+abg
+orbsize=11796480
+anf=abc+abd+acd+bcd+abf+acf+abg
+orbsize=47185920
+anf=abc+abe+ace+bce+abf+acf+abg
+orbsize=1966080
+anf=acd+bcd+ade+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+ace+ade+abf+acf+abg
+orbsize=11796480
+anf=bcd+ace+ade+abf+acf+abg
+orbsize=2949120
+anf=acd+bcd+ace+ade+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bce+ade+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+bcd+bce+ade+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+abf+acf+abg
+orbsize=47185920
+anf=acd+abe+bce+ade+abf+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+bce+ade+abf+acf+abg
+orbsize=47185920
+anf=bcd+abe+ace+bce+ade+abf+acf+abg
+orbsize=2949120
+anf=acd+bcd+abe+ace+bce+ade+abf+acf+abg
+orbsize=23592960
+anf=abc+acd+bcd+abe+ace+bce+ade+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+abe+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+bde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+bcd+abe+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+ace+bde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+ace+bde+abf+acf+abg
+orbsize=47185920
+anf=bcd+ace+bde+abf+acf+abg
+orbsize=2949120
+anf=abd+acd+bcd+ace+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+abe+ace+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+abe+ace+bde+abf+acf+abg
+orbsize=23592960
+anf=abd+acd+abe+ace+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+bcd+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+bce+bde+abf+acf+abg
+orbsize=23592960
+anf=abd+acd+bcd+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+abe+bce+bde+abf+acf+abg
+orbsize=23592960
+anf=abc+acd+abe+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+abe+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+ace+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+ace+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+abe+ace+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+bce+bde+abf+acf+abg
+orbsize=47185920
+anf=ade+bde+abf+acf+abg
+orbsize=5898240
+anf=abd+acd+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+abe+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+ade+bde+abf+acf+abg
+orbsize=23592960
+anf=bcd+ace+ade+bde+abf+acf+abg
+orbsize=5898240
+anf=abc+acd+bcd+bce+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+bce+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+bce+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=ace+bce+ade+bde+abf+acf+abg
+orbsize=11796480
+anf=abd+acd+ace+bce+ade+bde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+bce+ade+bde+abf+acf+abg
+orbsize=23592960
+anf=abc+acd+abe+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+cde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+ace+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+ace+cde+abf+acf+abg
+orbsize=47185920
+anf=acd+abe+bce+cde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+abe+bce+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+bce+cde+abf+acf+abg
+orbsize=47185920
+anf=ace+bce+cde+abf+acf+abg
+orbsize=5898240
+anf=abd+acd+abe+ace+bce+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+abd+acd+abe+ace+bce+cde+abf+acf+abg
+orbsize=47185920
+anf=acd+ade+cde+abf+acf+abg
+orbsize=23592960
+anf=acd+ace+ade+cde+abf+acf+abg
+orbsize=11796480
+anf=abc+abd+acd+abe+ace+ade+cde+abf+acf+abg
+orbsize=23592960
+anf=abc+abd+bce+ade+cde+abf+acf+abg
+orbsize=11796480
+anf=abd+acd+bce+ade+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+abe+bce+ade+cde+abf+acf+abg
+orbsize=23592960
+anf=abc+abd+ace+bce+ade+cde+abf+acf+abg
+orbsize=23592960
+anf=abc+acd+abe+ace+bce+ade+cde+abf+acf+abg
+orbsize=23592960
+anf=abc+acd+bcd+bce+bde+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+bcd+abe+bce+bde+cde+abf+acf+abg
+orbsize=2949120
+anf=acd+bcd+abe+bce+bde+cde+abf+acf+abg
+orbsize=23592960
+anf=acd+ace+bce+bde+cde+abf+acf+abg
+orbsize=23592960
+anf=abc+acd+bcd+ace+bce+bde+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+abe+ace+bce+bde+cde+abf+acf+abg
+orbsize=47185920
+anf=acd+bcd+abe+ace+bce+bde+cde+abf+acf+abg
+orbsize=47185920
+anf=abd+acd+ade+bde+cde+abf+acf+abg
+orbsize=47185920
+anf=acd+bcd+ade+bde+cde+abf+acf+abg
+orbsize=23592960
+anf=abd+acd+abe+ace+ade+bde+cde+abf+acf+abg
+orbsize=47185920
+anf=abc+acd+bcd+abe+bce+ade+bde+cde+abf+acf+abg
+orbsize=23592960
+anf=abd+ace+bce+ade+bde+cde+abf+acf+abg
+orbsize=5898240
+anf=acd+bcd+ace+bce+ade+bde+cde+abf+acf+abg
+orbsize=23592960
+anf=abd+acd+bde+bcf+abg
+orbsize=47185920
+anf=acd+bcd+abe+bde+bcf+abg
+orbsize=47185920
+anf=abe+ace+bde+bcf+abg
+orbsize=1966080
+anf=acd+bcd+abe+ace+bde+bcf+abg
+orbsize=23592960
+anf=abc+abd+acd+bcd+abe+ace+bce+ade+bde+bcf+abg
+orbsize=23592960
+anf=abd+bcd+ace+cde+bcf+abg
+orbsize=23592960
+anf=abc+bcd+abe+bce+cde+bcf+abg
+orbsize=5898240
+anf=abd+acd+bcd+abe+ace+ade+cde+bcf+abg
+orbsize=47185920
+anf=abe+bce+bde+cde+bcf+abg
+orbsize=1966080
+anf=abc+bcd+abe+bce+bde+cde+bcf+abg
+orbsize=983040
+anf=abc+abd+abe+bce+ade+bde+cde+bcf+abg
+orbsize=5898240
+anf=abc+bcd+adf+abg
+orbsize=1966080
+anf=ace+adf+abg
+orbsize=245760
+anf=abc+ace+adf+abg
+orbsize=2949120
+anf=bcd+ace+adf+abg
+orbsize=5898240
+anf=abc+bcd+ace+adf+abg
+orbsize=1474560
+anf=abe+ace+adf+abg
+orbsize=1474560
+anf=bcd+abe+ace+adf+abg
+orbsize=11796480
+anf=ace+bce+adf+abg
+orbsize=589824
+anf=abc+ace+bce+adf+abg
+orbsize=5898240
+anf=abe+ace+bce+adf+abg
+orbsize=2949120
+anf=ace+ade+adf+abg
+orbsize=5898240
+anf=abe+ace+ade+adf+abg
+orbsize=5898240
+anf=ace+bde+adf+abg
+orbsize=2949120
+anf=abc+ace+bde+adf+abg
+orbsize=11796480
+anf=ace+bce+bde+adf+abg
+orbsize=5898240
+anf=abc+ace+bce+bde+adf+abg
+orbsize=11796480
+anf=cde+adf+abg
+orbsize=5898240
+anf=abc+cde+adf+abg
+orbsize=5898240
+anf=abc+bcd+cde+adf+abg
+orbsize=11796480
+anf=abe+cde+adf+abg
+orbsize=23592960
+anf=abc+abe+cde+adf+abg
+orbsize=5898240
+anf=abc+bcd+abe+cde+adf+abg
+orbsize=23592960
+anf=bcd+ace+cde+adf+abg
+orbsize=1966080
+anf=abc+bcd+ace+cde+adf+abg
+orbsize=11796480
+anf=abe+ace+cde+adf+abg
+orbsize=23592960
+anf=bcd+abe+ace+cde+adf+abg
+orbsize=11796480
+anf=bce+cde+adf+abg
+orbsize=5898240
+anf=ace+bce+cde+adf+abg
+orbsize=11796480
+anf=abc+abd+ade+cde+adf+abg
+orbsize=23592960
+anf=abc+bcd+ade+cde+adf+abg
+orbsize=5898240
+anf=abc+abd+abe+ade+cde+adf+abg
+orbsize=23592960
+anf=abc+bcd+abe+ade+cde+adf+abg
+orbsize=23592960
+anf=abd+ace+ade+cde+adf+abg
+orbsize=11796480
+anf=abc+bcd+ace+ade+cde+adf+abg
+orbsize=7864320
+anf=abd+abe+ace+ade+cde+adf+abg
+orbsize=1966080
+anf=abc+bcd+bce+ade+cde+adf+abg
+orbsize=5898240
+anf=abc+bcd+ace+bce+ade+cde+adf+abg
+orbsize=7864320
+anf=abc+bcd+ace+bde+cde+adf+abg
+orbsize=11796480
+anf=abc+bcd+abe+bce+bde+cde+adf+abg
+orbsize=3932160
+anf=abc+bcd+acf+adf+abg
+orbsize=1966080
+anf=abc+bcd+ace+acf+adf+abg
+orbsize=2949120
+anf=bcd+abe+ace+acf+adf+abg
+orbsize=11796480
+anf=bcd+abe+ace+bce+acf+adf+abg
+orbsize=11796480
+anf=abd+ade+acf+adf+abg
+orbsize=23592960
+anf=bcd+bce+ade+acf+adf+abg
+orbsize=11796480
+anf=acd+abe+bce+ade+acf+adf+abg
+orbsize=47185920
+anf=abd+ade+bde+acf+adf+abg
+orbsize=23592960
+anf=bcd+ade+bde+acf+adf+abg
+orbsize=5898240
+anf=abc+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+bcd+cde+acf+adf+abg
+orbsize=3932160
+anf=abc+bcd+abe+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+abd+ace+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+abe+bce+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+abd+ade+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+bcd+ade+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+abd+abe+ade+cde+acf+adf+abg
+orbsize=3932160
+anf=abc+bcd+abe+bce+ade+cde+acf+adf+abg
+orbsize=3932160
+anf=abc+bcd+bde+cde+acf+adf+abg
+orbsize=23592960
+anf=abc+abd+abe+ace+bde+cde+acf+adf+abg
+orbsize=23592960
+anf=ace+abf+acf+adf+abg
+orbsize=491520
+anf=abe+ace+bce+abf+acf+adf+abg
+orbsize=1474560
+anf=abc+abe+ace+bce+abf+acf+adf+abg
+orbsize=2949120
+anf=bcd+ade+abf+acf+adf+abg
+orbsize=5898240
+anf=ace+bde+abf+acf+adf+abg
+orbsize=2949120
+anf=abc+bcd+bce+bde+abf+acf+adf+abg
+orbsize=1966080
+anf=bcd+ace+bce+bde+abf+acf+adf+abg
+orbsize=2949120
+anf=abc+abd+abe+ade+cde+abf+acf+adf+abg
+orbsize=3932160
+anf=ace+ade+cde+abf+acf+adf+abg
+orbsize=11796480
+anf=abc+abd+abe+ace+bce+ade+cde+abf+acf+adf+abg
+orbsize=11796480
+anf=abe+bce+bde+cde+abf+acf+adf+abg
+orbsize=1966080
+anf=abc+bcd+bce+ade+bde+cde+abf+acf+adf+abg
+orbsize=3932160
+anf=abc+bcd+bde+bcf+adf+abg
+orbsize=1966080
+anf=abc+bcd+abe+ace+bde+bcf+adf+abg
+orbsize=1474560
+anf=bcd+abe+ace+cde+bcf+adf+abg
+orbsize=11796480
+anf=abc+bcd+ade+cde+bcf+adf+abg
+orbsize=11796480
+anf=abd+ace+ade+bde+cde+bcf+adf+abg
+orbsize=1966080
+anf=ace+bce+bdf+abg
+orbsize=98304
+anf=bcd+abe+ace+ade+cde+bdf+abg
+orbsize=1474560
+anf=abc+bcd+abe+bce+bde+cde+bdf+abg
+orbsize=1474560
+anf=ace+bce+abf+adf+bdf+abg
+orbsize=245760
+anf=bcd+ace+cdf+abg
+orbsize=1474560
+anf=abc+bcd+ace+cdf+abg
+orbsize=368640
+anf=bcd+abe+ace+cdf+abg
+orbsize=11796480
+anf=abc+bcd+abe+ace+cdf+abg
+orbsize=5898240
+anf=bcd+ace+bce+cdf+abg
+orbsize=1474560
+anf=abc+bcd+ace+ade+cdf+abg
+orbsize=23592960
+anf=abc+bcd+ace+bce+ade+cdf+abg
+orbsize=23592960
+anf=abc+bcd+abe+ace+bde+cdf+abg
+orbsize=122880
+anf=abd+ace+ade+cde+cdf+abg
+orbsize=5898240
+anf=abd+abe+ace+ade+cde+cdf+abg
+orbsize=11796480
+anf=abd+ace+bce+ade+cde+cdf+abg
+orbsize=23592960
+anf=abc+bcd+abe+ace+acf+cdf+abg
+orbsize=2949120
+anf=abc+bcd+ade+acf+cdf+abg
+orbsize=11796480
+anf=abc+bcd+abe+ade+acf+cdf+abg
+orbsize=1966080
+anf=abc+bcd+ace+ade+acf+cdf+abg
+orbsize=15728640
+anf=abc+bcd+ace+bce+ade+acf+cdf+abg
+orbsize=15728640
+anf=abc+bcd+ace+bde+acf+cdf+abg
+orbsize=2949120
+anf=abc+bcd+abe+cde+acf+cdf+abg
+orbsize=11796480
+anf=abc+bcd+ace+cde+acf+cdf+abg
+orbsize=5898240
+anf=abc+bcd+abe+ace+bce+cde+acf+cdf+abg
+orbsize=5898240
+anf=abc+abd+ade+cde+acf+cdf+abg
+orbsize=7864320
+anf=abc+abd+abe+ade+cde+acf+cdf+abg
+orbsize=7864320
+anf=abd+ace+ade+cde+acf+cdf+abg
+orbsize=15728640
+anf=abd+abe+ace+ade+cde+acf+cdf+abg
+orbsize=15728640
+anf=abc+bcd+bce+ade+cde+acf+cdf+abg
+orbsize=1966080
+anf=abc+bcd+ace+abf+acf+cdf+abg
+orbsize=368640
+anf=abd+abe+ace+ade+cde+bcf+cdf+abg
+orbsize=5898240
+anf=abc+cde+acf+adf+cdf+abg
+orbsize=5898240
+anf=abc+bde+cde+acf+adf+cdf+abg
+orbsize=5898240
+anf=abc+bcd+abe+ace+bce+bde+abf+acf+bdf+cdf+abg
+orbsize=122880
+anf=acg
+orbsize=245760
+anf=abe+ace+acg
+orbsize=7864320
+anf=abc+abe+ace+acg
+orbsize=5898240
+anf=bcd+abe+ace+acg
+orbsize=23592960
+anf=abc+bcd+abe+ace+acg
+orbsize=23592960
+anf=ade+acg
+orbsize=23592960
+anf=abd+acd+ade+acg
+orbsize=23592960
+anf=bcd+ade+acg
+orbsize=23592960
+anf=abc+abd+bcd+ade+acg
+orbsize=47185920
+anf=abc+acd+bcd+ade+acg
+orbsize=23592960
+anf=abc+abd+acd+bcd+ade+acg
+orbsize=47185920
+anf=abe+ade+acg
+orbsize=23592960
+anf=abc+abd+acd+abe+ade+acg
+orbsize=23592960
+anf=abc+bcd+abe+ade+acg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ade+acg
+orbsize=47185920
+anf=ace+ade+acg
+orbsize=47185920
+anf=abc+abd+acd+ace+ade+acg
+orbsize=47185920
+anf=bcd+ace+ade+acg
+orbsize=47185920
+anf=abc+bcd+ace+ade+acg
+orbsize=47185920
+anf=abd+bcd+ace+ade+acg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+ade+acg
+orbsize=23592960
+anf=abe+ace+ade+acg
+orbsize=47185920
+anf=abd+acd+abe+ace+ade+acg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ace+ade+acg
+orbsize=23592960
+anf=abc+bcd+bce+ade+acg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+acg
+orbsize=23592960
+anf=bcd+abe+bce+ade+acg
+orbsize=23592960
+anf=abc+abd+bcd+abe+bce+ade+acg
+orbsize=47185920
+anf=acd+bcd+abe+bce+ade+acg
+orbsize=23592960
+anf=abd+acd+bcd+abe+bce+ade+acg
+orbsize=47185920
+anf=bcd+abe+ace+bce+ade+acg
+orbsize=47185920
+anf=abc+bcd+abe+ace+bce+ade+acg
+orbsize=23592960
+anf=abd+bcd+abe+ace+bce+ade+acg
+orbsize=23592960
+anf=abc+acd+bcd+abe+ace+bce+ade+acg
+orbsize=23592960
+anf=abd+acd+bcd+abe+ace+bce+ade+acg
+orbsize=23592960
+anf=abc+bde+acg
+orbsize=47185920
+anf=abd+bde+acg
+orbsize=47185920
+anf=bcd+bde+acg
+orbsize=47185920
+anf=abd+abe+bde+acg
+orbsize=47185920
+anf=abc+ace+bde+acg
+orbsize=23592960
+anf=abd+ace+bde+acg
+orbsize=47185920
+anf=abd+bcd+ace+bde+acg
+orbsize=47185920
+anf=abd+abe+ace+bde+acg
+orbsize=47185920
+anf=bcd+bce+bde+acg
+orbsize=15728640
+anf=abc+abd+bcd+bce+bde+acg
+orbsize=23592960
+anf=abe+bce+bde+acg
+orbsize=7864320
+anf=abd+bcd+abe+bce+bde+acg
+orbsize=23592960
+anf=abc+ace+bce+bde+acg
+orbsize=7864320
+anf=abc+abd+acd+ade+bde+acg
+orbsize=47185920
+anf=bcd+ade+bde+acg
+orbsize=47185920
+anf=abd+acd+abe+ade+bde+acg
+orbsize=47185920
+anf=abc+acd+bcd+abe+ade+bde+acg
+orbsize=23592960
+anf=acd+ace+ade+bde+acg
+orbsize=47185920
+anf=abc+abd+acd+ace+ade+bde+acg
+orbsize=23592960
+anf=abc+abd+bcd+ace+ade+bde+acg
+orbsize=23592960
+anf=abc+abd+acd+bce+ade+bde+acg
+orbsize=47185920
+anf=abc+abd+bcd+bce+ade+bde+acg
+orbsize=47185920
+anf=abc+abd+ace+bce+ade+bde+acg
+orbsize=23592960
+anf=bcd+ace+bce+ade+bde+acg
+orbsize=47185920
+anf=abc+abd+abe+ace+bce+ade+bde+acg
+orbsize=23592960
+anf=abd+acd+abe+ace+bce+ade+bde+acg
+orbsize=23592960
+anf=abd+bcd+abe+ace+bce+ade+bde+acg
+orbsize=47185920
+anf=abc+bcd+abe+cde+acg
+orbsize=23592960
+anf=abd+acd+ace+cde+acg
+orbsize=23592960
+anf=abc+abd+acd+ace+cde+acg
+orbsize=47185920
+anf=abc+abe+ace+cde+acg
+orbsize=7864320
+anf=abd+acd+abe+bce+cde+acg
+orbsize=47185920
+anf=abc+abd+acd+bcd+ace+bce+cde+acg
+orbsize=23592960
+anf=abc+abd+acd+abe+ace+bce+cde+acg
+orbsize=47185920
+anf=bcd+abe+ace+bce+cde+acg
+orbsize=15728640
+anf=abd+acd+bcd+abe+ace+bce+cde+acg
+orbsize=47185920
+anf=abc+abd+acd+ade+cde+acg
+orbsize=47185920
+anf=abd+acd+abe+ade+cde+acg
+orbsize=47185920
+anf=abc+abd+bce+ade+cde+acg
+orbsize=47185920
+anf=abc+abd+acd+bce+ade+cde+acg
+orbsize=47185920
+anf=abc+bcd+bce+ade+cde+acg
+orbsize=23592960
+anf=abd+acd+abe+bce+ade+cde+acg
+orbsize=47185920
+anf=abc+bcd+abe+bce+ade+cde+acg
+orbsize=23592960
+anf=bcd+ace+bce+ade+cde+acg
+orbsize=47185920
+anf=bcd+abe+ace+bce+ade+cde+acg
+orbsize=23592960
+anf=abd+acd+bcd+abe+ace+bce+ade+cde+acg
+orbsize=47185920
+anf=abc+abd+ace+bde+cde+acg
+orbsize=23592960
+anf=abc+abd+acd+abe+ace+bce+bde+cde+acg
+orbsize=23592960
+anf=acd+ade+bde+cde+acg
+orbsize=23592960
+anf=abd+abe+bce+ade+bde+cde+acg
+orbsize=47185920
+anf=abc+abd+ace+bce+ade+bde+cde+acg
+orbsize=47185920
+anf=abc+abd+bcd+ace+bce+ade+bde+cde+acg
+orbsize=23592960
+anf=acd+bcd+ace+bce+ade+bde+cde+acg
+orbsize=23592960
+anf=abe+ace+abf+acg
+orbsize=1966080
+anf=abc+abe+ade+abf+acg
+orbsize=23592960
+anf=abd+bcd+abe+ade+abf+acg
+orbsize=23592960
+anf=abc+abd+bcd+ace+ade+abf+acg
+orbsize=47185920
+anf=abc+abe+ace+ade+abf+acg
+orbsize=23592960
+anf=abd+bde+abf+acg
+orbsize=47185920
+anf=abd+abe+ace+bde+abf+acg
+orbsize=47185920
+anf=abc+abd+bcd+bce+bde+abf+acg
+orbsize=23592960
+anf=abd+bcd+abe+bce+bde+abf+acg
+orbsize=23592960
+anf=abc+abd+ade+bde+abf+acg
+orbsize=47185920
+anf=abc+bcd+abe+ade+bde+abf+acg
+orbsize=47185920
+anf=abc+bcd+ace+bce+ade+bde+abf+acg
+orbsize=47185920
+anf=abd+abe+ade+cde+abf+acg
+orbsize=23592960
+anf=abc+abd+acd+ace+bce+ade+cde+abf+acg
+orbsize=23592960
+anf=abc+abe+ace+bce+ade+cde+abf+acg
+orbsize=47185920
+anf=abd+acd+bcd+bde+cde+abf+acg
+orbsize=23592960
+anf=abd+acd+abe+ace+bde+cde+abf+acg
+orbsize=23592960
+anf=abc+bcd+abe+bce+ade+bde+cde+abf+acg
+orbsize=47185920
+anf=abc+bcd+ace+bce+ade+bde+cde+abf+acg
+orbsize=47185920
+anf=abc+bcd+abe+ace+bce+ade+bde+cde+abf+acg
+orbsize=23592960
+anf=abc+bcd+abe+ace+acf+acg
+orbsize=7864320
+anf=ade+acf+acg
+orbsize=23592960
+anf=abd+acd+bcd+abe+ade+acf+acg
+orbsize=23592960
+anf=abd+bcd+abe+ace+ade+acf+acg
+orbsize=23592960
+anf=abc+bcd+ace+bce+ade+acf+acg
+orbsize=23592960
+anf=abc+abd+ade+cde+acf+acg
+orbsize=47185920
+anf=abc+abd+acd+ade+cde+acf+acg
+orbsize=23592960
+anf=abd+acd+abe+ade+cde+acf+acg
+orbsize=47185920
+anf=abd+abe+ace+ade+cde+acf+acg
+orbsize=23592960
+anf=abc+abd+acd+bce+ade+cde+acf+acg
+orbsize=23592960
+anf=abd+acd+bde+cde+acf+acg
+orbsize=23592960
+anf=abc+abd+bcd+ace+bce+ade+abf+acf+acg
+orbsize=47185920
+anf=abd+abe+bde+abf+acf+acg
+orbsize=23592960
+anf=abc+abd+abe+ace+ade+cde+abf+acf+acg
+orbsize=47185920
+anf=abc+abe+ace+bce+ade+cde+abf+acf+acg
+orbsize=47185920
+anf=abd+acd+abe+ace+bde+cde+abf+acf+acg
+orbsize=47185920
+anf=abd+acd+bcd+abe+ace+bce+bde+cde+abf+acf+acg
+orbsize=23592960
+anf=bcd+bce+ade+acf+bcf+acg
+orbsize=47185920
+anf=abc+abd+acd+bcd+bce+ade+acf+bcf+acg
+orbsize=47185920
+anf=bcd+abe+ade+cde+acf+bcf+acg
+orbsize=47185920
+anf=bcd+ace+ade+cde+acf+bcf+acg
+orbsize=47185920
+anf=bcd+abe+ace+ade+cde+acf+bcf+acg
+orbsize=23592960
+anf=abd+bcd+abe+bce+ade+abf+acf+bcf+acg
+orbsize=23592960
+anf=abc+abd+abe+ace+ade+cde+abf+acf+bcf+acg
+orbsize=47185920
+anf=abe+ace+adf+acg
+orbsize=5898240
+anf=abc+abe+ace+adf+acg
+orbsize=7864320
+anf=bcd+abe+ace+adf+acg
+orbsize=23592960
+anf=abc+bcd+abe+ace+adf+acg
+orbsize=7864320
+anf=abe+ace+bce+adf+acg
+orbsize=1966080
+anf=abc+bcd+abe+ace+bce+adf+acg
+orbsize=23592960
+anf=abc+bcd+ade+adf+acg
+orbsize=23592960
+anf=abd+bcd+abe+bce+ade+adf+acg
+orbsize=47185920
+anf=bde+adf+acg
+orbsize=7864320
+anf=abc+bde+adf+acg
+orbsize=47185920
+anf=bcd+bde+adf+acg
+orbsize=47185920
+anf=abc+bcd+abe+bde+adf+acg
+orbsize=15728640
+anf=abc+ace+bde+adf+acg
+orbsize=23592960
+anf=abc+abe+bce+bde+adf+acg
+orbsize=15728640
+anf=bcd+ace+bce+bde+adf+acg
+orbsize=11796480
+anf=abe+ace+bce+bde+adf+acg
+orbsize=7864320
+anf=bcd+abe+ace+bce+bde+adf+acg
+orbsize=2949120
+anf=abc+abd+acd+abe+ace+ade+bde+adf+acg
+orbsize=23592960
+anf=bcd+bce+ade+bde+adf+acg
+orbsize=23592960
+anf=abc+bcd+abe+cde+adf+acg
+orbsize=23592960
+anf=abc+abe+ace+cde+adf+acg
+orbsize=7864320
+anf=abd+acd+abe+ace+bce+cde+adf+acg
+orbsize=23592960
+anf=acd+abe+bce+bde+cde+adf+acg
+orbsize=23592960
+anf=abc+bcd+abe+ace+bce+ade+bde+cde+adf+acg
+orbsize=23592960
+anf=bcd+ace+bde+abf+adf+acg
+orbsize=5898240
+anf=abc+bcd+bce+ade+bde+abf+adf+acg
+orbsize=47185920
+anf=acd+ace+bce+bde+cde+abf+adf+acg
+orbsize=23592960
+anf=abc+abd+bcd+abe+ace+bce+ade+bde+acf+adf+acg
+orbsize=47185920
+anf=bcd+ace+bde+acf+bcf+adf+acg
+orbsize=2949120
+anf=abc+bcd+ace+bce+ade+bdf+acg
+orbsize=23592960
+anf=bcd+abe+ace+ade+cde+bdf+acg
+orbsize=23592960
+anf=bce+bdf+aef+acg
+orbsize=245760
+anf=abe+adf+def+acg
+orbsize=1474560
+anf=abc+abe+adf+def+acg
+orbsize=983040
+anf=abc+bcd+abe+adf+def+acg
+orbsize=5898240
+anf=abe+abf+adf+def+acg
+orbsize=368640
+anf=abe+acf+adf+def+acg
+orbsize=122880
+anf=abe+acf+bcf+adf+def+acg
+orbsize=368640
+anf=abe+bce+adf+bdf+def+acg
+orbsize=1474560
+anf=abc+abe+bce+adf+bdf+def+acg
+orbsize=983040
+anf=bcd+abe+bce+adf+bdf+def+acg
+orbsize=2949120
+anf=bcd+abe+bce+abf+acf+adf+bdf+def+acg
+orbsize=2949120
+anf=abe+bce+acf+adf+bdf+aef+def+acg
+orbsize=122880
+anf=bcd+ace+adg
+orbsize=7864320
+anf=acd+bcd+ace+bce+adg
+orbsize=7864320
+anf=bcd+ace+acf+adg
+orbsize=7864320
+anf=acd+bcd+ace+bce+acf+adg
+orbsize=7864320
+anf=abd+acd+bcd+abe+ace+bce+bde+bcf+adg
+orbsize=11796480
+anf=bcd+abe+ace+ade+bde+bcf+adg
+orbsize=11796480
+anf=abc+abd+acd+abe+ace+bce+ade+cde+abf+bcf+cdf+adg
+orbsize=1966080
+anf=abd+bcd+ace+bce+bde+abf+bcf+adf+cdf+adg
+orbsize=1966080
+anf=abc+abd+acd+abe+ace+bce+ade+cde+abf+bcf+adf+cdf+adg
+orbsize=1966080
+anf=abc+abd+bcd+abe+bce+bde+cde+abf+bcf+adf+cdf+adg
+orbsize=1966080
+anf=cde+bdg
+orbsize=98304
+anf=abe+bde+cde+bdg
+orbsize=983040
+anf=cde+abf+bdg
+orbsize=983040
+anf=abe+bde+cde+abf+bdg
+orbsize=2949120
+anf=cde+adf+bdg
+orbsize=491520
+anf=bce+cde+adf+bdg
+orbsize=98304
+anf=abe+bde+cde+adf+bdg
+orbsize=2949120
+anf=abe+bde+cde+acf+adf+bdg
+orbsize=3932160
+anf=bce+cde+abf+acf+adf+bdg
+orbsize=983040
+anf=bce+cde+abf+bdf+bdg
+orbsize=491520
+anf=abe+bde+cde+adf+bdf+bdg
+orbsize=983040
+anf=abe+bde+cde+acf+cdf+bdg
+orbsize=3932160
+anf=bcd+ace+bde+cde+abg+cdg
+orbsize=983040
+anf=bcd+ace+bde+cde+abf+abg+cdg
+orbsize=2949120
+anf=bcd+ace+bce+bde+cde+abf+abg+cdg
+orbsize=1474560
+anf=bcd+ace+bde+cde+acf+abg+cdg
+orbsize=1474560
+anf=bcd+ace+bde+cde+bcf+abg+cdg
+orbsize=983040
+anf=ace+adf+abg+cdg
+orbsize=1966080
+anf=bcd+ace+bde+cde+adf+abg+cdg
+orbsize=5898240
+anf=bcd+ace+bce+bde+cde+adf+abg+cdg
+orbsize=737280
+anf=bcd+ace+abf+adf+abg+cdg
+orbsize=122880
+anf=bcd+ace+bde+cde+abf+adf+abg+cdg
+orbsize=245760
+anf=bcd+ace+bce+bde+cde+bcf+adf+abg+cdg
+orbsize=737280
+anf=bcd+ace+abf+bcf+adf+abg+cdg
+orbsize=368640
+anf=bcd+ace+bde+cde+abf+bcf+adf+abg+cdg
+orbsize=184320
+anf=ace+bce+bde+cde+abf+bcf+adf+abg+cdg
+orbsize=1966080
+anf=bcd+ace+bce+abf+acf+adf+bdf+abg+cdg
+orbsize=122880
+anf=bcd+ace+bce+abf+acf+bcf+adf+bdf+abg+cdg
+orbsize=368640
+anf=bcd+ace+bce+bde+cde+abf+adf+bdf+aef+abg+cdg
+orbsize=61440
+anf=bcd+ace+abg+bdg+deg
+orbsize=81920
+anf=bcd+ace+abf+abg+bdg+deg
+orbsize=196608
+anf=bcd+ace+bce+acf+abg+bdg+deg
+orbsize=163840
+anf=bcd+ace+adf+abg+bdg+deg
+orbsize=245760
+anf=bcd+ace+bce+adf+abg+bdg+deg
+orbsize=20480
+anf=bcd+ace+abf+adf+abg+bdg+deg
+orbsize=10240
+anf=bcd+ace+acf+adf+abg+bdg+deg
+orbsize=245760
+anf=bcd+ace+bce+bdf+abg+bdg+deg
+orbsize=81920
+anf=bcd+ace+bce+abf+adf+bdf+aef+abg+bdg+deg
+orbsize=2048
+rank=1340
+
+
+
+
+anf=acd+bcd+ace+adf+abg+bdg+deg+fg
+[1100111 1010001 1110000 0110101 1110101 0010011 0001011]0010111
+[1001100 1010101 1100011 1001101 1001011 1010000 0001110]0010001
+stabSize=20972799094947840
+
+anf=
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=444471552
+anf=abc
+reallocation 1...
+
+orbsize=238109760
+anf=bcd
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+orbsize=-2072609536
+anf=bcd+ace
+orbsize=59527440
+anf=bce
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+reallocation 26...
+
+reallocation 27...
+
+reallocation 28...
+
+reallocation 29...
+
+reallocation 30...
+
+reallocation 31...
+
+reallocation 32...
+
+reallocation 33...
+
+reallocation 34...
+
+reallocation 35...
+
+reallocation 36...
+
+reallocation 37...
+
+reallocation 38...
+
+reallocation 39...
+
+reallocation 40...
+
+reallocation 41...
+
+reallocation 42...
+
+reallocation 43...
+
+reallocation 44...
+
+reallocation 45...
+
+reallocation 46...
+
+reallocation 47...
+
+reallocation 48...
+
+reallocation 49...
+
+reallocation 50...
+
+reallocation 51...
+
+reallocation 52...
+
+reallocation 53...
+
+reallocation 54...
+
+reallocation 55...
+
+reallocation 56...
+
+reallocation 57...
+
+reallocation 58...
+
+reallocation 59...
+
+reallocation 60...
+
+reallocation 61...
+
+reallocation 62...
+
+reallocation 63...
+
+reallocation 64...
+
+reallocation 65...
+
+reallocation 66...
+
+reallocation 67...
+
+reallocation 68...
+
+reallocation 69...
+
+reallocation 70...
+
+reallocation 71...
+
+reallocation 72...
+
+reallocation 73...
+
+reallocation 74...
+
+reallocation 75...
+
+reallocation 76...
+
+reallocation 77...
+
+reallocation 78...
+
+reallocation 79...
+
+reallocation 80...
+
+reallocation 81...
+
+reallocation 82...
+
+reallocation 83...
+
+reallocation 84...
+
+reallocation 85...
+
+reallocation 86...
+
+reallocation 87...
+
+reallocation 88...
+
+reallocation 89...
+
+reallocation 90...
+
+reallocation 91...
+
+reallocation 92...
+
+reallocation 93...
+
+reallocation 94...
+
+reallocation 95...
+
+reallocation 96...
+
+reallocation 97...
+
+reallocation 98...
+
+reallocation 99...
+
+reallocation 100...
+
+reallocation 101...
+
+reallocation 102...
+
+reallocation 103...
+
+reallocation 104...
+
+reallocation 105...
+
+reallocation 106...
+
+reallocation 107...
+
+reallocation 108...
+
+reallocation 109...
+
+reallocation 110...
+
+reallocation 111...
+
+reallocation 112...
+
+reallocation 113...
+
+reallocation 114...
+
+reallocation 115...
+
+reallocation 116...
+
+reallocation 117...
+
+reallocation 118...
+
+reallocation 119...
+
+reallocation 120...
+
+reallocation 121...
+
+reallocation 122...
+
+reallocation 123...
+
+reallocation 124...
+
+reallocation 125...
+
+reallocation 126...
+
+reallocation 127...
+
+reallocation 128...
+
+reallocation 129...
+
+reallocation 130...
+
+reallocation 131...
+
+reallocation 132...
+
+orbsize=598992896
+anf=abc+bcd+ace+abf
+orbsize=45354240
+anf=bcf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+reallocation 26...
+
+reallocation 27...
+
+reallocation 28...
+
+reallocation 29...
+
+reallocation 30...
+
+reallocation 31...
+
+reallocation 32...
+
+reallocation 33...
+
+reallocation 34...
+
+reallocation 35...
+
+reallocation 36...
+
+reallocation 37...
+
+reallocation 38...
+
+reallocation 39...
+
+reallocation 40...
+
+reallocation 41...
+
+reallocation 42...
+
+reallocation 43...
+
+reallocation 44...
+
+reallocation 45...
+
+reallocation 46...
+
+reallocation 47...
+
+reallocation 48...
+
+reallocation 49...
+
+reallocation 50...
+
+reallocation 51...
+
+reallocation 52...
+
+reallocation 53...
+
+reallocation 54...
+
+reallocation 55...
+
+reallocation 56...
+
+reallocation 57...
+
+reallocation 58...
+
+reallocation 59...
+
+reallocation 60...
+
+reallocation 61...
+
+reallocation 62...
+
+reallocation 63...
+
+reallocation 64...
+
+reallocation 65...
+
+reallocation 66...
+
+reallocation 67...
+
+reallocation 68...
+
+reallocation 69...
+
+reallocation 70...
+
+reallocation 71...
+
+reallocation 72...
+
+reallocation 73...
+
+reallocation 74...
+
+reallocation 75...
+
+reallocation 76...
+
+reallocation 77...
+
+reallocation 78...
+
+reallocation 79...
+
+reallocation 80...
+
+reallocation 81...
+
+reallocation 82...
+
+reallocation 83...
+
+reallocation 84...
+
+reallocation 85...
+
+reallocation 86...
+
+reallocation 87...
+
+reallocation 88...
+
+reallocation 89...
+
+reallocation 90...
+
+reallocation 91...
+
+reallocation 92...
+
+reallocation 93...
+
+reallocation 94...
+
+reallocation 95...
+
+reallocation 96...
+
+reallocation 97...
+
+reallocation 98...
+
+reallocation 99...
+
+reallocation 100...
+
+orbsize=660897792
+anf=adf
+orbsize=21165312
+anf=acd+bcd+ace+adf
+orbsize=2314956
+anf=ace+abg
+orbsize=1763776
+anf=acd+bcd+ace+adf+abg
+orbsize=11811
+anf=acd+bcd+ace+adf+abg+bdg+deg
+orbsize=1
+rank=12
+anf=cde+adf+bdf+bef+bdg+aeg+fg+defg
+[0100000 1000000 1010000 1011001 0111100 0111011 1101111]1100000
+[1000000 0110000 0100000 1101101 0110001 1110110 0110010]0000010
+stabSize=1775700541440
+
+anf=
+orbsize=188160
+anf=abc
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+orbsize=770703360
+anf=abd
+orbsize=4515840
+anf=acd
+orbsize=108380160
+anf=acd+abe
+reallocation 1...
+
+orbsize=216760320
+anf=bcd+ace
+orbsize=36126720
+anf=abc+bcd+ace
+reallocation 1...
+
+orbsize=154140672
+anf=acd+bcd+ace
+orbsize=72253440
+anf=cde
+orbsize=37632
+anf=abd+cde
+orbsize=4515840
+anf=abf
+orbsize=72253440
+anf=acd+abf
+orbsize=108380160
+anf=abc+acd+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+reallocation 26...
+
+reallocation 27...
+
+reallocation 28...
+
+reallocation 29...
+
+reallocation 30...
+
+reallocation 31...
+
+reallocation 32...
+
+reallocation 33...
+
+reallocation 34...
+
+reallocation 35...
+
+reallocation 36...
+
+reallocation 37...
+
+reallocation 38...
+
+reallocation 39...
+
+reallocation 40...
+
+reallocation 41...
+
+reallocation 42...
+
+reallocation 43...
+
+reallocation 44...
+
+reallocation 45...
+
+reallocation 46...
+
+reallocation 47...
+
+reallocation 48...
+
+reallocation 49...
+
+reallocation 50...
+
+orbsize=-1653604352
+anf=bcd+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+orbsize=1156055040
+anf=abc+bcd+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+orbsize=1156055040
+anf=bcd+ace+abf
+orbsize=82575360
+anf=acd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+orbsize=578027520
+anf=abc+acd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+orbsize=770703360
+anf=acd+bcd+bce+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+orbsize=1156055040
+anf=abc+acd+bcd+bce+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=289013760
+anf=acd+cde+abf
+reallocation 1...
+
+orbsize=216760320
+anf=abc+bcd+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+orbsize=578027520
+anf=bcd+ace+cde+abf
+orbsize=82575360
+anf=acd+bcd+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+orbsize=578027520
+anf=abc+acd+bcd+bce+cde+abf
+reallocation 1...
+
+orbsize=165150720
+anf=acf
+orbsize=72253440
+anf=abd+acf
+reallocation 1...
+
+orbsize=216760320
+anf=bcd+acf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+orbsize=-826802176
+anf=abc+bcd+acf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+reallocation 26...
+
+reallocation 27...
+
+reallocation 28...
+
+reallocation 29...
+
+reallocation 30...
+
+reallocation 31...
+
+reallocation 32...
+
+reallocation 33...
+
+reallocation 34...
+
+reallocation 35...
+
+reallocation 36...
+
+reallocation 37...
+
+reallocation 38...
+
+reallocation 39...
+
+reallocation 40...
+
+reallocation 41...
+
+reallocation 42...
+
+reallocation 43...
+
+reallocation 44...
+
+orbsize=1870659584
+anf=bcd+abe+acf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+orbsize=-826802176
+anf=abd+bce+acf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+reallocation 8...
+
+reallocation 9...
+
+reallocation 10...
+
+reallocation 11...
+
+reallocation 12...
+
+reallocation 13...
+
+reallocation 14...
+
+reallocation 15...
+
+reallocation 16...
+
+reallocation 17...
+
+reallocation 18...
+
+reallocation 19...
+
+reallocation 20...
+
+reallocation 21...
+
+reallocation 22...
+
+reallocation 23...
+
+reallocation 24...
+
+reallocation 25...
+
+reallocation 26...
+
+reallocation 27...
+
+reallocation 28...
+
+reallocation 29...
+
+reallocation 30...
+
+reallocation 31...
+
+reallocation 32...
+
+reallocation 33...
+
+orbsize=329252864
+anf=adf
+orbsize=1693440
+anf=bcd+adf
+orbsize=108380160
+anf=abe+adf
+orbsize=6773760
+anf=bcd+abe+adf
+orbsize=108380160
+anf=ace+adf
+orbsize=12042240
+anf=bce+adf
+orbsize=9031680
+anf=abd+bce+adf
+orbsize=108380160
+anf=bcd+bce+adf
+orbsize=12042240
+anf=acd+bcd+bce+adf
+reallocation 1...
+
+orbsize=216760320
+anf=cde+adf
+orbsize=188160
+anf=abe+cde+adf
+orbsize=2257920
+anf=abe+cde+bcf+adf
+orbsize=108380160
+anf=bdf
+orbsize=282240
+anf=cde+bdf
+orbsize=141120
+anf=cdf
+orbsize=1505280
+anf=abd+cdf
+orbsize=27095040
+anf=bce+abf+cdf
+orbsize=72253440
+anf=adf+bdf+bef
+orbsize=40320
+anf=bcd+ace+adf+bdf+bef
+orbsize=12042240
+anf=cde+adf+bdf+bef
+orbsize=70560
+anf=abc+abd+acd+bcd+acf+abg
+reallocation 1...
+
+orbsize=165150720
+anf=bcd+adf+abg
+orbsize=12042240
+anf=abc+bcd+ace+adf+abg
+orbsize=16056320
+anf=abc+bcd+ace+bce+adf+abg
+orbsize=12845056
+anf=abc+bcd+ace+adf+bdf+bef+abg
+orbsize=65536
+anf=cde+adf+bdf+bef+abg
+orbsize=107520
+anf=bcf+acg
+orbsize=36126720
+anf=cde+adf+bdf+bef+acg
+orbsize=752640
+anf=adf+bdf+bdg
+orbsize=40320
+anf=cde+bdf+bef+bdg
+orbsize=3136
+anf=cde+adf+bdf+bef+bdg
+orbsize=3920
+anf=cde+adf+bdf+bef+bdg+aeg
+orbsize=16
+rank=63
+#maps : 4
+cpu61089.39

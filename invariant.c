@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 		    assert( tmp == R[nbj-1] );
 	    }
 	    if ( optall || optres ) {
-		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr   );
+		    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr , 1  );
 		    /*for( int i=0; i < 10; i++) {
 			    randAction( f );
 		    int tmp = invRestriction( f , ffsize, &bres, &rootd, &countd);
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
                     R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
             }
             if ( optall || optres ) {
-                    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr );
+                    R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr, 1 );
             }
             int val  = findspltable(R, nbj, &rootj, &countj);
 	    table[ val ].cpt++;

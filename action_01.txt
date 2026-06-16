@@ -1,0 +1,747 @@
+
+anf=abd+ace+ade+bcf+bdf+cef+abg+abcg+adg+bdg+abdg+aceg+fg+bcfg+defg
+[0110110 0001010 0001000 0010000 1010000 1011100 1101101]1110110
+[0010010 1111100 1010000 1011010 1001110 1011000 1001101]1100001
+stabSize=990904320
+
+anf=
+orbsize=15360
+anf=abc
+orbsize=20643840
+anf=abd
+orbsize=368640
+anf=acd
+orbsize=3870720
+anf=abd+acd
+orbsize=2580480
+anf=acd+abe
+orbsize=123863040
+anf=abc+acd+abe
+reallocation 1...
+
+orbsize=165150720
+anf=abd+acd+abe
+orbsize=61931520
+anf=bcd+abe
+orbsize=30965760
+anf=abc+bcd+abe
+orbsize=123863040
+anf=abd+bcd+abe
+orbsize=30965760
+anf=ace
+orbsize=10321920
+anf=abd+ace
+orbsize=123863040
+anf=abc+abd+ace
+orbsize=20643840
+anf=abc+acd+ace
+orbsize=15482880
+anf=abc+abd+acd+ace
+orbsize=123863040
+anf=bcd+ace
+orbsize=123863040
+anf=abc+bcd+ace
+orbsize=123863040
+anf=abc+abd+bcd+ace
+orbsize=10321920
+anf=abc+abd+acd+bcd+ace
+orbsize=41287680
+anf=acd+abe+ace
+orbsize=82575360
+anf=abd+acd+abe+ace
+orbsize=5160960
+anf=bcd+abe+ace
+orbsize=30965760
+anf=abc+bcd+abe+ace
+orbsize=123863040
+anf=abd+bcd+abe+ace
+orbsize=41287680
+anf=abd+acd+bcd+abe+ace
+orbsize=30965760
+anf=abd+bce
+orbsize=30965760
+anf=acd+bce
+orbsize=61931520
+anf=bcd+bce
+orbsize=1290240
+anf=abe+bce
+orbsize=5160960
+anf=abd+bcd+abe+bce
+orbsize=2580480
+anf=abc+ade
+orbsize=20643840
+anf=abc+abd+ade
+orbsize=41287680
+anf=bce+ade
+orbsize=123863040
+anf=abc+bce+ade
+orbsize=10321920
+anf=abc+abe+bce+ade
+orbsize=20643840
+anf=abd+ace+abf
+orbsize=123863040
+anf=abc+abd+ace+abf
+orbsize=20643840
+anf=acd+ace+abf
+orbsize=61931520
+anf=abc+acd+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+ace+abf
+orbsize=123863040
+anf=bcd+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=acd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=acd+abe+ace+abf
+orbsize=82575360
+anf=abd+acd+abe+ace+abf
+orbsize=123863040
+anf=bcd+abe+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+bcd+abe+ace+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abd+acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+acd+bcd+abe+ace+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abd+bce+abf
+orbsize=123863040
+anf=abc+abd+bce+abf
+orbsize=61931520
+anf=abd+acd+bce+abf
+reallocation 1...
+
+orbsize=141557760
+anf=abc+abd+acd+bce+abf
+orbsize=70778880
+anf=bcd+bce+abf
+orbsize=123863040
+anf=abc+bcd+bce+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+bcd+bce+abf
+orbsize=61931520
+anf=abd+acd+bcd+bce+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+bcd+bce+abf
+reallocation 1...
+
+orbsize=247726080
+anf=bcd+ade+abf
+orbsize=30965760
+anf=abc+bcd+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+abd+bcd+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=acd+bcd+ade+abf
+reallocation 1...
+
+orbsize=247726080
+anf=acd+bcd+abe+ade+abf
+reallocation 1...
+
+orbsize=141557760
+anf=abc+acd+bcd+abe+ade+abf
+orbsize=70778880
+anf=abc+abd+acd+bcd+abe+ade+abf
+orbsize=70778880
+anf=abc+bce+ade+abf
+orbsize=41287680
+anf=abc+abd+bce+ade+abf
+reallocation 1...
+
+orbsize=247726080
+anf=bcd+bce+ade+abf
+orbsize=30965760
+anf=abc+bcd+bce+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+abd+bcd+bce+ade+abf
+reallocation 1...
+
+orbsize=165150720
+anf=ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+ace+bce+ade+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+ace+bce+ade+abf
+orbsize=20643840
+anf=abc+abd+ace+bce+ade+abf
+orbsize=123863040
+anf=acd+bcd+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+acd+bcd+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abd+abe+ace+bce+ade+abf
+orbsize=41287680
+anf=abc+acd+bcd+abe+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+acd+bcd+abe+ace+bce+ade+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+ace+cde+abf
+orbsize=123863040
+anf=abc+abd+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=acd+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abc+acd+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+acd+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=bcd+ace+cde+abf
+orbsize=41287680
+anf=abd+bcd+ace+cde+abf
+orbsize=123863040
+anf=abc+abd+bcd+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+ace+cde+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+abe+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+acd+abe+ace+cde+abf
+reallocation 1...
+
+orbsize=141557760
+anf=abd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abd+acd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+bcd+abe+ace+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+reallocation 4...
+
+reallocation 5...
+
+reallocation 6...
+
+reallocation 7...
+
+orbsize=990904320
+anf=abc+abd+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bce+cde+abf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+acd+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+acd+bcd+bce+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abc+abd+acd+bcd+bce+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+ade+cde+abf
+orbsize=123863040
+anf=abc+abe+ade+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abd+abe+ade+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+abe+ade+cde+abf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+acd+bce+ade+cde+abf
+reallocation 1...
+
+reallocation 2...
+
+orbsize=330301440
+anf=abc+ace+bce+ade+cde+abf
+orbsize=123863040
+anf=abd+bce+acf
+orbsize=123863040
+anf=abc+acd+abe+bce+acf
+orbsize=61931520
+anf=bcd+abe+bce+acf
+reallocation 1...
+
+orbsize=141557760
+anf=abd+acd+bcd+abe+bce+acf
+orbsize=61931520
+anf=abc+abd+acd+bcd+abe+bce+acf
+orbsize=61931520
+anf=abc+abd+ace+bce+acf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+abd+acd+ace+bce+acf
+reallocation 1...
+
+orbsize=165150720
+anf=abc+bcd+abe+ace+bce+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abd+acd+bcd+abe+ace+bce+acf
+orbsize=41287680
+anf=abc+ade+acf
+orbsize=20643840
+anf=abc+bcd+ade+acf
+orbsize=123863040
+anf=bce+ade+acf
+orbsize=123863040
+anf=bcd+bce+ade+acf
+orbsize=61931520
+anf=abd+bcd+bce+ade+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+ace+bce+ade+acf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+bcd+ace+bce+ade+acf
+orbsize=61931520
+anf=abd+acd+bcd+ace+bce+bde+acf
+orbsize=61931520
+anf=ace+ade+bde+acf
+orbsize=123863040
+anf=abc+ace+ade+bde+acf
+orbsize=123863040
+anf=abc+bce+ade+bde+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+acd+bce+ade+bde+acf
+reallocation 1...
+
+orbsize=247726080
+anf=abc+abd+acd+bce+ade+bde+acf
+orbsize=123863040
+anf=acd+bcd+bce+ade+bde+acf
+orbsize=41287680
+anf=abc+acd+ace+cde+acf
+orbsize=61931520
+anf=abc+abd+acd+ace+cde+acf
+orbsize=20643840
+anf=abc+abd+bcd+ace+cde+acf
+orbsize=61931520
+anf=abc+ade+cde+acf
+orbsize=20643840
+anf=abc+acd+ade+cde+acf
+orbsize=10321920
+anf=abc+bcd+ade+cde+acf
+orbsize=41287680
+anf=abd+acd+ace+ade+cde+acf
+orbsize=61931520
+anf=abd+acd+bcd+ace+ade+cde+acf
+orbsize=10321920
+anf=abc+abd+acd+bde+cde+acf
+orbsize=41287680
+anf=abd+abe+bce+abf+acf
+orbsize=61931520
+anf=abc+bcd+bce+ade+abf+acf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+bcd+ace+bce+ade+abf+acf
+orbsize=82575360
+anf=abc+abe+ace+ade+bde+abf+acf
+orbsize=61931520
+anf=abd+ace+bcf
+orbsize=20643840
+anf=ade+bcf
+orbsize=123863040
+anf=abd+ace+bce+bde+bcf
+orbsize=15482880
+anf=abc+ace+bce+bde+abf+bcf
+orbsize=82575360
+anf=abc+acd+ace+bce+bde+abf+bcf+adf
+reallocation 1...
+
+reallocation 2...
+
+reallocation 3...
+
+orbsize=495452160
+anf=abc+abd+acd+ace+bce+bde+abf+bcf+adf
+orbsize=123863040
+anf=abc+ace+bce+bde+acf+bcf+adf
+orbsize=2580480
+anf=abd+ace+bce+bde+acf+bcf+adf
+orbsize=123863040
+anf=abc+bce+ade+bde+acf+bcf+adf
+reallocation 1...
+
+orbsize=165150720
+anf=abd+bce+ade+bde+acf+bcf+adf
+orbsize=5160960
+anf=abd+abe+bce+ade+bde+acf+bcf+adf
+orbsize=30965760
+anf=abd+acd+abe+bce+ade+bde+acf+bcf+adf
+orbsize=70778880
+anf=abc+acd+bcd+ace+bce+bde+cde+acf+bcf+adf
+orbsize=2580480
+anf=abc+ade+bdf
+orbsize=368640
+anf=acd+bcd+abe+bce+bde+cde+abf+acf+bcf+adf+aef
+orbsize=737280
+anf=abd+cef
+orbsize=41287680
+anf=abd+acd+cef
+orbsize=41287680
+anf=abc+ade+cef
+orbsize=10321920
+anf=abc+acd+ade+cef
+orbsize=123863040
+anf=abc+acd+bcd+ade+cef
+orbsize=61931520
+anf=abc+bcd+abe+ade+cef
+orbsize=123863040
+anf=abc+bcd+bce+ade+cef
+orbsize=30965760
+anf=abc+acd+bcd+bce+ade+cef
+orbsize=123863040
+anf=abc+acd+abe+bce+ade+bde+abf+acf+cef
+orbsize=61931520
+anf=abc+bcd+ace+ade+abf+bcf+cef
+orbsize=3870720
+anf=abc+acd+bcd+ace+ade+abf+bcf+cef
+orbsize=30965760
+anf=abd+acd+bcd+bce+bde+acf+adf+cef
+orbsize=1290240
+anf=abd+abe+bce+bde+abf+acf+adf+cef
+orbsize=5160960
+anf=abd+ace+ade+bcf+bdf+cef
+orbsize=15360
+anf=abc+acd+abe+bce+ade+cde+acf+aef+cef
+orbsize=737280
+anf=abg
+orbsize=7168
+anf=acd+abg
+orbsize=1290240
+anf=abc+acd+abg
+orbsize=5160960
+anf=abd+acd+abg
+orbsize=7741440
+anf=bcd+ace+abg
+orbsize=30965760
+anf=abc+bcd+ade+abg
+orbsize=2064384
+anf=abd+ace+bce+ade+abg
+orbsize=2064384
+anf=bcd+ade+abf+acf+abg
+orbsize=30965760
+anf=abc+acd+ace+bcf+abg
+orbsize=2064384
+anf=abc+ade+bcf+abg
+orbsize=5160960
+anf=abd+bce+ade+bde+acf+bcf+adf+abg
+orbsize=1290240
+anf=abc+acd+bcd+ace+bce+bde+cde+acf+bcf+adf+abg
+orbsize=7741440
+anf=abd+ade+cde+bdf+abg
+orbsize=2064384
+anf=abd+ace+ade+bcf+bdf+cef+abg
+orbsize=7168
+anf=acg
+orbsize=43008
+anf=bcd+acg
+orbsize=3870720
+anf=abc+abe+acg
+orbsize=5160960
+anf=abc+ade+bcf+acg
+orbsize=5160960
+anf=abd+bce+ade+bde+abf+acf+bcf+adf+bef+acg
+orbsize=3870720
+anf=abd+ace+ade+bcf+bdf+cef+acg
+orbsize=43008
+rank=204
