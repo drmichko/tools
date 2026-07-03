@@ -41,7 +41,8 @@ int main(int argc, char *argv[])
     int num = 0, cls = -1;
     int opt, optw = 0, optr=0, optinit = 0;
     int deg = 0, dimen = 7;
-    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:")) != -1) {
+    int target = -1, mode = 0;
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:p:")) != -1) {
 	switch (opt) {
 	case 'w':
 	    optw++;
@@ -63,6 +64,12 @@ int main(int argc, char *argv[])
                 break;
 	case 'r':
 	    optr=atoi( optarg );
+	    break;
+	case 't':
+	    target=atoi( optarg );
+	    break;
+	case 'p':
+	    mode=atoi( optarg );
 	    break;
 	default:
 	    exit(0);
@@ -86,31 +93,38 @@ int main(int argc, char *argv[])
 	}
     
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
-            panf( stdout, f );
-	    int t = degree( f );
-            paglGroup( stdout, grp );
-            fprintf(stdout, "\nstabSize=%ld\n", grpSize ); 
+	    if (  target == num % mode ) { 
             basis_t base   = monomialBasis( optr, optr,  ffdimen);
-	    
             aglVectorGroup  ldg = NULL;
             ldg = aglBoundaryGroupAction( f , grp , & base );
                
             initBrowse( &base );
-            int rank = 0;
+            size_t  rank = 0, orbmax = 0;
 	    vector vec;
             for( vec = 0; vec < base.size; vec++ )
 		if ( ! base.table[vec] ) {
-			boole g = vectortoboole( vec, &base );
-			panf( stdout, g );
-			free( g );
             		size_t orbSize = browse( vec , ldg  );
-            		printf("\norbsize=%ld", orbSize );
+			if ( orbSize > orbmax )
+				orbmax = orbSize;
+			base.table[vec] = 2;
 			rank++;
                         }
-	
-            printf("\nrank=%d", rank );
+	    fprintf( stdout, "\n\n#num=%d", num  );
+            printf("\norbmax==%ld", orbmax );
+            panf( stdout, f );
+	    paglGroup( stdout, grp );
+	    fprintf(stdout, "\nstabSize=%ld\n", rank  );
             free(f);
             aglfreeGroup( grp );
+	    for( vec = 0; vec < base.size; vec++ )
+                if (  2 == base.table[vec] ) {
+                        boole g = vectortoboole( vec, &base );
+                        panf( stdout, g );
+                        free( g );
+			rank--;
+                        }
+	    assert( rank == 0 );
+	    }
 	    num++;
         }
 

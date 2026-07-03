@@ -115,6 +115,9 @@ int main(int argc, char *argv[])
         printf("\n#maps : %d\n", num );
         return 0;
     }
+
+    optr = 4;
+
     if ( ! optr ) return (0);
 
     char tmp[64];
@@ -132,37 +135,39 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+    basis_t base   = monomialBasis( optr, optr,  ffdimen );
+    size_t  taille[ 2000 ] = {0};
+    int  no = 1;
+    initBrowse( &base );
+    aglVectorGroup  ldg = aglVectorGroupAction( grp , & base );
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
-	    if ( target == num % 2 ) {
-            panf( stdout, f );
-	    int t = degree( f );
-            paglGroup( stdout, grp );
-            fprintf(stdout, "\nstabSize=%ld\n", grpSize ); 
-            checkstab( f, grp, optr );
-            
-	    basis_t base   = monomialBasis( optr, optr,  ffdimen);
 	    vector vec;
-            aglVectorGroup  ldg = NULL;
-            if ( t < optr ) {
-		    vec  = booleVector( f, & base );
-                    ldg = aglVectorGroupAction( grp , & base );
-	    }  else {
-	       puts("boundary");
-               //boole g = getboolecpy( f );
-	       //projboole( optr-1, optr-1, g );
-	       //vec  = booleVector(  g , & base );
-	       vec = 0;
-               ldg = aglBoundaryGroupAction( f , grp , & base );
-	       //free( g );
-               }
-            initBrowse( &base );
-            size_t orbSize = browse( vec , ldg  );
-            printf("\norbsize=%ld", orbSize );
+	    boole g = getboolecpy( f );
+	    projboole( 4, 4, g );
+	    vec  = booleVector( g, & base );
+	    int cls =  base.table[ vec ];
+	    size_t orbSize;
+	    panf( stdout, f );
+	    panf( stdout, g );
+            printf("check:%d", checkstab( g, grp , optr ) );	    
+            free( g );
+
+            if ( cls == 0  ) {
+		    orbSize = numbrowse( no, vec , ldg  );
+	    	    fprintf(stdout, "\norbSize=%ld\n", orbSize); 
+            	    taille[ no ] =  orbSize;
+		    cls = no;
+		    no++;
+	    }
+	    printf("\n#cls=%d / %ld ", cls, vec );
+            orbSize = taille[ cls ];
             assert(   grpSize % orbSize == 0 );
             size_t stabSize = grpSize /orbSize ;
-            printf("\nstabsize=%ld", stabSize );
+	    assert(   grpSize % orbSize == 0 );
+	    fprintf(stdout, "\norbSize=%ld\n", orbSize); 
+	    fprintf(stdout, "\nstabSize=%ld\n", stabSize ); 
             aglGroup stab = NULL;
-            stab = boundStabilizer( vec ,  f, grp, & base, stabSize);
+            stab = plainStabilizer( vec , grp, & base, stabSize);
 
             assert( checkstab( f, stab, optr - 1 ) == 1 );	    
             checkstab( f, stab, optr - 1 );	    
@@ -170,10 +175,7 @@ int main(int argc, char *argv[])
 	    paglGroup( dst, stab );
 	   
 	    fprintf(dst, "\nstabSize=%ld\n", stabSize ); 
-            free( base.table);
-	    aglVectorGroupFree( ldg );
             aglfreeGroup( stab );
-	    }
             free( f );
             aglfreeGroup( grp );
 	    num++;
@@ -183,5 +185,6 @@ int main(int argc, char *argv[])
      fclose(src);
 
      printf("\n#maps : %d\n", num );
+     printf("\n#orbs : %d\n", no );
      return 0;
 }

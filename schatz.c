@@ -33,8 +33,23 @@ int *table( boole f )
 
         free( t );
         freecode( cc );
-      	pdistrib( "\nW=", A, limite+1 ); 
+      	pdistrib( "\n W=", A, limite  ); 
   return A;
+}
+
+
+int test( int* F, int * G)
+{
+	int limite = rmdimen( 2, 2, 7 );
+	limite = 1 << limite;
+	for( int g = 0; g < limite; g++ ) {
+		int q = 0;
+		while ( (F[ q ]  + G[ q ^ g]  > 88 ) &&  ( q < limite ) ) q++; 
+		if ( q  == limite ) {
+		       	puts(" YES !!! ");
+			exit(0);
+		}
+	}
 }
 
 int main(int argc, char *argv[])
@@ -93,10 +108,15 @@ int main(int argc, char *argv[])
     
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
 		 panf( stdout, f );
-		 int * W = table( f );
+		 int * F = table( f );
 	    	 boole g;
 	    	 int nb = 0;
     	    	 while ((g = loadBoole(src ) ) ) {
+			for( int x = 0; x < ffsize; x++ )
+				g[x] ^= f[x];
+		 	int * G = table( g );
+			test( F, G );
+			free( G );
 	    		free( g );
 			nb++;
 	    	}
