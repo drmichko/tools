@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     int opt, optw = 0, optr=0, optinit = 0;
     int deg = 0, dimen = 7;
     int target = -1, mode = 0;
-    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:p:")) != -1) {
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:M:")) != -1) {
 	switch (opt) {
 	case 'w':
 	    optw++;
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	case 't':
 	    target=atoi( optarg );
 	    break;
-	case 'p':
+	case 'M':
 	    mode=atoi( optarg );
 	    break;
 	default:
@@ -91,43 +91,52 @@ int main(int argc, char *argv[])
 		perror( fn  );
 		exit(1);
 	}
-    
-    while ((f = loadaglboolesize(src, &grp, &grpSize))) {
-	    if (  target == num % mode ) { 
-            basis_t base   = monomialBasis( optr, optr,  ffdimen);
-            aglVectorGroup  ldg = NULL;
-            ldg = aglBoundaryGroupAction( f , grp , & base );
-               
-            initBrowse( &base );
-            size_t  rank = 0, orbmax = 0;
-	    vector vec;
-            for( vec = 0; vec < base.size; vec++ )
-		if ( ! base.table[vec] ) {
-            		size_t orbSize = browse( vec , ldg  );
-			if ( orbSize > orbmax )
-				orbmax = orbSize;
-			base.table[vec] = 2;
-			rank++;
-                        }
-	    fprintf( stdout, "\n\n#num=%d", num  );
-            printf("\norbmax==%ld", orbmax );
-            panf( stdout, f );
-	    paglGroup( stdout, grp );
-	    fprintf(stdout, "\nstabSize=%ld\n", rank  );
-            free(f);
-            aglfreeGroup( grp );
-	    for( vec = 0; vec < base.size; vec++ )
-                if (  2 == base.table[vec] ) {
-                        boole g = vectortoboole( vec, &base );
-                        panf( stdout, g );
-                        free( g );
-			rank--;
-                        }
-	    assert( rank == 0 );
-	    }
-	    num++;
-        }
 
+    while ((f = loadaglboolesize(src, &grp, &grpSize))) {
+	    if (  target == num % mode ) {
+		    if ( degree(f) > 3  ) {
+			    basis_t base   = monomialBasis( optr, optr,  ffdimen);
+			    aglVectorGroup  ldg = NULL;
+			    ldg = aglBoundaryGroupAction( f , grp , & base );
+
+			    initBrowse( &base );
+			    size_t  rank = 0, orbmax = 0;
+			    vector vec;
+			    for( vec = 0; vec < base.size; vec++ )
+				    if ( ! base.table[vec] ) {
+					    size_t orbSize = browse( vec , ldg  );
+					    if ( orbSize > orbmax )
+						    orbmax = orbSize;
+					    base.table[vec] = 2;
+					    rank++;
+				    }
+			    char name[128];
+			    sprintf( name, "results/num-%d.txt", num );
+			    FILE *dst = fopen( name, "w");
+			    if ( ! dst ) {
+				    perror( fn );
+				    exit( 1 );
+			    }
+			    fprintf( dst , "\n\n#num=%d orbmax=%ld", num, orbmax );
+			    panf( dst , f );
+			    paglGroup( dst, grp );
+			    fprintf(dst, "\nstabSize=%ld\n", rank  );
+			    for( vec = 0; vec < base.size; vec++ )
+				    if (  2 == base.table[vec] ) {
+					    boole g = vectortoboole( vec, &base );
+					    panf( dst, g );
+					    free( g );
+					    rank--;
+				    }
+			    freeBasis( base );
+			    assert( rank == 0 );
+			    fclose( dst );
+		    }
+	    }
+	free( f );
+	aglfreeGroup( grp );
+	num++;
+    }
      fclose(src);
 
      printf("\n#maps : %d\n", num );
