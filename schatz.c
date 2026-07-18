@@ -11,8 +11,44 @@
 #include "orbitools.h"
 #include "distrib.h"
 
+#define TARGET 88
 aglGroup grp ;
 int64_t size ;
+
+
+ 
+void  NLL( boole f , int goal)
+{   
+        code   c = rmcode( 1 , 2, ffdimen  );
+        boole  t = getboole( );
+        int *  a = calloc( ffsize+1, sizeof( int ) );
+        int wt ; // = ( ffsize - linearity( f ) ) / 2;
+        wt = weightBoole( f );
+        a[ wt ]++;
+        int  cpt=1, limite = 1 << c.nbl;
+                for( int x = 0; x < ffsize; x++ )
+                        t[x] = f[x]; 
+        while ( wt >= goal && cpt < limite ) {
+                int i = __builtin_ctz( cpt  );
+                for( int x = 0; x < ffsize; x++ )
+                        t[x] ^= c.fct[i][x];
+
+                wt = weightBoole( t );
+                a[ wt ]++;
+                cpt++;
+        }
+    
+        if ( cpt == limite ) {
+                printf("\nNL2 ( %d )  :", goal);
+                for( int i = 0; i <=ffsize; i++ )
+                        if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
+        }  ; // else printf("\ngoal : %d /%d\n", wt, goal );
+        free( a );
+        free( t );
+        freecode( c );
+}
+
+
 
 int *table( boole f )
 { code cc = rmcode( 2, 2, 7 );
@@ -33,10 +69,11 @@ int *table( boole f )
 
         free( t );
         freecode( cc );
-      	pdistrib( "\n W=", A, limite  ); 
+      	//pdistrib( "\n W=", A, limite  ); 
   return A;
 }
 
+int best = TARGET;
 
 int test( int* F, int * G)
 {
@@ -44,12 +81,18 @@ int test( int* F, int * G)
 	limite = 1 << limite;
 	for( int g = 0; g < limite; g++ ) {
 		int q = 0;
-		while ( (F[ q ]  + G[ q ^ g]  > 88 ) &&  ( q < limite ) ) q++; 
+		while ( (F[ q ]  + G[ q ^ g]  >  TARGET  ) &&  ( q < limite ) ) q++; 
 		if ( q  == limite ) {
-		       	puts(" YES !!! ");
-			exit(0);
+			puts("YES");
+		        return 1;
+		}
+		int tmp = F[ q ]  + G[ q ^ g] ;
+		if ( tmp > best ) {
+			printf("best=%d\n", tmp );
+			best = tmp;
 		}
 	}
+        return 0;
 }
 
 int main(int argc, char *argv[])
@@ -62,7 +105,9 @@ int main(int argc, char *argv[])
     int num = 0, cls = -1;
     int opt, optw = 0, optr=-1, optinit = 0;
     int deg = 0, dimen = 7;
-    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:")) != -1) {
+    int job = 0, mode = 1;
+
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:j:")) != -1) {
 	switch (opt) {
 	case 'w':
 	    optw++;
@@ -76,6 +121,9 @@ int main(int argc, char *argv[])
 	case 'i': 
 		optinit = atoi( optarg);
 	break;
+	case 'j': 
+	        sscanf( optarg, "%d:%d", &job, & mode );
+		break;
 	case 'm': 
 		dimen  = atoi( optarg);
 	break;
@@ -105,23 +153,43 @@ int main(int argc, char *argv[])
 		perror( fn  );
 		exit(1);
 	}
-    
+    assert( mode > 0 );
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
 		 panf( stdout, f );
 		 int * F = table( f );
 	    	 boole g;
 	    	 int nb = 0;
-    	    	 while ((g = loadBoole(src ) ) ) {
-			for( int x = 0; x < ffsize; x++ )
-				g[x] ^= f[x];
-		 	int * G = table( g );
-			test( F, G );
-			free( G );
-	    		free( g );
-			nb++;
-	    	}
-	        printf("\n#nb: %d\n", nb);
-	    free(f);
+		 boole c;
+    	    	 while (( c = loadBoole(src ) ) ) {
+			 if ( nb % mode == job ) {
+				 boole g = getboole(  );
+				 for( int x = 0; x < ffsize; x++ )
+					 g[x] ^= f[x] ^ c[x] ;
+				 int * G = table( g );
+				 if ( test( F, G ) ) {
+					 FILE *dst = fopen( "goodies.out", "a");
+					 fprintf( dst, "%s\n", fn );
+					 initboole( 8 );
+					 boole h = getboole();
+
+					 for( int x = 0; x < ffsize/2; x++ )
+						 h[x] = f[x];
+
+					 for( int x = 0; x < ffsize/2; x++ )
+						 h[x+ffsize/2] = f[x] ^ c[x];
+					 panf( dst, h );
+					 fclose(dst);
+					 // NLL( h, 90  );
+					 initboole( 7 );
+					 free( g );
+				 }
+				 free( G );
+			 }
+			 free( c );
+			 nb++;
+		 }
+		 printf("\n#nb: %d\n", nb);
+		 free(f);
             aglfreeGroup( grp );
 	    num++;
         }

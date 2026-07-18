@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
     int num = 0, cls = -1;
     int opt, optw = 0, optr=0, optinit = 0;
     int deg = 0, dimen = 7;
-    int target = -1, mode = 0;
-    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:M:")) != -1) {
+    int target = -1, mode = 0, verb = 0;
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:M:v")) != -1) {
 	switch (opt) {
 	case 'w':
 	    optw++;
@@ -67,6 +67,9 @@ int main(int argc, char *argv[])
 	    break;
 	case 't':
 	    target=atoi( optarg );
+	    break;
+	case 'v':
+	    verb = 1;
 	    break;
 	case 'M':
 	    mode=atoi( optarg );
@@ -94,11 +97,10 @@ int main(int argc, char *argv[])
 
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
 	    if (  target == num % mode ) {
-		    if ( degree(f) > 3  ) {
+		    if ( degree(f) > 3  && grpSize >= 1024 && grpSize < 2024 ) {
 			    basis_t base   = monomialBasis( optr, optr,  ffdimen);
 			    aglVectorGroup  ldg = NULL;
 			    ldg = aglBoundaryGroupAction( f , grp , & base );
-
 			    initBrowse( &base );
 			    size_t  rank = 0, orbmax = 0;
 			    vector vec;
@@ -107,35 +109,41 @@ int main(int argc, char *argv[])
 					    size_t orbSize = browse( vec , ldg  );
 					    if ( orbSize > orbmax )
 						    orbmax = orbSize;
-					    base.table[vec] = 2;
+					    base.table[vec] = 23;
 					    rank++;
 				    }
-			    char name[128];
-			    sprintf( name, "results/num-%d.txt", num );
-			    FILE *dst = fopen( name, "w");
-			    if ( ! dst ) {
-				    perror( fn );
-				    exit( 1 );
-			    }
-			    fprintf( dst , "\n\n#num=%d orbmax=%ld", num, orbmax );
-			    panf( dst , f );
-			    paglGroup( dst, grp );
-			    fprintf(dst, "\nstabSize=%ld\n", rank  );
-			    for( vec = 0; vec < base.size; vec++ )
-				    if (  2 == base.table[vec] ) {
-					    boole g = vectortoboole( vec, &base );
-					    panf( dst, g );
-					    free( g );
-					    rank--;
+			    char name[128]; sprintf( name, "results/num-%d.txt", num );
+			    optw = 1;
+			    if ( optw ) {
+				    FILE *dst = fopen( name, "w");
+				    if ( ! dst ) {
+					    perror( fn );
+					    exit( 1 );
 				    }
-			    freeBasis( base );
-			    assert( rank == 0 );
-			    fclose( dst );
+				    fprintf( dst , "\n\n#num=%d orbmax=%ld", num, orbmax );
+				    panf( dst , f );
+				    paglGroup( dst, grp );
+				    fprintf(dst, "\nstabSize=%ld\n", rank  );
+				    for( vec = 0; vec < base.size; vec++ )
+					    if (  23 == base.table[vec] ) {
+						    boole g = vectortoboole( vec, &base );
+						    panf( dst, g );
+						    free( g );
+						    rank--;
+					    }
+				    assert( rank == 0 );
+				    fclose( dst );
+			    }
+			    if  (verb ) 
+				    printf("\n#maps : %d rank=%ld\n", num, rank );
+		     freeBasis( base );
 		    }
 	    }
 	free( f );
 	aglfreeGroup( grp );
 	num++;
+     	if  (verb ) 
+		printf("\n#maps : %d\n", num );
     }
      fclose(src);
 
