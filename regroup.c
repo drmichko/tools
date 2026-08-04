@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	    if ( i != num ) {
 		panf( stdout, f );
 		    paglGroup( stdout, g );
-		    printf("\nstaSize=%ld", size );
+		    printf("\nstabSize=%ld", size );
 		    item++;
 	    }
 	    free( f );
