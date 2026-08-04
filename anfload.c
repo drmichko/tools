@@ -275,6 +275,20 @@ double moment( int r , int n )
     return res;
 }
 
+
+int64_t  Moment( int r )
+{
+    int64_t sum = 0;
+    for (int a = 0; a < ffsize; a++) {
+	int64_t tmp = 1;
+	for (int i = 0; i < r; i++)
+	    tmp *= tfr[a];
+	sum += tmp;
+    }
+    sum /= ffsize;
+    return sum;
+}
+
 int sha(boole f)
 {
     int res = 0, tmp;
@@ -872,6 +886,9 @@ void pfboole(FILE * dst, char *format, boole f)
 	    case 'a':
 		fprintf(dst, "alpha=%.4f", moment( 4, 3 ));
 		break;
+	    case 'A':
+		fprintf(dst, "%ld", Moment( 4 ) );
+		break;
 	    case 'C':
 		format++;
 		correlation(f, *format - '0');
@@ -1129,7 +1146,7 @@ int main(int argc, char *argv[])
 
     while ((f = myanfloadboole(src, optM))) {
 	//panf( stdout, f );
-//	doit(f);
+	doit(f);
 	if (accept( f )) {
 	    numero++;
 	    if ( optnum == 0 || optnum == numero ) 
