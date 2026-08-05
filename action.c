@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
 	    if (  target == num % mode ) {
-		    if ( degree(f) > 3  && grpSize >= 1024 && grpSize < 2024 ) {
+		    if ( degree(f) > 3  && grpSize >= 256 && grpSize < 512 ) {
 			    basis_t base   = monomialBasis( optr, optr,  ffdimen);
 			    aglVectorGroup  ldg = NULL;
 			    ldg = aglBoundaryGroupAction( f , grp , & base );

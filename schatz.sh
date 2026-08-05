@@ -25,6 +25,7 @@ if grep $file goodies.txt ; then
 fi
 
 echo $file  
+hostname    >> goodies.txt
 echo $file  >> goodies.txt
 
 
