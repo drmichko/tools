@@ -45,6 +45,8 @@ int optz = 0;
 int zmax = 1;
 int optZ = 0;
 int optW = 0;
+int Rstr = 0, Rabs = 0;
+
 typedef struct inter {
 	int w;
 	int min;
@@ -234,15 +236,16 @@ int inclus(int t[], int k, int v[])
 int incluscross(int t[], int k, int v[])
 {
     galois x;
-    for (int i = 0; i < k; i++) {
-	for (x = 1; x < ffsize; x++)
-	    if (abs(t[x]) == v[i])
+    for (x = 1; x < ffsize; x++){
+        int i, tmp = Rabs ? abs( t[x] ) : t[x];
+	for ( i = 0; i < k; i++) {
+	    if ( tmp == v[i]) 
 		break;
-	if (x < ffsize) {
-	    return 1;
-	}
+	}	
+	if ( i == k && Rstr )   return 0;
+	if ( i < k  && ! Rstr ) return 1;
     }
-    return 0;
+    return 1;
 }
 
 int allin(int t[], int k, int v[])
@@ -667,6 +670,8 @@ void usage(char *str)
     puts("./anfload.exe  -m 6  -b -z8  -p '%d %z %w%n'");
     puts("./anfload.exe  -m 8  -b -z15 -f /home/drmichko/web-docs/data/bst/ag-1-3-8.txt -p'%d %S%n%w%n%c%n'");
     puts("./anfload.exe  -m6 -d4 -b -p'%d %wm8 %n'");
+    puts("./anfload.exe -m6 -Rs64,0 -p%d %c+%n");
+
 }
 
 void derivative ( boole f )
@@ -1035,13 +1040,26 @@ int main(int argc, char *argv[])
 	    Xvalue[optX++] = atoi(optarg);
 	    break;
 	case 'R':
-	    if ( isdigit( *optarg) ) {
-	    	Rvalue[optR++] =  atoi(optarg);
-	    	Rvalue[optR++] = -atoi(optarg);
+            int tmp = 1;
+	    while ( tmp ) {
+            	switch( *optarg) {
+	    		case 'a'      : Rabs = 1; optarg++;
+	    		break;
+			case 's'      : Rstr = 1; optarg++;
+			break;
+	 		default       : tmp = 0;
+            	}
 	    }
-	    else Rvalue[optR++] = atoi(optarg);
-	    break;
-
+	    char * strToken;
+            strToken  = strtok ( optarg, "," );
+            while ( strToken ) {
+		 sscanf( strToken, "%d", &tmp );
+		 if ( Rabs ) tmp = abs( tmp );
+		 Rvalue[ optR++] = tmp;
+		 printf("tmp=%d\n", tmp );
+                 strToken = strtok ( NULL, "," );
+             }
+		break;
 	case '2':
 	    if ( *optarg == 'w' ) opt2w  = 1;
 	    if ( *optarg == 'c' ) opt2c  = 1;
