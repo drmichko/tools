@@ -1,0 +1,5 @@
+anf=abcdef+abcdfg+abdefg+acdefg+bcdefg+abcde+abcdf+abcdg+abdeg+acdeg+adefg+bcdef+bcdeg+abce+abcg+acde+acdg+adeg+adfg+aefg+bcdg+bcef+bceg+bdeg+bdfg+cdef+cdfg+cefg+abe+ace+ade+adf+adg+aef+afg+bce+bcf+bcg+bde+bdf+cde+cdf+cef+ceg+cfg+ae+bg+cd+ce+cf+dg+ef+eg+c+f+g
+
+anf=abcdef+abcdfg+abcefg+bcdefg+abcde+abcdf+abcdg+abceg+bcdef+bcdeg+bcdfg+abce+abdg+acde+acfg+aefg+bcdg+bcef+bcfg+befg+cdef+abe+ace+ade+adf+aef+aeg+bce+bcf+bde+bdf+bdg+beg+bfg+cde+cdf+cef+ceg+cfg+efg+ae+ag+cd+ce+cf+dg+ef+eg+c+f+g
+
+anf=abcdef+abcdfg+abdefg+acdefg+abcde+abcdf+abcdg+abdeg+acdeg+adefg+bcdef+bcdfg+bdefg+cdefg+abce+abcg+acde+acdg+adfg+aefg+bcdg+bcef+bceg+befg+cdef+cdeg+cdfg+cefg+abe+ace+ade+adf+aef+afg+bce+bcf+bde+bdf+beg+cde+cdf+cef+cfg+dfg+ae+bg+cd+ce+cf+ef+fg+c+f+g

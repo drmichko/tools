@@ -46,6 +46,7 @@ int zmax = 1;
 int optZ = 0;
 int optW = 0;
 int Rstr = 0, Rabs = 0;
+int optnlh=0;
 
 typedef struct inter {
 	int w;
@@ -348,6 +349,30 @@ for( int u = 0; u < ffsize; u++ ) {
 return 1;
 }
 
+code rmc;
+int flag = 0;
+int nlh( boole f  , int goal )
+{
+	if ( ! flag ) rmc = rmcode( 2, 2, ffdimen  );
+        flag = 1;
+	boole  t = getboolecpy( f );
+	int wt = ( ffsize - linearity( f ) ) / 2;
+        int res = wt;
+	int  cpt=1, limite = 1 << rmc.nbl;
+	while (  res >= goal && cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= rmc.fct[i][x];
+		
+		wt = ( ffsize - linearity( t ) ) / 2;;
+		if ( wt < res ) res = wt;
+		cpt++;
+	}
+
+	free( t );
+	return res;
+        return 0;
+}
 int accept(boole f )
 {
     int ok = 1;
@@ -358,8 +383,12 @@ int accept(boole f )
 	    return 0;
 
    
+    if (  optnlh ) {
+	ok = nlh( f , optnlh  ) >= optnlh;
+    }
 
-    if (oplin) {
+  
+    if (ok && oplin) {
 	int tmp = linear;
 	ok = (linmin <= tmp) && (tmp <= linmax);
 
@@ -701,7 +730,7 @@ return res;
 
 
 
-int systeme( mapping F)
+int systeme( boole F)
 {
     int x, y, z, t, nbc = 0;
 
@@ -984,6 +1013,9 @@ void pfboole(FILE * dst, char *format, boole f)
 		format--;
 		NL2( f , tmp );
 		break;
+	    case 'H' :
+		printf("nlh=%d", nlh( f, 0  )  );
+		break;
 	    default:
 		fprintf(dst, "?!");
 		break;
@@ -1019,10 +1051,11 @@ int main(int argc, char *argv[])
     fprintf( stderr, "\n#command line : ");
     for (opt = 0; opt < argc; opt++)
 	fprintf( stderr, " %s", argv[opt]);
+    printf("\nl");
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:N:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:N:H:")) !=
 	   -1) {
 	switch (opt) {
 	case 'a':
@@ -1134,6 +1167,9 @@ int main(int argc, char *argv[])
 	    break;
 	case 'z':
 	    optz = atoi(optarg);
+	    break;
+	case 'H':
+	    optnlh = atoi(optarg);
 	    break;
 	case 'Z':
 	    optZ  = atoi(optarg);
