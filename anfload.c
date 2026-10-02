@@ -47,6 +47,7 @@ int optZ = 0;
 int optW = 0;
 int Rstr = 0, Rabs = 0;
 int optnlh=0;
+int verb = 0;
 
 typedef struct inter {
 	int w;
@@ -878,7 +879,6 @@ void NL2( boole f , int goal)
 	}
 
 	if ( cpt == limite ) {
-		panf(stdout, f  );
 		printf("\nNL2 ( %d )  :", degree( f  ));
 		for( int i = 0; i <=ffsize; i++ )
 			if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
@@ -944,6 +944,14 @@ void pfboole(FILE * dst, char *format, boole f)
 		    if (cross[i] < 0)
 			cpt++;
 		printf(" neg=%d", cpt);
+		break;
+	    case 'E':
+			 int * A= calloc( ffsize  , sizeof(int) );
+			 for( int a = 0; a < ffsize; a++ )
+				A[ a ] = ( ffsize -  abs( tfr[a] ) ) / 2;
+			
+		   	  distribution(" E=", A, ffsize );
+                         free(A);
 		break;
 	    case 'w':
 		switch ( format[1]  ) {
@@ -1219,6 +1227,7 @@ int main(int argc, char *argv[])
     fprintf( stderr, "\n# %ld Boolean functions  in %d classes among %d\n", total,
 	   count, num);
 
+if ( verb <= 1 ) return 0;
     fprintf( stderr, "\n  cross:");
     for (int i = 0; i <= ffsize; i++)
 	if (valcross[i])
