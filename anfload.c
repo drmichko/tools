@@ -48,6 +48,8 @@ int optW = 0;
 int Rstr = 0, Rabs = 0;
 int optnlh=0;
 int verb = 0;
+int histo=0;
+
 
 typedef struct inter {
 	int w;
@@ -1059,13 +1061,16 @@ int main(int argc, char *argv[])
     fprintf( stderr, "\n#command line : ");
     for (opt = 0; opt < argc; opt++)
 	fprintf( stderr, " %s", argv[opt]);
-    printf("\nl");
+    printf("\n");
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:N:H:")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:N:H:!")) !=
 	   -1) {
 	switch (opt) {
+        case '!' :
+		histo++;
+        break;
 	case 'a':
 	    optalpha = 1;
 	    if (1 == sscanf(optarg, "%f:%f", &alphamin, &alphamax))
@@ -1202,6 +1207,14 @@ int main(int argc, char *argv[])
     }
     initboole(dim);
 
+
+    if( histo) {
+        FILE* histo=fopen( "tools.history", "a" );
+    	for (opt = 0; opt < argc; opt++)
+		if ( argv[opt][0] != '!' ) fprintf( histo, " %s", argv[opt]);
+    	fprintf( histo, "\n");
+        fclose(histo);
+	}
 
     agsize = aglCardinality(ffdimen);
     fprintf( stderr,"\n#AG size = %ld\n", agsize);

@@ -142,7 +142,8 @@ int main(int argc, char *argv[])
 	        fprintf( stdout, "\n#generator: %d\n", nb );
 	}
     	printf("\nstabSize=%ld", grpSize );
-	free( f );
+	assert( f != NULL );
+free( f );
     }
     fclose(src);
     printf("\n#change=%d\n", count );
