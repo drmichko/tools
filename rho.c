@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     uint64_t grpSize, orbSize;
 
     basis_t base   = monomialBasis( 5 , ffdimen ,  ffdimen);
-    
+    int64_t aglSize = aglcard(ffdimen); 
     aglVectorGroup  ldg = aglVectorGroupAction( mkaglGroup(6),  & base );
     
     while ((f = loadBoole(src ))) {
@@ -102,16 +102,15 @@ int main(int argc, char *argv[])
             initBrowse( &base );
             size_t orbSize = browse( vec , ldg  );
             printf("\norbsize=%ld", orbSize );
-			/*
-            stab = boundStabilizer( vec ,  f, grp, & base, stabSize);
-	    paglGroup( dst, stab );
-	   
-	    fprintf(dst, "\nstabSize=%ld\n", stabSize ); 
+            assert( 0 == aglSize %  orbSize );
+            size_t stabSize  = aglSize / orbSize;
+            aglGroup stab = boundStabilizer( vec ,  f, grp, & base, stabSize);
+	    paglGroup( stdout, stab );
+	    fprintf( stdout, "\nstabSize=%ld\n", stabSize ); 
             free( base.table);
 	    aglVectorGroupFree( ldg );
             aglfreeGroup( stab );
-	    */
-	free( f );
+	    free( f );
 	    num++;
         }
 
