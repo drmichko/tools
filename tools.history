@@ -1,0 +1,1 @@
+ ./anfload.exe -m6 -f /home/drmichko/radii/class-3-6.txt -d6 -H15 -p '%x%n'
