@@ -57,7 +57,7 @@ void NL2( int item, uint64_t size , boole f )
 
 void doit( int item, uint64_t size ,  boole f )
 {
-		NL2( item, size, f );
+	
 }
 
 
@@ -81,21 +81,6 @@ while ( g ) {
 return 1;
 }
 
-int accept( int i, int j )
-{
-if ( table[i].deg <=3 && table[j].deg <= 3) return 0;
-int L = 0, R = 0; 
-for( int r = 0; r < 40 ; r++ ){
-	L=0;
-        R=0;
-        for( int u=0; u < r; u++ )
-		L += table[i].a [ u ];
-        for( int u=64; u >= 40 - r; u-- )
-		R += table[j].a [ u ];
-	if ( L > R ) return 0;
-}
-return 1;
-}
 
 int main(int argc, char *argv[])
 {  
@@ -106,8 +91,8 @@ int main(int argc, char *argv[])
     aglGroup g = NULL;
     int num = 0, cls = -1;
     int opt, optw = 0, optr=0, optinit = 0;
-    int deg = 0, dimen = 6;
-    int target = 3;
+    int deg = 0, dimen = 7;
+    int target = 0;
 
     while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:")) != -1) {
 	switch (opt) {
@@ -141,6 +126,7 @@ int main(int argc, char *argv[])
 
     }
 
+
     FILE *src = fopen( fn, "r" );
     initboole(  dimen );
     initagldim( dimen );
@@ -148,51 +134,33 @@ int main(int argc, char *argv[])
     boole f;
     num = 0;
     uint64_t grpSize, orbSize;
-    rmh = rmcode(2,2,6);
-   int item = 0;
-   uint64_t size = 0;
+    int item = 0;
+    uint64_t size = 0;
+    basis_t base = monomialBasis( 3, 3, 7 );
     while ((f = loadaglboolesize( src , &g, &size ))) {
-	if ( degree(f) <=4 ) {
-		doit(item,  size, f );
-		table[item].grp  = g;
 		item++;
+	        printf("item=%d degree=%d order=%ld\n", item, degree(f), size );
+		if (  item == target  ) {
+			initBrowse( &base  );
+			aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
+			size_t  num = 0;
+			for( vector v = 0; v < base.size; v++ )
+				if ( ! base.table[v] ) {
+					size_t osize = browse( v, G );
+				//	printf("\nnum=%ld size=%ld", num, osize );
+					num++;
+				}
+		
+			printf("\n#orbits=%ld", num  );
+			aglfreeGroup( g );
+			aglVectorGroupFree(  G );
+			free( base.table );
+		}
+		free( f );
 	}
-    }
     printf("\nitem=%d\n", item );
-    int count = 0;
-    for( int i =0; i < item; i++ )
-    for( int j =i ; j < item; j++ )
-	if ( accept(i,j) )  {
-		count++; 
-    		printf("i=%d j=%d   (%ld,%ld) \n", i, j, table[i].stab, table[j].stab  );
-	}
-    printf("\npair=%d\n", count);
-    return 0;
-
-    basis_t base   = monomialBasis( 5 , ffdimen ,  ffdimen);
-    int64_t aglSize = aglcard(ffdimen); 
-    aglVectorGroup  ldg = aglVectorGroupAction( mkaglGroup(6),  & base );
-    
-    while ((f = loadBoole(src ))) {
-            panf( stdout, f );
-	    vector vec  = booleVector( f, & base );
-            initBrowse( &base );
-            size_t orbSize = browse( vec , ldg  );
-            printf("\norbsize=%ld", orbSize );
-            assert( 0 == aglSize %  orbSize );
-            size_t stabSize  = aglSize / orbSize;
-            aglGroup stab = boundStabilizer( vec ,  f, grp, & base, stabSize);
-	    paglGroup( stdout, stab );
-	    fprintf( stdout, "\nstabSize=%ld\n", stabSize ); 
-            free( base.table);
-	    aglVectorGroupFree( ldg );
-            aglfreeGroup( stab );
-	    free( f );
-	    num++;
-        }
 
      fclose(src);
 
-     printf("\n#maps : %d\n", num );
      return 0;
 }

@@ -376,6 +376,29 @@ int nlh( boole f  , int goal )
 	return res;
         return 0;
 }
+
+int nlq( boole f  , int goal )
+{
+	if ( ! flag ) rmc = rmcode( 2, 2, ffdimen  );
+        flag = 1;
+	boole  t = getboolecpy( f );
+	int wt = ( ffsize - linearity( f ) ) / 2;
+        int res = wt;
+	int  cpt=1, limite = 1 << rmc.nbl;
+	while (  res >= goal && cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= rmc.fct[i][x];
+		
+		wt = ( ffsize - linearity( t ) ) / 2;;
+		if ( wt < res ) res = wt;
+		cpt++;
+	}
+
+	free( t );
+	return res;
+        return 0;
+}
 int accept(boole f )
 {
     int ok = 1;
@@ -1025,6 +1048,9 @@ void pfboole(FILE * dst, char *format, boole f)
 		break;
 	    case 'H' :
 		printf("nlh=%d", nlh( f, 0  )  );
+		break;
+	    case 'q' :
+		printf("nlq=%d", nlq( f, 0  )  );
 		break;
 	    default:
 		fprintf(dst, "?!");
