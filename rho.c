@@ -141,20 +141,25 @@ int main(int argc, char *argv[])
 		item++;
 	        printf("item=%d degree=%d order=%ld\n", item, degree(f), size );
 		if (  item == target  ) {
+			assert( degree( f ) > 4  );
 			initBrowse( &base  );
 			aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
 			size_t  num = 0;
 			for( vector v = 0; v < base.size; v++ )
 				if ( ! base.table[v] ) {
 					size_t osize = browse( v, G );
-				//	printf("\nnum=%ld size=%ld", num, osize );
+                                        base.table[ v ] = 2;
 					num++;
 				}
 		
 			printf("\n#orbits=%ld", num  );
+			char bname[64];
+			sprintf( bname, "B_%d", item );
+			saveBasename( bname , base );
 			aglfreeGroup( g );
 			aglVectorGroupFree(  G );
 			free( base.table );
+			return 0;
 		}
 		free( f );
 	}
