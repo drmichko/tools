@@ -12,11 +12,52 @@
 
 aglGroup grp ;
 int64_t size ;
+code rmh;
 
-void doit( boole f )
+
+typedef struct info {
+      boole f;
+      int*  a;
+      int deg;
+      uint64_t stab;
+      aglGroup grp;
+} info;
+
+info table[ 64 ];
+
+void NL2( int item, uint64_t size , boole f )
 {
-orbitData df  = initData( f , 4, grp, size );
-freeData( &df );
+        boole  t = getboolecpy( f );
+        int *  a = calloc( ffsize+1, sizeof( int ) );
+        int wt = ( ffsize - linearity( f ) ) / 2;
+        a[ wt ]++;
+        int nl2 = wt;
+        int  cpt=1, limite = 1 << rmh.nbl;
+        while ( cpt < limite ) {
+                int i = __builtin_ctz( cpt  );
+                for( int x = 0; x < ffsize; x++ )
+                        t[x] ^= rmh.fct[i][x];
+
+                wt = ( ffsize - linearity( t ) ) / 2;;
+                a[ wt ]++;
+		if ( wt < nl2) nl2 = wt;
+                cpt++;
+        }
+
+        printf("item=%2d deg=%d  stab=%ld NL2=%2d :", item, degree( f  ), size, nl2 );
+        for( int i = 0; i <=ffsize; i++ )
+                        if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
+                putchar('\n');
+        table[item].a   = a;
+	table[item].f   = f;
+	table[item].stab   = size;
+	table[item].deg = degree( f );;
+        free( t );
+}
+
+void doit( int item, uint64_t size ,  boole f )
+{
+		NL2( item, size, f );
 }
 
 
@@ -37,6 +78,22 @@ while ( g ) {
     g = g -> next;
 }
 
+return 1;
+}
+
+int accept( int i, int j )
+{
+if ( table[i].deg <=3 && table[j].deg <= 3) return 0;
+int L = 0, R = 0; 
+for( int r = 0; r < 40 ; r++ ){
+	L=0;
+        R=0;
+        for( int u=0; u < r; u++ )
+		L += table[i].a [ u ];
+        for( int u=64; u >= 40 - r; u-- )
+		R += table[j].a [ u ];
+	if ( L > R ) return 0;
+}
 return 1;
 }
 
@@ -91,6 +148,26 @@ int main(int argc, char *argv[])
     boole f;
     num = 0;
     uint64_t grpSize, orbSize;
+    rmh = rmcode(2,2,6);
+   int item = 0;
+   uint64_t size = 0;
+    while ((f = loadaglboolesize( src , &g, &size ))) {
+	if ( degree(f) <=4 ) {
+		doit(item,  size, f );
+		table[item].grp  = g;
+		item++;
+	}
+    }
+    printf("\nitem=%d\n", item );
+    int count = 0;
+    for( int i =0; i < item; i++ )
+    for( int j =i ; j < item; j++ )
+	if ( accept(i,j) )  {
+		count++; 
+    		printf("i=%d j=%d   (%ld,%ld) \n", i, j, table[i].stab, table[j].stab  );
+	}
+    printf("\npair=%d\n", count);
+    return 0;
 
     basis_t base   = monomialBasis( 5 , ffdimen ,  ffdimen);
     int64_t aglSize = aglcard(ffdimen); 
