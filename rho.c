@@ -85,28 +85,23 @@ return 1;
 int main(int argc, char *argv[])
 {  
 
-    char *fn = NULL;
+    char *fn = "../boole/data/B-4-5-7.dat";
 
 
     aglGroup g = NULL;
-    int num = 0, cls = -1;
-    int opt, optw = 0, optr=0, optinit = 0;
-    int deg = 0, dimen = 7;
+    int opt; 
+    int dimen = 7;
     int target = 0;
 
     while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:")) != -1) {
 	switch (opt) {
 	case 'w':
-	    optw++;
 	    break;
 	case 'd':
-	    deg = atoi(optarg);
 	   break;
 	case 'c':
-	    cls = atoi(optarg);
 	    break;
 	case 'i': 
-		optinit = atoi( optarg);
 	break;
 	case 'm': 
 		dimen  = atoi( optarg);
@@ -115,7 +110,6 @@ int main(int argc, char *argv[])
 		fn = strdup( optarg );
                 break;
 	case 'r':
-	    optr=atoi( optarg );
 	    break;
 	case 't':
 	    target=atoi( optarg );
@@ -132,40 +126,57 @@ int main(int argc, char *argv[])
     initagldim( dimen );
 
     boole f;
-    num = 0;
-    uint64_t grpSize, orbSize;
     int item = 0;
     uint64_t size = 0;
     basis_t base = monomialBasis( 3, 3, 7 );
+
     while ((f = loadaglboolesize( src , &g, &size ))) {
-		item++;
-	        printf("item=%d degree=%d order=%ld\n", item, degree(f), size );
-		if (  item == target  ) {
-			assert( degree( f ) > 4  );
-			initBrowse( &base  );
-			aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
-			size_t  num = 0;
-			for( vector v = 0; v < base.size; v++ )
-				if ( ! base.table[v] ) {
-					size_t osize = browse( v, G );
-                                        base.table[ v ] = 2;
-					num++;
-				}
-		
-			printf("\n#orbits=%ld", num  );
-			char bname[64];
-			sprintf( bname, "B_%d", item );
-			saveBasename( bname , base );
-			aglfreeGroup( g );
-			aglVectorGroupFree(  G );
-			free( base.table );
-			return 0;
+		item++; 
+    	        if ( ! target )
+			printf( "item=%d degree=%d order=%ld\n", item, degree(f), size );
+                if ( item == target ) break;
+		aglfreeGroup( g );
+		free(f);
+    }
+    if ( item != target ){
+	    exit(0);
+    }
+    fclose(src);
+    sprintf( fn, "rho/rho-%d.out", target );
+
+    if ( access( fn , F_OK) == 0) {
+	    puts("done ?");
+	    exit(0);
+    }
+    FILE* dst = fopen( fn, "w");
+    clock_t debut = clock();
+ 
+    fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
+    panf( dst , f );
+    assert( degree( f ) > 4  );
+    initBrowse( &base  );
+
+    aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
+    size_t  count = 0;
+    for( vector v = 0; v < base.size; v++ )
+	if ( ! base.table[v] ) {
+		browse( v, G );
+                base.table[ v ] = 2;
+		count++;
 		}
-		free( f );
-	}
-    printf("\nitem=%d\n", item );
-
-     fclose(src);
-
-     return 0;
+		
+    fprintf( dst, "\n#orbits=%ld", count );
+    clock_t fin = clock();
+    double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
+    fprintf(dst, "\nruntime : %.6f secondes\n", temps);
+    char bname[64];
+    sprintf( bname, "%d", item );
+    saveBasename( bname , base );
+    aglfreeGroup( g );
+    aglVectorGroupFree(  G );
+    free( base.table );
+    
+    free( f );
+    fclose(dst);
+    return 0;
 }

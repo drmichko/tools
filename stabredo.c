@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
 free( f );
     }
     fclose(src);
-    printf("\n#change=%d\n", count );
+    fprintf(stderr, "\n#change=%d\n", count );
     return 0;
 
 }

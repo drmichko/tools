@@ -3,6 +3,12 @@
 // Convention : T[i] = 0 (non visité), 1 (cover set), 2 (couvert)
 // ============================================================
 
+
+#define _GNU_SOURCE
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -10,6 +16,20 @@
 #include <string.h>
 #include <pthread.h>
 #include <stdatomic.h>
+#define _GNU_SOURCE
+#include <unistd.h>
+#include <sys/syscall.h>
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <time.h>
+#include "orbitData.h"
+
+#include "boolean.h"
+#include "orbitools.h"
 
 // ============================================================
 // Configuration
@@ -21,15 +41,18 @@
 
 // Valeurs de T
 #define NON_VISITE   0
-#define COVER_SET    1
-#define COUVERT      2
+#define COVER_SET    2
+#define COUVERT      1
 
 // ============================================================
 // Structures globales
 // ============================================================
 
-static uint8_t *T;                          // Table de 2^35 bytes
 static atomic_uint_fast64_t curseur;        // Curseur global atomique
+
+
+basis_t base;
+aglVectorGroup lda;
 
 
 // ============================================================
@@ -48,10 +71,10 @@ static inline bool cas_byte(uint8_t *ptr, uint8_t expected, uint8_t new_val) {
 static inline uint64_t trouver_non_visite(void) {
     while (true) {
         uint64_t i = atomic_fetch_add(&curseur, 1);
-        if (i >= N_ELEMENTS) {
+        if (i >= base.size ) {
             return UINT64_MAX;
         }
-        if (T[i] == NON_VISITE) {
+        if (  base.table[i] == NON_VISITE) {
             return i;
         }
     }
@@ -73,26 +96,27 @@ static void explorer_orbite(uint64_t x) {
     
     uint64_t debut = 0, fin = 0;
     file[fin++] = x;
-    
+   
+    aglVectorGroup aux;
+    uint64_t count = 0;
     while (debut < fin) {
         uint64_t u = file[debut++];
-        
-        for (int g = 0; g < NB_GENERATEURS; g++) {
-            uint64_t v = apply_generator(g, u);
-            
+        aux = lda;
+        while (aux != NULL) {
+            uint64_t v  = aglVectorImage( u , aux->act);
             // Tenter de marquer v comme couvert
-            if (cas_byte(&T[v], NON_VISITE, COUVERT)) {
+            if (  base.table[ v ] ==  NON_VISITE  ) {
                 // v est nouveau : l'ajouter à la file
+		base.table[ v ] = COUVERT;
+		count++;
                 if (fin < FILE_TAILLE) {
                     file[fin++] = v;
                 } else {
-                    // File pleine : traiter v immédiatement
-                    // (ou augmenter la taille de la file)
-                    // Ici, on abandonne pour simplifier
-                    // En pratique, utiliser une file dynamique
+                    // abandon
                 }
             }
             // Sinon : déjà marqué (COVER_SET ou COUVERT), ne rien faire
+            aux = aux->next;
         }
         
         // Réinitialiser la file si elle est vide
@@ -102,6 +126,8 @@ static void explorer_orbite(uint64_t x) {
         }
     }
     
+	if ( count )
+		printf("\n %2d : %ld\n", gettid() , count );
     free(file);
 }
 
@@ -120,7 +146,7 @@ static void *thread_worker(void *arg) {
         }
         
         // 2. Tenter de le marquer comme élément du cover set
-        if (!cas_byte(&T[x], NON_VISITE, COVER_SET)) {
+        if (! cas_byte( & base.table[ x ], NON_VISITE, COVER_SET)) {
             continue;  // Un autre thread l'a pris
         }
         
@@ -140,8 +166,8 @@ static void extraire_cover_set(void) {
     uint64_t nb_couvert = 0;
     uint64_t nb_non_visite = 0;
     
-    for (uint64_t i = 0; i < N_ELEMENTS; i++) {
-        switch (T[i]) {
+    for (uint64_t i = 0; i < base.size ; i++) {
+        switch ( base.table[ i ]) {
             case COVER_SET:   nb_cover++;      break;
             case COUVERT:     nb_couvert++;    break;
             case NON_VISITE:  nb_non_visite++; break;
@@ -159,50 +185,18 @@ static void extraire_cover_set(void) {
 // Initialisation des générateurs (exemple factice)
 // ============================================================
 
-static void charger_generateurs(void) {
-    // Ici, il faut charger les générateurs de Stab(h)
-    // Pour l'exemple, on met un générateur trivial (identité)
-    // À remplacer par le vrai calcul
-    
-    NB_GENERATEURS = 1;
-    A_g = calloc(NB_GENERATEURS * 35, sizeof(uint64_t));
-    b_g = calloc(NB_GENERATEURS, sizeof(uint64_t));
-    
-    // Identité : A[i] = 1ULL << i, b = 0
-    for (int i = 0; i < 35; i++) {
-        A_g[i] = 1ULL << i;
-    }
-    b_g[0] = 0;
-}
 
-// ============================================================
-// Programme principal
-// ============================================================
 
-int main(void) {
-    // 1. Allouer la table T (32 Go)
-    printf("Allocation de T (%llu bytes = %.2f Go)...\n",
-           (unsigned long long)N_ELEMENTS,
-           (double)N_ELEMENTS / (1024.0 * 1024.0 * 1024.0));
-    
-    T = aligned_alloc(64, N_ELEMENTS);
-    if (!T) {
-        fprintf(stderr, "Erreur d'allocation de T\n");
-        return 1;
-    }
-    memset(T, NON_VISITE, N_ELEMENTS);
-    
-    // 2. Initialiser le curseur
+
+size_t coverset(  int nb ) {
+    // Initialiser le curseur
     atomic_init(&curseur, 0);
     
-    // 3. Charger les générateurs
-    charger_generateurs();
-    
     // 4. Lancer les threads
-    printf("Lancement de %d threads...\n", NB_THREADS);
+    printf("\nLancement de %d threads...\n", nb );
     pthread_t threads[NB_THREADS];
     
-    for (int i = 0; i < NB_THREADS; i++) {
+    for (int i = 0; i < nb ; i++) {
         if (pthread_create(&threads[i], NULL, thread_worker, NULL) != 0) {
             fprintf(stderr, "Erreur pthread_create\n");
             return 1;
@@ -210,17 +204,110 @@ int main(void) {
     }
     
     // 5. Attendre la fin
-    for (int i = 0; i < NB_THREADS; i++) {
+    for (int i = 0; i < nb ; i++) {
         pthread_join(threads[i], NULL);
     }
     
     // 6. Extraire le cover set
     extraire_cover_set();
     
-    // 7. Libérer
-    free(T);
-    free(A_g);
-    free(b_g);
+    return 0;
+}
+
+int main(int argc, char *argv[])
+{  
+
+    char *fn = "../boole/data/B-4-5-7.dat";
+
+
+    aglGroup g = NULL;
+    int opt; 
+    int dimen = 7;
+    int target = 0;
+    int nbp = 2;
+
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:p:")) != -1) {
+	switch (opt) {
+	case 'w':
+	    break;
+	case 'd':
+	   break;
+	case 'c':
+	    break;
+	case 'p': 
+	    nbp = atoi( optarg );
+	break;
+	case 'm': 
+		dimen  = atoi( optarg);
+	break;
+	case 'f': 
+		fn = strdup( optarg );
+                break;
+	case 'r':
+	    break;
+	case 't':
+	    target=atoi( optarg );
+	    break;
+	default:
+	    exit(0);
+	}
+
+    }
+
+
+    FILE *src = fopen( fn, "r" );
+    initboole(  dimen );
+    initagldim( dimen );
+
+    boole f;
+    int item = 0;
+    uint64_t size = 0;
     
+    base = monomialBasis( 3, 3, 7 );
+    base.size  = ( (size_t) 1 ) <<   base.mat.nbl;
+    base.table = calloc( base.size, sizeof(char));
+
+    while ((f = loadaglboolesize( src , &g, &size ))) {
+		item++; 
+    	        if ( ! target )
+			printf( "item=%d degree=%d order=%ld\n", item, degree(f), size );
+                if ( item == target ) break;
+		aglfreeGroup( g );
+		free(f);
+    }
+    if ( item != target ){
+	    exit(0);
+    }
+    fclose(src);
+
+    char name[64];
+    sprintf( name, "rho/rho-%d.out", target );
+
+    FILE* dst  = stdout; // = fopen( name, "w");
+    if ( access( fn , F_OK) == 0) {
+	    puts("using stdout");
+      }   else dst   = fopen( name, "w");
+    clock_t debut = clock();
+ 
+    fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
+    panf( dst , f );
+    assert( degree( f ) > 4  );
+
+    lda    = aglBoundaryGroupAction( f, g, &base );
+    size_t count = coverset( nbp );
+		
+    fprintf( dst, "\n#orbits=%ld", count );
+    clock_t fin = clock();
+    double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
+    fprintf(dst, "\nruntime : %.6f secondes\n", temps);
+    char bname[64];
+    sprintf( bname, "%d", item );
+    saveBasename( bname , base );
+    aglfreeGroup( g );
+    aglVectorGroupFree(  lda );
+    free( base.table );
+    
+    free( f );
+    fclose(dst);
     return 0;
 }
