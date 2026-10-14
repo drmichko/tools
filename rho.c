@@ -142,13 +142,20 @@ int main(int argc, char *argv[])
 	    exit(0);
     }
     fclose(src);
-    sprintf( fn, "rho/rho-%d.out", target );
+    char name[128];
+    sprintf( name, "rho/rho-%d.out", target );
 
-    if ( access( fn , F_OK) == 0) {
+   
+    if ( target && ( access( name  , F_OK) == 0 ) ) {
 	    puts("done ?");
 	    exit(0);
     }
-    FILE* dst = fopen( fn, "w");
+
+    FILE* dst;
+   
+   if ( ! target ) dst = stdout;
+   else dst = fopen( name , "w");
+
     clock_t debut = clock();
  
     fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
