@@ -1,190 +1,116 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <sys/types.h>
+
 #include <unistd.h>
-#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <time.h>
+#include "orbitData.h"
+
 #include "boolean.h"
-#include "code.h"
-#include "distrib.h"
-
-basis_t base;
-
-void  NLL( boole f , int goal)
-{
-        code   c = rmcode( 1 , 2, ffdimen  );
-        boole  t = getboole( );
-        int *  a = calloc( ffsize+1, sizeof( int ) );
-        int wt ; // = ( ffsize - linearity( f ) ) / 2;
-        wt = weightBoole( f );
-        a[ wt ]++;
-        int  cpt=1, limite = 1 << c.nbl;
-                for( int x = 0; x < ffsize; x++ )
-                        t[x] = f[x];
-        while ( wt >= goal && cpt < limite ) {
-                int i = __builtin_ctz( cpt  );
-                for( int x = 0; x < ffsize; x++ )
-                        t[x] ^= c.fct[i][x];
-
-                wt = weightBoole( t );
-                a[ wt ]++;
-                cpt++;
-        }
-
-        if ( cpt == limite ) {
-                printf("\nNL2 ( %d )  :", goal);
-                for( int i = 0; i <=ffsize; i++ )
-                        if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
-        }  ; // else printf("\ngoal : %d /%d\n", wt, goal );
-        free( a );
-        free( t );
-        freecode( c );
-}
-
-int *walshq( boole f )
-{
-        code   c = rmcode( 1 , 2, ffdimen  );
-        int  cpt=1, limite = 1 << c.nbl;
-        boole  t = getboole( );
-        int wt = weightBoole( f );
-        int *  a = calloc( limite, sizeof( int ) );
-                a[ 0  ] = wt > ffsize/2 ? ffsize - wt : wt;
-                for( int x = 0; x < ffsize; x++ )
-                        t[x] = f[x];
-	int q = 0;
-        while ( cpt < limite ) {
-                int i = __builtin_ctz( cpt  );
-                for( int x = 0; x < ffsize; x++ )
-                        t[x] ^= c.fct[i][x];
-		q ^=  (1 << i);
-                wt = weightBoole( t );
-                a[ q  ] = wt > ffsize/2 ? ffsize - wt : wt;
-                cpt++;
-        }
-
-        free( t );
-        freecode( c );
-	return a;
-}
-void try( boole f )
-{
-    int *a = walshq( f );;
-    int size = 1 << rmdimen(1, 2, ffdimen );
-    pdistrib("walshq", a, size );
-    int cpt = 0;
-    for( int t = 0; t < size; t++ ){
-	    int q;
-	    for( q = 0;  q < size && ( a[t^q] + a[ q ] ) >=18 ; q++);;
-	    if ( q == size ) {
-		    cpt++;
-	    }
-    }
-    printf("\nsoluce : %d", cpt );
-    free(a);
-}
-void check(boole L, vector v)
-{
-   
-    boole R = vectortoboole  ( v , & base );       
-
-    //panf( stdout, L );
-    //panf( stdout, R );
-    initboole( 6 );
-    code Q = rmcode(0, 2, 6);
-    boole  t = getboole( );
-    for(int  x = 0; x < 32; x++ ){
-	       t[x] = L [x];
-	    t[x+32] = R [x];
-    }
-    panf(stdout, t );
-
-    int cpt = 1, limite = 1 << Q.nbl;
-    int *a = calloc( ffsize+1, sizeof(int ) );
-    int wt = (ffsize - linearity( t )) / 2;
-    NLL( t, 18 );
-    free( R );
-    initboole( 5 );
-    free(a);
-}
-
-void doit(boole f, boole g)
-{
-    int num = base.table[booleVector(g, &base)];
-    printf("\nclasse=%d %d\n", base.table[booleVector(g, &base)], num );
-
-    for (int v = 0; v < base.size; v++)
-	if (  1 ||  base.table[v] == num) {
-	    check( f, v  );
-	}
-}
+#include "orbitools.h"
 
 int main(int argc, char *argv[])
-{
-    FILE *src = NULL;
-    int opt;
-    initboole( 6 );
-    boole h = strtoboole( "anf=ace+bce+bde+bcf+adf");
-    panf( stdout, h );
-    NLL( h, 18 );
+{  
 
-    initboole( 5 );
+    char *fn = "../boole/data/B-4-5-7.dat";
 
-    boole L = getboole(),  R = getboole();;
-    for( int x = 0; x < 32; x++ ){
-	    L[x] = h[x];
-	    R[x] = h[x+32];
-    }
-    
-    panf( stdout, L );
-    panf( stdout, R );
 
-    while ((opt = getopt(argc, argv, "a:m:f:r:hiv:s:")) != -1) {
+    aglGroup g = NULL;
+    int opt; 
+    int dimen = 7;
+    int target = 0;
+
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:")) != -1) {
 	switch (opt) {
-	case 'm':
-	    initboole(atoi(optarg));
+	case 'w':
 	    break;
-	case 'f':
-	    src = fopen(optarg, "r");
-	    if (!src) {
-		perror(optarg);
-		return 1;
-	    }
+	case 'd':
+	   break;
+	case 'c':
 	    break;
-
+	case 'i': 
+	break;
+	case 'm': 
+		dimen  = atoi( optarg);
+	break;
+	case 'f': 
+		fn = strdup( optarg );
+                break;
+	case 'r':
+	    break;
+	case 't':
+	    target=atoi( optarg );
+	    break;
+	default:
+	    exit(0);
 	}
+
     }
 
 
-    base = monomialBasis(3, 4, 5);
-    initagldim(5);
-    orbitBasic(mkaglGroup(), &base);
+    FILE *src = fopen( fn, "r" );
+    initboole(  dimen );
+    initagldim( dimen );
 
-
-    printf("\nclass=%d\n", base.table[booleVector(L, &base)] );
-    printf("\nclass=%d\n", base.table[booleVector(R, &base)] );
-    vector v = booleVector(R, &base ); 
-    
-    check( L, v ); 
-
-
-    boole f, t[2];
-    int i = 0;
-    while ((f = loadBoole(src))) {
-	panf(stdout, f);
-	int num = base.table[booleVector(f, &base)];
-	int size = 0;
-	for (int v = 0; v < base.size; v++)
-	    if (base.table[v] == num)
-		size++;
-	printf("\nclass=%d size=%d\n", num, size);
-	try( f );
-	t[i++] = f;
+    boole f;
+    int item = 0;
+    uint64_t size = 0;
+    basis_t base = monomialBasis( 3, 3, 7 );
+    initBrowse( &base );
+    while ((f = loadaglboolesize( src , &g, &size ))) {
+		item++; 
+    	        if ( ! target )
+			printf( "item=%d degree=%d order=%ld\n", item, degree(f), size );
+                if ( item == target ) break;
+		aglfreeGroup( g );
+		free(f);
+    }
+    if ( item != target ){
+	    exit(0);
     }
     fclose(src);
+    char name[64];
+    sprintf( name, "rho/rho-%d.out", target );
 
 
-
-
+    FILE* dst = stdout;
+    if ( access( fn , F_OK) == 0) {
+	    puts("done ?");
+    } else dst = fopen( name , "w");
+    clock_t debut = clock();
+ 
+    fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
+    panf( dst , f );
+    assert( degree( f ) > 4  );
+    aglVectorGroup lda    = aglBoundaryGroupAction( f, g, &base );
+    size_t  count = 0;
+    for( vector v = 0; v < base.size; v++ ) {
+		if ( ! base.table[ v ] ) {
+			base.table[ v ] = 2;
+			count++;
+    			if ( v % (1<<30) == 0 )
+				fprintf( dst, "\n#v=%ld count=%ld", v, count );
+		}
+         	aglVectorGroup aux = lda;
+        	while (aux != NULL) {
+            		uint64_t  y  = aglVectorImages( v  , aux->act, 35);
+			if ( y > v ) base.table[y] = 1;
+            		aux = aux->next;
+                }
+            }
+    fprintf( dst, "\n#count=%ld", count );
+    clock_t fin = clock();
+    double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
+    fprintf(dst, "\nruntime : %.6f secondes\n", temps);
+    char bname[64];
+    sprintf( bname, "%d", item );
+    saveBasename( bname , base );
+    aglfreeGroup( g );
+    aglVectorGroupFree(  lda );
+    free( base.table );
+    
+    free( f );
+    fclose(dst);
     return 0;
 }

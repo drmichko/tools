@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
-
+#include <stdatomic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -31,11 +31,13 @@
 #include "boolean.h"
 #include "orbitools.h"
 
+static pthread_mutex_t mutex_T  = PTHREAD_MUTEX_INITIALIZER;
+
 // ============================================================
 // Configuration
 // ============================================================
 
-#define N_ELEMENTS   (1ULL << 35)   // 2^35 = 34 359 738 368
+#define SIZE         (1ULL << 35)   // 2^35 = 34 359 738 368
 #define NB_THREADS   72
 #define FILE_TAILLE  (1 << 20)      // 1M éléments par file locale
 
@@ -55,28 +57,37 @@ basis_t base;
 aglVectorGroup lda;
 
 
+static _Atomic(uint8_t) *T;
+
+
 // ============================================================
 // Fonctions utilitaires
 // ============================================================
 
 // CAS sur un byte
-static inline bool cas_byte(uint8_t *ptr, uint8_t expected, uint8_t new_val) {
-    return atomic_compare_exchange_strong(
-        (_Atomic(uint8_t)*)ptr, &expected, new_val
+
+static inline bool cas_byte(_Atomic(uint8_t) *ptr, uint8_t expected, uint8_t new_val) {
+    return __atomic_compare_exchange_n(
+        ptr, &expected, new_val,
+        false,
+        __ATOMIC_RELAXED,
+        __ATOMIC_RELAXED
     );
 }
+
 
 // Cherche un indice i tel que T[i] == 0
 // Retourne UINT64_MAX si aucun trouvé
 static inline uint64_t trouver_non_visite(void) {
     while (true) {
         uint64_t i = atomic_fetch_add(&curseur, 1);
-        if (i >= base.size ) {
-            return UINT64_MAX;
-        }
-        if (  base.table[i] == NON_VISITE) {
-            return i;
-        }
+        if (i >= SIZE) return UINT64_MAX;
+
+        pthread_mutex_lock(&mutex_T);
+        uint8_t val = T[i];
+        pthread_mutex_unlock(&mutex_T);
+
+        if (val == NON_VISITE) return i;
     }
 }
 
@@ -86,6 +97,8 @@ static inline uint64_t trouver_non_visite(void) {
 
 // Explore l'orbite de x (déjà marqué COVER_SET)
 // Marque tous les éléments atteints avec COUVERT
+
+
 static void explorer_orbite(uint64_t x) {
     // File locale (BFS)
     uint64_t *file = malloc(FILE_TAILLE * sizeof(uint64_t));
@@ -101,21 +114,26 @@ static void explorer_orbite(uint64_t x) {
     uint64_t count = 0;
     while (debut < fin) {
         uint64_t u = file[debut++];
+	count++;
         aux = lda;
         while (aux != NULL) {
-            uint64_t v  = aglVectorImage( u , aux->act);
-            // Tenter de marquer v comme couvert
-            if (  base.table[ v ] ==  NON_VISITE  ) {
-                // v est nouveau : l'ajouter à la file
-		base.table[ v ] = COUVERT;
-		count++;
-                if (fin < FILE_TAILLE) {
-                    file[fin++] = v;
-                } else {
+            uint64_t v  = aglVectorImages( u , aux->act, 35);
+	    // Tenter de marquer v comme COUVERT
+	    pthread_mutex_lock(&mutex_T);
+		bool nouveau = false;
+		if (T[v] == NON_VISITE) {
+    		T[ v ] = COUVERT;
+    		nouveau = true;
+		}	
+	     pthread_mutex_unlock(&mutex_T);
+	     if (nouveau) {
+    		if (fin < FILE_TAILLE) 
+			file[fin++] = v;
+                else {
                     // abandon
+		    puts("abandon");
                 }
             }
-            // Sinon : déjà marqué (COVER_SET ou COUVERT), ne rien faire
             aux = aux->next;
         }
         
@@ -125,9 +143,6 @@ static void explorer_orbite(uint64_t x) {
             fin = 0;
         }
     }
-    
-	if ( count )
-		printf("\n %2d : %ld\n", gettid() , count );
     free(file);
 }
 
@@ -135,23 +150,30 @@ static void explorer_orbite(uint64_t x) {
 // Thread worker
 // ============================================================
 
-static void *thread_worker(void *arg) {
-    (void)arg;
+static void *thread_worker(void *arg) { (void)arg;
     
     while (true) {
         // 1. Chercher un élément non visité
         uint64_t x = trouver_non_visite();
+	//printf("[tid=%d] x=%llu\n", gettid(), (unsigned long long)x);
+        //fflush(stdout);
         if (x == UINT64_MAX) {
             break;  // Plus rien à explorer
         }
+        pthread_mutex_lock(&mutex_T);
+	bool reussi = false;
+	if (T[x] == NON_VISITE) {
+    		T[x] = COVER_SET;
+    	    reussi = true;
+	}
+pthread_mutex_unlock(&mutex_T);
+
+if (!reussi) continue;
         
-        // 2. Tenter de le marquer comme élément du cover set
-        if (! cas_byte( & base.table[ x ], NON_VISITE, COVER_SET)) {
-            continue;  // Un autre thread l'a pris
-        }
         
         // 3. Explorer l'orbite de x
         explorer_orbite(x);
+	
     }
     
     return NULL;
@@ -167,7 +189,8 @@ static void extraire_cover_set(void) {
     uint64_t nb_non_visite = 0;
     
     for (uint64_t i = 0; i < base.size ; i++) {
-        switch ( base.table[ i ]) {
+	uint8_t val = atomic_load_explicit(&T[i], memory_order_relaxed);
+        switch ( val ) {
             case COVER_SET:   nb_cover++;      break;
             case COUVERT:     nb_couvert++;    break;
             case NON_VISITE:  nb_non_visite++; break;
@@ -178,7 +201,7 @@ static void extraire_cover_set(void) {
     printf("Cover set      : %llu éléments\n", (unsigned long long)nb_cover);
     printf("Couverts       : %llu éléments\n", (unsigned long long)nb_couvert);
     printf("Non visités    : %llu éléments\n", (unsigned long long)nb_non_visite);
-    printf("Total          : %llu éléments\n", (unsigned long long)N_ELEMENTS);
+    printf("Total          : %llu éléments\n", (unsigned long long) SIZE);
 }
 
 // ============================================================
@@ -190,7 +213,7 @@ static void extraire_cover_set(void) {
 
 size_t coverset(  int nb ) {
     // Initialiser le curseur
-    atomic_init(&curseur, 0);
+    atomic_init(&curseur, 0 );
     
     // 4. Lancer les threads
     printf("\nLancement de %d threads...\n", nb );
@@ -264,9 +287,13 @@ int main(int argc, char *argv[])
     uint64_t size = 0;
     
     base = monomialBasis( 3, 3, 7 );
-    base.size  = ( (size_t) 1 ) <<   base.mat.nbl;
-    base.table = calloc( base.size, sizeof(char));
 
+    T = calloc( SIZE , sizeof(char));
+	if (!T) {
+    fprintf(stderr, "Erreur calloc T\n");
+    return 1;
+	}
+   
     while ((f = loadaglboolesize( src , &g, &size ))) {
 		item++; 
     	        if ( ! target )
@@ -291,6 +318,7 @@ int main(int argc, char *argv[])
  
     fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
     panf( dst , f );
+    paglGroup( dst, g );
     assert( degree( f ) > 4  );
 
     lda    = aglBoundaryGroupAction( f, g, &base );
@@ -300,12 +328,13 @@ int main(int argc, char *argv[])
     clock_t fin = clock();
     double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
     fprintf(dst, "\nruntime : %.6f secondes\n", temps);
+     return 0;
+    
     char bname[64];
     sprintf( bname, "%d", item );
     saveBasename( bname , base );
     aglfreeGroup( g );
     aglVectorGroupFree(  lda );
-    free( base.table );
     
     free( f );
     fclose(dst);
