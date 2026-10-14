@@ -86,8 +86,6 @@ return   ( 1ULL  <<  (dim - rank) );
 
 
 
-
-
 int main(int argc, char *argv[])
 {  
 
@@ -169,28 +167,32 @@ int main(int argc, char *argv[])
     size_t  count = 0;
 
     fprintf( stderr, "\norder=%ld\n", size );
+    aglVector *L = calloc( size, sizeof( aglVector ) );
     for( size_t i = 0;  i < size; i++ ) {
-    	aglVector L = boundaryAction(  f, table[ i ], &base );
-	vector tmp = nbfixed( L , 35  );
+    	L[i]   = boundaryAction(  f, table[ i ], &base );
+	vector tmp = nbfixed( L[i] , 35  );
 	count+= tmp;
-	free( L );
     }
     assert( count %size == 0 );
     count /= size;
-    fprintf( stderr, "\ncount=%ld\n", count);
-    return 0;
+    fprintf( stderr, "\n#orbits=%ld\n", count);
 
-    for( vector v = 0; v < base.size; v++ )
-	if ( ! base.table[v] ) {
-		browse( v, G );
-                base.table[ v ] = 2;
-		count++;
+    uint64_t   cpt = 0;
+    //  representative :
+    for( vector v = 0; v < base.size; v++ ){
+	        size_t i = 0;
+		for( i = 0 ; (i < size) &&  v < aglVectorImages( v, L[i], 35 );  i++ );;
+		int accept = ( i == size );
+	        base.table[v] = accept;
+		cpt += accept;
 		}
 		
-    fprintf( dst, "\n#orbits=%ld", count );
+    fprintf( dst, "\n#orbits=%ld cpt=%ld", count, cpt  );
     clock_t fin = clock();
     double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
     fprintf(dst, "\nruntime : %.6f secondes\n", temps);
+
+    return 0;
     char bname[64];
     sprintf( bname, "%d", item );
     saveBasename( bname , base );

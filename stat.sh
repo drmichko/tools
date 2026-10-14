@@ -6,7 +6,7 @@ echo node 2
 ssh rayol-node-2    ps -eF  | grep -E '(exe|CMD)'| grep -v root
 
 echo 
-ls  -rt  rho | tr '\n'  ' '  | fold -s
+ls  -1 rho	| sort -r  | tr '\n'  ' '  | fold -s
 
 echo
 
