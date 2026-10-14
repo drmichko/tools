@@ -178,14 +178,14 @@ int main(int argc, char *argv[])
     fprintf( stderr, "\n#orbits=%ld\n", count);
 
     uint64_t   cpt = 0;
-    //  representative :
+#pragma omp parallel for schedule(dynamic) reduction(+:cpt)
     for( vector v = 0; v < base.size; v++ ){
-	        size_t i = 0;
-		for( i = 0 ; (i < size) &&  v < aglVectorImages( v, L[i], 35 );  i++ );;
-		int accept = ( i == size );
-	        base.table[v] = accept;
-		cpt += accept;
-		}
+        size_t i = 0;
+        for( i = 0 ; (i < size) &&  v < aglVectorImages( v, L[i], 35 );  i++ );;
+        int accept = ( i == size );
+        base.table[v] = accept;
+        cpt += accept;
+    }
 		
     fprintf( dst, "\n#orbits=%ld cpt=%ld", count, cpt  );
     clock_t fin = clock();

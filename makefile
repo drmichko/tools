@@ -22,7 +22,7 @@ schatz.exe : schatz.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 
 small.exe : small.c
-	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp 
+	gcc $(CFLAGS) -fopenmp -Wall  $^  -o $@  -lboole  -lgmp 
 
 cover.exe : cover.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp  -pthread
