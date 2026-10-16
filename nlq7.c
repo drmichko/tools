@@ -24,6 +24,8 @@
 #define N      (1 << M)
 #define NMONO  (M + M * (M - 1) / 2)   /* 28 monômes de degré 1 ou 2 */
 
+//#include "prange.h"
+
 static uint64_t mono[NMONO][2];
 static int mono_ready = 0;
 
@@ -158,8 +160,6 @@ int main(int argc, char *argv[])
     initboole(  dimen );
     initagldim( dimen );
 
-    int item = 0;
-    uint64_t size = 0;
     basis_t base = monomialBasis( 3, 3, 7 );
 
     boole h  = loadBoole( src );
