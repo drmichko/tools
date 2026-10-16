@@ -168,59 +168,28 @@ int main(int argc, char *argv[])
     fclose(src);
 
     clock_t debut = clock();
-    panf(stdout, h );
+    printf("\nUsing no %d\n", target );fflush(stdout);
     size_t count = 0, soluce = 0;
     uchar * zip = loadZipname( target, &base );
-    for( vector v = 0; v < base.size; v++ ) 
+    for( vector v = 0; v < base.size   &&   count < orbits ; v++ ) 
 	    if ( 1  & ( zip[ v / 8 ] >> ( v % 8 ) ) )  {
 		    count++;
 		    boole  f = vectortoboole( v, &base );
 		    uint64_t tt[2]={0,0};
-		    for ( int x = 0; x < ffsize; x++ )
-			    if ( f[x] ^ h [x] ) tt[ x / 64] ^= ((uint64_t) 1 )  << ( x & 63 );
-                    if ( nq_at_least_m7( tt , goal ) ) soluce++;
-		    printf(".");
-		    fflush( stdout);
+		    for ( int x = 0; x < ffsize; x++ ){
+			f[x] ^= h[x];
+			if ( f[x]  ) tt[ x / 64] ^= ((uint64_t) 1 )  << ( x & 63 );
+		    }
+                    if ( nq_at_least_m7( tt , goal ) ) {
+			    soluce++;
+			    panf( stdout, f );
+		    	    fflush( stdout);
+		    }
 		    free( f );
 	    } 
     printf("\n#orbit=%ld count=%ld  %ld\n", orbits, count , soluce);
     clock_t fin = clock();
     double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
     printf("\n#runtime : %.6f secondes\n", temps);
-    return 0;
-/*    
-clock_t debut = clock();
- 
-    fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
-    panf( dst , f );
-    assert( degree( f ) > 4  );
-    initBrowse( &base  );
-
-    aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
-    size_t  count = 0;
-    for( vector v = 0; v < base.size; v++ )
-	if ( ! base.table[v] ) {
-		browse( v, G );
-                base.table[ v ] = 1;
-		count++;
-		}
-		
-    fprintf( dst, "\n#orbits=%ld", count );
-    for( vector v = 0; v < base.size; v++ )
-	    base.table[v] =  ( base.table[v] == 1 );
-    char bname[64];
-    sprintf( bname, "%d", item );
-    saveBasename( bname , base );
-    aglfreeGroup( g );
-    aglVectorGroupFree(  G );
-    free( base.table );
-    
-    free( f );
-    fclose(dst);
-    return 0;
-}
-    uint64_t f[2] = {0x0123456789abcdefULL, 0xfedcba9876543210ULL};
-    printf("NQ(f) >= 38 ? %s\n", nq_at_least_m7(f, 38) ? "oui" : "non");
-    */
     return 0;
 }
