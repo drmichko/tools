@@ -168,11 +168,13 @@ int main(int argc, char *argv[])
     for( vector v = 0; v < base.size; v++ )
 	if ( ! base.table[v] ) {
 		browse( v, G );
-                base.table[ v ] = 2;
+                base.table[ v ] = 1;
 		count++;
 		}
 		
     fprintf( dst, "\n#orbits=%ld", count );
+    for( vector v = 0; v < base.size; v++ )
+	    base.table[v] =  ( base.table[v] == 1 );
     clock_t fin = clock();
     double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
     fprintf(dst, "\nruntime : %.6f secondes\n", temps);

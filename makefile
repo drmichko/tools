@@ -11,7 +11,7 @@ else
 endif
 
 
-all : small.exe cover.exe rho.exe anftott.exe  zenodo.exe projection.exe init.exe schatz.exe action.exe stabredo.exe stab.exe ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
+all : nlq7.exe ziptable.exe small.exe cover.exe rho.exe anftott.exe  zenodo.exe projection.exe init.exe schatz.exe action.exe stabredo.exe stab.exe ft.exe  nl.exe test.exe invariant.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe regroup.exe 
 	
 oldall : invariant.exe dyadic.exe nnl.exe ab.exe anfload.exe print.exe anfsimple.exe rd.exe
 	
@@ -22,6 +22,12 @@ schatz.exe : schatz.c
 	gcc $(CFLAGS) $^  -o $@  -lboole  -lgmp
 
 small.exe : small.c
+	gcc $(CFLAGS) -fopenmp -Wall  $^  -o $@  -lboole  -lgmp 
+
+nlq7.exe : nlq7.c
+	gcc $(CFLAGS) -fopenmp -Wall  $^  -o $@  -lboole  -lgmp 
+
+ziptable.exe : ziptable.c
 	gcc $(CFLAGS) -fopenmp -Wall  $^  -o $@  -lboole  -lgmp 
 
 cover.exe : cover.c
