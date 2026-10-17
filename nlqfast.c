@@ -145,12 +145,13 @@ int main(int argc, char *argv[])
     int dimen = 7;
     int target = 0;
     int goal = 38;
-    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:g:")) != -1) {
+    int nbproc =  omp_get_max_threads();
+    while ((opt = getopt(argc, argv, "i:f:c:wb:d:m:r:t:g:ip:")) != -1) {
         switch (opt) {
         case 'w': break;
         case 'd': break;
         case 'c': break;
-        case 'i': break;
+        case 'p': nbproc = atoi( optarg );break;
         case 'm': dimen = atoi(optarg); break;
         case 'f': break;
         case 'g': goal = atoi(optarg); break;
@@ -181,7 +182,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    printf("\nUsing no %d  (threads: %d)\n", target, omp_get_max_threads());
+    printf("\nUsing no %d  (threads: %d)\n", target, nbproc );
     fflush(stdout);
 
     uchar *zip = loadZipname(target, &base);
@@ -237,22 +238,27 @@ int main(int argc, char *argv[])
     }
 
     double temps = omp_get_wtime() - t0;
-
+    sprintf(name, "results/res-%d.txt", target);
+    FILE *dst = fopen( name, "a" );;
     /* --- Affichage séquentiel, dans l'ordre des v (comme la version série) --- */
+    fprintf(dst, "\nUsing no %d  (threads: %d)\n", target, nbproc );
+    fprintf(dst, "\n#%zu members have NL_2=38 :\n", nsol);
     qsort(sol, nsol, sizeof *sol, cmp_u64);
     for (size_t i = 0; i < nsol; i++) {
         boole f = vectortoboole((vector) sol[i], &base);
         for (int x = 0; x < ffsize; x++) f[x] ^= h[x];
-        panf(stdout, f);
+        panf( dst, f);
         free(f);
     }
-    fflush(stdout);
+    fflush(dst);
 
-    printf("\n#orbit=%" PRIu64 " count=%zu  %zu\n", orbits, count, nsol);
-    printf("\n#runtime : %.6f secondes (mur)\n", temps);
+    fprintf(dst, "\n#orbit=%" PRIu64 " count=%zu  %zu\n", orbits, count, nsol);
+    fprintf(dst, "\n#runtime : %.6f secondes (mur)\n", temps);
 
+    fclose( dst );
     free(sol);
     free(fct64);
     free(zip);
+
     return 0;
 }
