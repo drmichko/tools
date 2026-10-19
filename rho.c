@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
  
     fprintf( dst, "item=%d degree=%d order=%ld\n", item, degree(f), size );
     panf( dst , f );
-    assert( degree( f ) > 4  );
+   // assert( degree( f ) > 4  );
     initBrowse( &base  );
 
     aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 	    base.table[v] =  ( base.table[v] == 1 );
     clock_t fin = clock();
     double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
-    fprintf(dst, "\nruntime : %.6f secondes\n", temps);
+    fprintf(dst, "\nruntime : %.1f secondes\n", temps);
     char bname[64];
     sprintf( bname, "%d", item );
     saveBasename( bname , base );

@@ -72,62 +72,29 @@ while ( i < dim ) {
 return dim;
 }
 
-uint64_t nbfixed(const uint64_t *s, int dim)
+
+uint64_t nbfixed(const uint64_t *s, int dim)   // dim = 35, s a 36 éléments
 {
-    uint64_t x[64], y[64];
-    for (int i = 0; i < dim; i++) {
-        x[i] = s[i] ^ (1ULL << i);
-        y[i] = (s[dim] >> i) & 1ULL;
-    }
-    int row = 0;
-    for (int col = 0; col < dim && row < dim; col++) {
-        int pivot = -1;
-        for (int r = row; r < dim; r++)
-            if ((x[r] >> col) & 1ULL) { pivot = r; break; }
-        if (pivot < 0) continue;
-        uint64_t t = x[row]; x[row] = x[pivot]; x[pivot] = t;
-        t = y[row]; y[row] = y[pivot]; y[pivot] = t;
-        for (int r = 0; r < dim; r++)
-            if (r != row && ((x[r] >> col) & 1ULL)) {
-                x[r] ^= x[row];
-                y[r] ^= y[row];
-            }
-        row++;
-    }
+    const uint64_t mask = (1ULL << dim) - 1;
+    uint64_t basis[64] = {0};                  // basis[h] : vecteur de bit de poids fort h
     int rank = 0;
-    for (int r = 0; r < dim; r++) {
-        if (x[r]) rank++;
-        else if (y[r]) return 0;
+
+    for (int i = 0; i < dim; i++) {
+        uint64_t v = (s[i] & mask) ^ (1ULL << i);   // colonne i de L+I
+        while (v) {
+            int h = 63 - __builtin_clzll(v);
+            if (!basis[h]) { basis[h] = v; rank++; break; }
+            v ^= basis[h];
+        }
+    }
+
+    uint64_t b = s[dim] & mask;                // f(0)
+    while (b) {
+        int h = 63 - __builtin_clzll(b);
+        if (!basis[h]) return 0;               // b hors de l'image : aucun point fixe
+        b ^= basis[h];
     }
     return 1ULL << (dim - rank);
-}
-uint64_t mynbfixed( vector * s, int  dim )
-{   
-uint64_t   x[ dim ], y[ dim ]; 
-int i,  rank = dim;
-for( i = 0;  i < dim; i++ ){
-	x[i] = s[i]   ^   ( ( 1ULL <<i ) )  ;
-        y[i] = ( s[ dim ] >> i ) & 1 ;
-}
-i = 0;
-while ( i < rank  ) {
-  if ( x[ i ] ) {
-        int j = __builtin_ctzll( x[i] );
-	uint64_t bit = ( ( 1ULL << j ) );
-        for( int l = i+1 ; l <  rank ; l++)
-                if ( (bit & x[ l ])  ) {
-			x[ l ] ^= x[ i ];
-			y[ l ] ^= y[ i ];
-			}
-        i++;
-   } else {
-	if (  y[i] ) return 0;
-        rank = rank - 1;
-        x[ i ] = x[ rank];
-	y[ i ] = y[ rank];
-   }
- }
-return   ( ((uint64_t)1)  <<  (dim - rank) );
 }
 
 aglVector myboundaryAction(boole f, agl s, basis_t * b)
@@ -168,7 +135,7 @@ int main(int argc, char *argv[])
     int opt, optw = 0; 
     int dimen = 7;
     int target = 0;
-    int nbthread = 1;
+    int nbthread = omp_get_max_threads();;
     while ((opt = getopt(argc, argv, "i:f:p:wb:d:m:r:t:")) != -1) {
 	switch (opt) {
 	case 'd':
@@ -209,7 +176,7 @@ int main(int argc, char *argv[])
     while ((f = loadaglboolesize( src , &g, &size ))) {
 		item++;
 	        //panf( stderr, f );	
-		fprintf(stderr,  "\nitem=%d degree=%d order=%ld\n", item, degree(f), size );
+		//fprintf(stderr,  "\nitem=%d degree=%d order=%ld\n", item, degree(f), size );
 		//paglGroup( stderr, g );
                 if ( item == target ) 
 			break;
@@ -220,77 +187,77 @@ int main(int argc, char *argv[])
     if ( item != target ){
 	    exit(0);
     }
+    assert( size < 1000 );
     fclose(src);
     char name[64];
     sprintf( name, "rho/rho-%d.out", target );
 
     FILE* dst = stdout;
-/*
-    if ( ! optw || access( name, F_OK) == 0) {
-	    puts("\nusing stdout");
-    } else dst = fopen( name, "w");
-  */
-    clock_t debut = omp_get_wtime();
+
+    if ( target && ( access( name  , F_OK) == 0 ) ) {
+            puts("done ?");
+            exit(0);
+    }
+
+     if ( target) 
+	     dst = fopen( name, "w");
+    
+    
+    double debut = omp_get_wtime();
  
     panf( dst , f );
     fprintf( dst, "\nitem=%d degree=%d order=%ld\n", item, degree(f), size );
     paglGroup( stderr , g );
     assert( degree( f ) > 4  );
-
     assert(  checkstab( f, g,  3) == 1 );
-
     agl*  table = devGroup( g, &size );
     aglVectorGroup G = aglBoundaryGroupAction( f, g, &base );
     size_t  count = 0;
 
-    fprintf( stderr, "\norder=%ld\n", size );
     aglVector *L = calloc( size, sizeof( aglVector ) );
     for( size_t i = 0;  i < size; i++ ) {
         assert(  checks( f, table[i],  3) == 1 );
     	L[i]   = myboundaryAction(  f, table[ i ], &base );
-		//printf("X");pagl( stdout , table[i] );
 	vector tmp = nbfixed( L[i] , 35  );
-        if ( tmp ) 
-	       fprintf( stderr, "#%ld tmp=%ld\n", i, tmp );
 	count+= tmp;
     }
-    fprintf( stderr, "\n#count=%ld\n", count);
-    count /= size;
-    fprintf( stderr, "\n#orbits=%ld\n", count);
-    if ( count % size  )  
-	    exit(0);
-    return 1;
-    omp_set_num_threads(nbthread);
+    assert( count % size  == 0 );  
+    size_t burnside = count / size;
+    fprintf( stderr, "\n#orbits=%ld\n", burnside );
+
+omp_set_num_threads(nbthread);
+
+#pragma omp parallel
+{
+
+    #pragma omp for schedule(guided) 
+    for (vector v = 0; v < base.size; v++) {
+        if (base.table[v]) continue;
+        int is_rep = 1;
+        for (size_t i = 0; i < size; i++) {
+            vector y = aglVectorImages(v, L[i], 35);
+            if (y < v) { is_rep = 0; break; }
+            if (y > v) base.table[y] = 1;
+        }
+        if (is_rep) {
+            base.table[v] = 2;
+        }
+    }
+
+}
+size_t reps = 0;
+
+    for( vector v = 0; v < base.size; v++ ){
+            base.table[v] =  ( base.table[v] == 2 );
+            reps += base.table[v] ;
+    }
+
+    assert( reps == burnside );
+    double fin = omp_get_wtime();
+    double temps = (double)(fin - debut);
+    fprintf(dst, "\nruntime : %.1f secondes\n", temps);
 
 
-uint64_t cpt = 0;
-#pragma omp parallel for schedule(guided) reduction(+:cpt)
-for( vector v = 0; v < base.size; v++ ){
-    if ( base.table[v] ) continue;
-	int is_rep = 1;
-    	for( size_t i = 0; i < size; i++ ){
-        	vector y = aglVectorImages( v, L[i], 35 );
-		if ( y < v ) {                     // image strictement plus petite
-            		is_rep = 0;
-            		break;
-        	}
-        	if ( y > v ) {                     // y a un antécédent plus petit
-            		base.table[y] = 1;
-        	}
-    	}
-    	if ( is_rep ) {
-	    cpt++; 
-	    base.table[v] = 2;
-    	}
-   }
-
-		
-    fprintf( dst, "\n#orbits=%ld cpt=%ld", count, cpt  );
-    clock_t fin = omp_get_wtime();
-    double temps = (double)(fin - debut) / CLOCKS_PER_SEC;
-    fprintf(dst, "\nruntime : %.6f secondes\n", temps);
-
-    return 0;
     char bname[64];
     sprintf( bname, "%d", item );
     saveBasename( bname , base );
