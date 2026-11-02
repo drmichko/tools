@@ -49,7 +49,8 @@ int Rstr = 0, Rabs = 0;
 int optnlh=0;
 int verb = 0;
 int histo=0;
-
+int flagvalue;
+int value;
 
 typedef struct inter {
 	int w;
@@ -140,21 +141,26 @@ void doit(boole f)
 
 }
 
-boole myanfloadboole(FILE * src, int mode)
+boole myanfloadboole(FILE * src, int mode )
 //-get the current boolean function
 {
     boole res;
-    char line[1024];
+    char *line, buffer[1024];
     while (!feof(src)) {
+        line  = &buffer[0];
 	line[0] = '\0';
 	fgets(line, 1024, src);
+	if ( sscanf( line, "%d", &value ) ) {
+		flagvalue = 1;
+		while ( *line ==' ' || isdigit(line[0]) ) line++;
+        } else flagvalue  = 0;
 	switch (*line) {
 	case '#':
 	    break;
 	case 'a':
 	case 'h':
 	    res = strtoboole(line);
-	    if (mode)
+	    if (  mode )
 		return res;
 	    break;
 	case 'f':
@@ -377,13 +383,14 @@ int nlh( boole f  , int goal )
         return 0;
 }
 
-int nlq( boole f  , int goal )
+int nlq( boole f  , int* lead, int goal )
 {
 	if ( ! flag ) rmc = rmcode( 2, 2, ffdimen  );
         flag = 1;
 	boole  t = getboolecpy( f );
 	int wt = ( ffsize - linearity( f ) ) / 2;
-        int res = wt;
+        int res  = wt;
+        *lead = 1;
 	int  cpt=1, limite = 1 << rmc.nbl;
 	while (  res >= goal && cpt < limite ) {
 		int i = __builtin_ctz( cpt  );
@@ -391,7 +398,11 @@ int nlq( boole f  , int goal )
 			t[x] ^= rmc.fct[i][x];
 		
 		wt = ( ffsize - linearity( t ) ) / 2;;
-		if ( wt < res ) res = wt;
+		if ( wt < res ) {
+			res  = wt;
+			*lead = 0;
+		} 
+		if ( wt  == res ) *lead +=1;
 		cpt++;
 	}
 
@@ -860,7 +871,7 @@ void fullNL2( boole f , int goal)
 	code   c = rmcode( 1 , 2, ffdimen  );
 	boole  t = getboole( );
 	int *  a = calloc( ffsize+1, sizeof( int ) );
-	int wt ; // = ( ffsize - linearity( f ) ) / 2;
+	int wt ; 
 	wt = weightBoole( f );
 	a[ wt ]++;
 	int  cpt=1, limite = 1 << c.nbl;
@@ -885,11 +896,38 @@ void fullNL2( boole f , int goal)
 	free( t );
 	freecode( c );
 }
-void NL2( boole f , int goal)
+int NQ( boole f  )
+{
+	code   c = rmcode( 2 , 2, ffdimen  );
+	boole  t = getboole( );
+	int *  a = calloc( ffsize+1, sizeof( int ) );
+	int wt  = ( ffsize - linearity( f ) ) / 2;
+	int res = wt;
+	int  cpt=1, limite = 1 << c.nbl;
+		for( int x = 0; x < ffsize; x++ )
+			t[x] = f[x];
+	while (  cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= c.fct[i][x];
+		
+		wt = weightBoole( t );
+		if ( wt > res ) res = wt;
+		cpt++;
+	}
+
+	free( a );
+	free( t );
+	freecode( c );
+	return res;
+}
+
+void NL2( boole f , int goal )
 {
 	code   c = rmcode( 2, 2, ffdimen  );
 	boole  t = getboolecpy( f );
 	int *  a = calloc( ffsize+1, sizeof( int ) );
+        int nlq =  NQ( f );
 	int wt = ( ffsize - linearity( f ) ) / 2;
 	a[ wt ]++;
 	int  cpt=1, limite = 1 << c.nbl;
@@ -899,16 +937,85 @@ void NL2( boole f , int goal)
 			t[x] ^= c.fct[i][x];
 		
 		wt = ( ffsize - linearity( t ) ) / 2;;
-		a[ wt ]++;
+		if( wt == nlq ) a[ wt ]++;
 		cpt++;
 	}
 
 	if ( cpt == limite ) {
-		printf("\nNL2 ( %d )  :", degree( f  ));
-		for( int i = 0; i <=ffsize; i++ )
+		printf("NL2:");
+		int sum=0;
+		for( int i = 0; i <=ffsize; i++ ){
 			if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
-		putchar('\n');
+			sum+=a[i];
+		}
+		printf(" (%d)", sum);
 	}
+	free( a );
+	free( t );
+	freecode( c );
+}
+void fullNQ( boole f  )
+{
+	code   c = rmcode( 2, 2, ffdimen  );
+	boole  t = getboolecpy( f );
+	int *  a = calloc( ffsize+1, sizeof( int ) );
+        int tfr[ffsize];
+        for( int x = 0; x < ffsize; x++ )
+		tfr[x] = 1 - 2*f[x];
+	Fourier( tfr, ffsize );
+	for( int x = 0; x < ffsize; x++ ){
+		a[ ( ffsize-tfr[x]) / 2 ]++;
+		a[ ( ffsize+tfr[x]) / 2 ]++;
+	}
+	int  cpt = 1,  limite = 1 << c.nbl;
+	while ( cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= c.fct[i][x];
+        	for( int x = 0; x < ffsize; x++ )
+			tfr[x] = 1 - 2*t[x];
+		Fourier( tfr, ffsize );
+		for( int x = 0; x < ffsize; x++ ){
+			a[ ( ffsize-tfr[x]) / 2 ]++;
+			a[ ( ffsize+tfr[x]) / 2 ]++;
+		}
+		
+		cpt++;
+	}
+
+		printf("W2:");
+		int sum=0;
+		for( int i = 0; i <=ffsize/2; i++ ){
+			if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
+			sum+=a[i];
+		}
+		printf(" (%d)", sum);
+	free( a );
+	free( t );
+	freecode( c );
+}
+void partNQ( boole f  )
+{
+	code   c = rmcode( 2, 2, ffdimen  );
+	boole  t = getboolecpy( f );
+	int *  a = calloc( ffsize+1, sizeof( int ) );
+	int  cpt = 1,  limite = 1 << c.nbl;
+	a[ ( ffsize - linearity(f) ) / 2 ]++;
+	while ( cpt < limite ) {
+		int i = __builtin_ctz( cpt  );
+		for( int x = 0; x < ffsize; x++ )
+			t[x] ^= c.fct[i][x];
+		a[ ( ffsize - linearity(t) ) / 2 ]++;
+		cpt++;
+	}
+
+		printf("nhq:");
+		int sum=0;
+		for( int i = 0; i <=ffsize/2; i++ ){
+			if ( a[i] ) printf(" %d [ %d ]", a[ i ], i );
+			sum+=a[i];
+		}
+		printf(" (%d)", sum);
 	free( a );
 	free( t );
 	freecode( c );
@@ -930,13 +1037,21 @@ void pfboole(FILE * dst, char *format, boole f)
 			    walshvaldeg( f, z );
 		    break;
 	    case 'N':
-		printf("num=%d", numero );
+		printf("%d", numero );
 		break;
 	    case 'x':
-		panf(dst, f);
+                int s, t;
+		format++;
+		if ( sscanf( format, ":%d:%d", &s, &t ) == 2 ) {
+			boole tmp = getboolecpy( f );
+			projboole( s, t, tmp ); 
+			xprint( dst, tmp );
+	
+			free( tmp );
+		} else xprint(dst, f);
 		break;
 	    case 'd':
-		fprintf(dst, "deg=%d", degree(f));
+		fprintf(dst, "%d", degree(f));
 		break;
 	    case 'k':
 		format++;
@@ -960,7 +1075,7 @@ void pfboole(FILE * dst, char *format, boole f)
 		fprintf(dst, "size=%ld", fixsize);
 		break;
 	    case 'l':
-		printf(" lin=%d", linear);
+		printf(" lin=%d (%d)", linear, (ffsize-linear)/2  );
 		break;
 	    case 'p':
 		format++;
@@ -1017,6 +1132,10 @@ void pfboole(FILE * dst, char *format, boole f)
 	    case 'n':
 		fprintf(dst, "\n");
 		break;
+	    case 'v':
+		if ( flagvalue ) fprintf(dst, "%d", value );
+		else fprintf(dst, "none");
+		break;
 	    case 'z':
 		printf(" nbnz=%d", nonzero);
 		card[ nonzero ]++;
@@ -1024,7 +1143,7 @@ void pfboole(FILE * dst, char *format, boole f)
 	    case 'D':
 		derivative( f );
 		break;
-	    case 'Q' :
+	    case 'Z' :
 		printf("%d", xyzt( f  ) );
 		break;
 	    case 'S' :
@@ -1047,18 +1166,24 @@ void pfboole(FILE * dst, char *format, boole f)
 		NL2( f , tmp );
 		break;
 	    case 'H' :
-		printf("nlh=%d", nlh( f, 0  )  );
+		partNQ( f );
 		break;
 	    case 'q' :
-		printf("nlq=%d", nlq( f, 0  )  );
+                int nb;
+		int va = nlq( f, &nb , 0 );
+		printf("nlq=%d lead=%d", va, nb   );
+		break;
+	    case 'Q' :
+		fullNQ( f );
 		break;
 	    default:
 		fprintf(dst, "?!");
 		break;
 	    }
-	} else
+	} else {
 	    fprintf(dst, "%c", *format);
-	format++;
+	}
+            format++;
     }
 }
 
@@ -1246,7 +1371,6 @@ int main(int argc, char *argv[])
     fprintf( stderr,"\n#AG size = %ld\n", agsize);
 
     while ((f = myanfloadboole(src, optM))) {
-	//panf( stdout, f );
 	doit(f);
 	if (accept( f )) {
 	    numero++;
