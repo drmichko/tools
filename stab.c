@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 
        sprintf(fn,  "stab/stab-%d.txt", optinit );
        FILE * dst = fopen( fn, "w" ); 
-	grp = mkaglGroup( ffdimen );
+	grp = mkaglGroup(  );
 	int64_t size = aglcard(ffdimen);
     	while ((f = loadBooleValue(src, &val))) {
             panf( dst, f );

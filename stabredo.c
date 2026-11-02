@@ -76,9 +76,12 @@ int main(int argc, char *argv[])
     int optRnk = -1;
     int verbe = 0;
     int optSize =  0;
-   
+    int optgen  = 1024;  
+    int optw = 0, item =0; 
     char *fn = NULL;    
-    while ((opt = getopt(argc, argv, "m:n:vt:r:s:f:")) != -1) {
+    char* destin = NULL;
+
+    while ((opt = getopt(argc, argv, "m:n:vt:rs:f:g:w:")) != -1) {
 	switch (opt) {
 	case 'f':
 	    fn  = strdup(optarg);
@@ -95,7 +98,16 @@ int main(int argc, char *argv[])
 	case 'v':
 	    verbe = 1;
 	    break;
-	case 'r':
+	case 'r' :
+		srandom( time(NULL ));
+		break;
+	case 'w':
+	    optw = 1;
+	    destin = strdup( optarg );
+	    break;
+	case 'g':
+		optgen = atoi( optarg );
+	        break;
 	case 'n':
 	    optRnk = atoi(optarg);
 	    break;
@@ -126,27 +138,43 @@ int main(int argc, char *argv[])
     int val = 0;
     int num   = 0;
     int count = 0;
+    int max = 0;
+    FILE* dst = stdout;
+
+    if (  destin ) {
+		dst = fopen( destin , "w");
+		if ( ! dst  ) {
+		perror( destin );
+		return 0;
+}
+    }
+
     while ((f = loadaglboolesize(src, &grp, &grpSize))) {
-    	panf( stdout, f);
+    	panf( dst, f);
 	int nb  = nbgenerator( grp );
-	if ( nb > 2 ) {
+	if ( nb > optgen  ) {
         	aglGroup   S = aglReduce( grp, tour  );
-    		paglGroup( stdout, S );
+    		paglGroup( dst , S );
     		assert(   ssGroupOrder( S ) == grpSize );
 		int  n = nbgenerator( S ) ;
-		fprintf( stdout, "\n#generator: %d --> %d\n", nb, n );
+		fprintf( dst, "\n#generator: %d --> %d\n", nb, n );
 		if ( n < nb ) count++;
+                nb = n;
 		
 	} else {
-		paglGroup( stdout, grp );
-	        fprintf( stdout, "\n#generator: %d\n", nb );
+		paglGroup( dst , grp );
 	}
-    	printf("\nstabSize=%ld", grpSize );
+	if ( nb > max ) max =  nb;
+    	fprintf(dst , "\nstabSize=%ld", grpSize );
 	assert( f != NULL );
-free( f );
+	free( f );
+	item++;
     }
     fclose(src);
-    fprintf(stderr, "\n#change=%d\n", count );
+    if  (destin ) 
+		fclose(dst);
+    fprintf(stderr,"%d class in %s", item, destin );
+    fprintf(stderr, "\n#change=%d  max=%d\n", count, max );
     return 0;
 
 }
