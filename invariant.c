@@ -134,9 +134,9 @@ int main(int argc, char *argv[])
 		    R[ nbj++] = invtfr( f );
 	    }
 	    if ( optall || optlift ) {
-		    R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
+		    R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd, 0 ); //todo
 		    randAction( f );
-		    int tmp = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
+		    int tmp = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd, 0 );  //todo
 		    assert( tmp == R[nbj-1] );
 	    }
 	    if ( optall || optres ) {
@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
                     R[ nbj++] = invtfr( f );
             }
             if ( optall || optlift ) {
-                    R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd);
+                    R[ nbj++] = invSimpleDerivation( f , ffsize, &bder, &rootd, &countd, 0); //tpdo
             }
             if ( optall || optres ) {
                     R[ nbj++] = invRestriction( f , ffsize, &bres, &rootr,  &countr, 1 );
