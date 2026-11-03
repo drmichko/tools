@@ -246,10 +246,9 @@ int incluscross(int t[], int k, int v[])
 	    if ( tmp == v[i]) 
 		break;
 	}	
-	if ( i == k && Rstr )   return 0;
-	if ( i < k  && ! Rstr ) return 1;
+	if ( i < k   ) return 1;
     }
-    return 1;
+    return  Rstr == 0;
 }
 
 int allin(int t[], int k, int v[])
@@ -1113,22 +1112,22 @@ int main(int argc, char *argv[])
 	    break;
 	case 'R':
             int tmp = 1;
-	    while ( tmp ) {
+	        while ( tmp ) 
             	switch( *optarg) {
 	    		case 'a'      : Rabs = 1; optarg++;
 	    		break;
 			case 's'      : Rstr = 1; optarg++;
 			break;
-	 		default       : tmp = 0;
+			default       : tmp = 0;
             	}
-	    }
 	    char * strToken;
             strToken  = strtok ( optarg, "," );
             while ( strToken ) {
 		 sscanf( strToken, "%d", &tmp );
-		 if ( Rabs ) tmp = abs( tmp );
+		 if ( Rabs ) 
+			 tmp = abs( tmp );
 		 Rvalue[ optR++] = tmp;
-		 printf("tmp=%d\n", tmp );
+		 printf("%d %d tmp=%d \n", Rabs, Rstr, tmp );
                  strToken = strtok ( NULL, "," );
              }
 		break;
