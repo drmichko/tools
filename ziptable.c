@@ -43,17 +43,59 @@ void saveZipname(char* dirname, char *name, basis_t * b  )
 
 
 
+int option(int argc, char *argv[]);
+
+int optt, opts, dimen;
+char *name  = NULL;
+char *oname = "foo";
 
 int main(int argc, char *argv[])
 {
 
-    initboole( 7 );
-
-    basis_t base = monomialBasis( 3, 3, ffdimen);
+    assert( dimen > 0);
+	initboole( dimen );
+    assert( opts  > 0);
+    assert( optt  >= opts);
+    assert( name != NULL );
+    basis_t base = monomialBasis( opts, optt, ffdimen);
     char cname[64];
-    sprintf(cname, "%d",  atoi( argv[1] ) );
-    loadBasename(cname, &base);
+    loadBasename( name , &base);
     saveZipname( "data", cname, &base );
 
     return 0;
 }
+
+void help( void )
+{
+system( "sed -n '/^[a-zA-Z_].*\\boption\\s*(/,/^}/p' stabredo.c");
+}
+
+int option(int argc, char *argv[])
+{   int opt;
+    while ((opt = getopt(argc, argv, "m:s:vt:rs:f:g:w:hW")) != -1) {
+	switch (opt) {
+	case 'f':
+	    name = strdup(optarg);
+	    break;
+	case 'w':
+	    oname = strdup(optarg);
+	    break;
+	case 'm':
+	    dimen = atoi(optarg);
+	    break;
+	case 't':
+	    optt = atoi(optarg);
+	    break;
+	case 's':
+	    opts = atoi(optarg);
+	    break;
+	case 'h' : help();
+		   return 0;
+	default:		/* '?' */
+	    fprintf(stderr, "check usage of %s\n", argv[0]);
+	    exit(EXIT_FAILURE);
+	}
+    }
+    return 1;
+}
+
