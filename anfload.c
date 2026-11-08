@@ -45,6 +45,7 @@ int optz = 0;
 int zmax = 1;
 int optZ = 0;
 int optW = 0;
+int optC = 0;
 int Rstr = 0, Rabs = 0;
 int optnlh=0;
 int verb = 0;
@@ -61,6 +62,8 @@ typedef struct inter {
 inter_t K[ 8 ];
 int   item = 0;
 
+inter_t C[ 8 ];
+int   citem = 0;
 
 
 
@@ -436,6 +439,14 @@ int accept(boole f )
 		for( int w = 0; w < ffsize; w++)
 			if ( abs( tfr[w] ) == K[i].w ) tmp++;
 		if (K[i].min > tmp  ||  K[i].max < tmp ) return 0;
+	}
+    }
+    if ( ok && optC ) {
+	for( int i = 0; i < citem; i++ ) {
+		int tmp  = 0;
+		for( int w = 0; w < ffsize; w++)
+			if ( abs( cross[w] ) == C[i].w ) tmp++;
+		if (C[i].min > tmp  ||  C[i].max < tmp ) return 0;
 	}
     }
     if (triphase && ok) {
@@ -1215,7 +1226,7 @@ int main(int argc, char *argv[])
     int optM = 0;
     while ((opt =
 	    getopt(argc, argv,
-		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:N:H:!")) !=
+		   "a:x:r:bt:d:i:m:f:hw:p:P:l:n:s:v:z:MS:2:3R:X:%:DZ:W:C:N:H:!")) !=
 	   -1) {
 	switch (opt) {
         case '!' :
@@ -1311,6 +1322,12 @@ int main(int argc, char *argv[])
 	    if (2 == sscanf(optarg, "%d:%d:%d", & K[item].w, &K[item].min, &K[item].max))
 		K[item].min = K[item].max;
 	    item++;
+	    break;
+	case 'C':
+	    optC = 1;
+	    if (2 == sscanf(optarg, "%d:%d:%d", & C[citem].w, &C[citem].min, &C[citem].max))
+		C[citem].min = C[citem].max;
+	    citem++;
 	    break;
 	case 'd':
 	    optdeg = 1;
