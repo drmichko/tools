@@ -52,6 +52,8 @@ int verb = 0;
 int histo=0;
 int flagvalue;
 int value;
+int verbe = 0;
+
 
 typedef struct inter {
 	int w;
@@ -144,39 +146,39 @@ void doit(boole f)
 
 }
 
-boole myanfloadboole(FILE * src, int mode )
-//-get the current boolean function
+int  loadflag = 0;
+aglGroup grp = NULL;
+uint64_t grpsize = 0;
+#define ANFMAX 4096
+
+boole myloadaglboolesize(FILE *src, aglGroup *g, uint64_t *size)
+//-get the current object function
 {
-    boole res;
-    char *line, buffer[1024];
-    while (!feof(src)) {
-        line  = &buffer[0];
-	line[0] = '\0';
-	fgets(line, 1024, src);
-	if ( sscanf( line, "%d", &value ) ) {
-		flagvalue = 1;
-		while ( *line ==' ' || isdigit(line[0]) ) line++;
-        } else flagvalue  = 0;
-	switch (*line) {
-	case '#':
-	    break;
-	case 'a':
-	case 'h':
-	    res = strtoboole(line);
-	    if (  mode )
-		return res;
-	    break;
-	case 'f':
-	    sscanf(line, "fix=%ld", &fixsize);
-	    return res;
-	case 's':
-	    sscanf(line, "stabSize=%ld", &fixsize);
-	    return res;
-	case 'c':
-	    sscanf(line, "card=%ld", &fixsize);
-	    return res;
-	default:;
-	}
+  boole f;
+  char line[ ANFMAX  ];
+  *g = NULL;
+  *size = 0;
+  while ( fgets( line, ANFMAX , src) )
+    {
+      switch ( line[0] )
+        {
+        case '#':
+          break;
+        case '[' :
+          addgenstr( line, g);
+	  break;
+        case 'a' : 
+        case 'h' :
+          f = strtoboole ( line );
+	  if ( loadflag ) 
+		return f;
+          break;
+        case 's' :
+          sscanf( line, "stabSize=%ld", size );
+          return f;
+          break;
+        default:;
+        }
     }
     return NULL;
 }
@@ -1049,6 +1051,11 @@ void pfboole(FILE * dst, char *format, boole f)
 	    case 'N':
 		printf("%d", numero );
 		break;
+	    case 'G' :
+		panf( dst, f );
+		paglGroup( dst, grp );
+		fprintf( dst, "\nstabSize=%ld\n", grpsize );  
+		break;
 	    case 'x':
                 int s, t;
 		format++;
@@ -1082,7 +1089,7 @@ void pfboole(FILE * dst, char *format, boole f)
 		Vcor(f, *format - '0');
 		break;
 	    case 's':
-		fprintf(dst, "size=%ld", fixsize);
+		fprintf(dst, "size=%ld", grpsize);
 		break;
 	    case 'l':
 		printf(" lin=%d (%d)", linear, (ffsize-linear)/2  );
@@ -1140,7 +1147,7 @@ void pfboole(FILE * dst, char *format, boole f)
 		};
 		break;
 	    case 'n':
-		fprintf(dst, "\n");
+		fprintf(dst, "\n" );
 		break;
 	    case 'v':
 		if ( flagvalue ) fprintf(dst, "%d", value );
@@ -1217,6 +1224,7 @@ int main(int argc, char *argv[])
     extern char *optarg;
     extern int optind, opterr, optopt;
 
+    verbe = 1;
     int dim = 6;
     char *fn = NULL, *format = "%x%n%a%n";
     fprintf( stderr, "\n#command line : ");
@@ -1281,7 +1289,7 @@ int main(int argc, char *argv[])
 	    optbal = 1;
 	    break;
 	case 'M':
-	    optM = 1;
+	    loadflag = 1;
 	    break;
 	case 'N':
 	    optnum= atoi( optarg) ;
@@ -1373,7 +1381,7 @@ int main(int argc, char *argv[])
 	exit(1);
     }
     initboole(dim);
-
+	initagldim( dim );
 
     if( histo) {
         FILE* histo=fopen( "tools.history", "a" );
@@ -1386,9 +1394,10 @@ int main(int argc, char *argv[])
     agsize = aglCardinality(ffdimen);
     fprintf( stderr,"\n#AG size = %ld\n", agsize);
 
-    while ((f = myanfloadboole(src, optM))) {
+    
+    while ((f = myloadaglboolesize(src, &grp, &grpsize ))) {
 	doit(f);
-	if (accept( f )) {
+	if ( accept( f )) {
 	    numero++;
 	    if ( optnum == 0 || optnum == numero ) 
 	    		pfboole(stdout, format, f);
@@ -1400,6 +1409,9 @@ int main(int argc, char *argv[])
 	    if (fixsize)
 		total += agsize / fixsize;
 	}
+        if ( grp )
+		aglfreeGroup( grp );
+	
 	num++;
     }
     fclose(src);
