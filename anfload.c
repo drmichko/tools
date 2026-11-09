@@ -14,6 +14,7 @@
 #include "code.h"
 #include "stdint.h"
 #include "math.h"
+#include "distrib.h"
 
 /* Boolean function are loaded sequentially
 *  from a file, the degree and norme are printed.
@@ -53,7 +54,7 @@ int histo=0;
 int flagvalue;
 int value;
 int verbe = 0;
-
+int prime = 0;
 
 typedef struct inter {
 	int w;
@@ -278,7 +279,7 @@ int allin(int t[], int k, int v[])
     return 1;
 }
 
-double moment( int r , int n )
+double moment( int r , int n)
 {
     int64_t sum = 0;
     for (int a = 0; a < ffsize; a++) {
@@ -292,6 +293,33 @@ double moment( int r , int n )
     return res;
 }
 
+void spectre( int r  )
+{
+    int * t = calloc( ffsize, sizeof(int) );
+    for (int a = 0; a < ffsize; a++) {
+	int64_t tmp = 1;
+	for (int i = 0; i < r; i++)
+	    tmp *= tfr[a];
+	t[ a ] = tmp;
+    }
+    Fourier( t, ffsize );
+    int a;
+    for ( a = 0; a < ffsize; a++) {
+	int tmp  = abs( t[a] );
+	int flag = tmp & ( tmp - 1);
+	if ( tmp > 0  &&  flag > 0  ) break;
+	} 
+    if ( a == ffsize )
+    	 pdistrib("spc", t, ffsize );
+    else 
+	pdistrib("rare", t, ffsize );
+    for (a = 0; a < ffsize; a++){ 
+	if ( t[a] < 0 ) t[a] *= 1 - prime;
+	t[a] =  t[a] % prime;
+	}
+    pdistrib("\nmod", t, ffsize );
+    free( t );
+}
 
 int64_t  Moment( int r )
 {
@@ -1075,7 +1103,12 @@ void pfboole(FILE * dst, char *format, boole f)
 		fprintf(dst, "rank=%d", ranktfr( *format - '0'));
 		break;
 	    case 'a':
-		fprintf(dst, "alpha=%.4f", moment( 4, 3 ));
+		if ( isdigit(format[1]) ){
+			format++;
+			int tmp = *format - '0';
+			fprintf(dst, "%.4f", moment( tmp , tmp-1  ) );
+		} else
+			fprintf(dst, "%.4f", moment( 4, 3 ));
 		break;
 	    case 'A':
 		fprintf(dst, "%ld", Moment( 4 ) );
@@ -1094,7 +1127,7 @@ void pfboole(FILE * dst, char *format, boole f)
 	    case 'l':
 		printf(" lin=%d (%d)", linear, (ffsize-linear)/2  );
 		break;
-	    case 'p':
+	    case '?':
 		format++;
 		int cpt = 0;
 		for (int i = 0; i < ffsize; i++)
@@ -1170,8 +1203,7 @@ void pfboole(FILE * dst, char *format, boole f)
 		format++;
 		int r =  *format - '0' ;
 		format++;
-		int n = *format - '0' ;
-		fprintf(dst, "M%d=%.4f", r, moment( r , n ));
+		spectre( r );
 		break;
 	    case '2' :
 		format++;
@@ -1359,13 +1391,13 @@ int main(int argc, char *argv[])
 	case 'H':
 	    optnlh = atoi(optarg);
 	    break;
-	case 'Z':
-	    optZ  = atoi(optarg);
-	    break;
 	    case 'h':
 	    usage(argv[0]);
 	    exit(0);
 	    break;
+	    case 'Z' :
+		prime =  atoi( optarg );
+		break;
 	default:		/* '?' */
 	    fprintf(stderr, "%s : check usage!\n", argv[0]);
 	    exit(EXIT_FAILURE);
